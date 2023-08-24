@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="485dp"
+    app:bl_corners_topRadius="12dp"
+    app:bl_solid_color="@color/color_161616">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/common_transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftHorizontalPadding="16dp"
+        app:leftIcon="@mipmap/common_icon_back_white"
+        app:lineVisible="false"
+        app:rightHorizontalPadding="18dp"
+        app:rightTitle="举报"
+        app:rightTitleColor="@color/white"
+        app:rightTitleSize="13sp"
+        app:title="预言参与"
+        app:titleColor="@color/white"
+        app:titleSize="17sp"
+        app:titleStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_question"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingBottom="20dp"
+        app:bl_corners_radius="8dp"
+        app:bl_solid_color="@color/color_1AFFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/title_bar">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="22dp"
+            android:textColor="@color/common_white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:textColor="@color/common_white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="@id/tv_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_title"
+            app:layout_goneMarginTop="25dp" />
+
+        <TextView
+            android:id="@+id/tv_count_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/color_FEC238"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_reward"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:drawableStart="@mipmap/room_icon_prediction_integral"
+            android:drawablePadding="6dp"
+            android:fontFamily="@font/dinbold"
+            android:textColor="@color/common_white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_result"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_result" />
+
+        <TextView
+            android:id="@+id/tv_reward_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:text="@string/room_prediction_join_tips"
+            android:textColor="@color/color_ADFFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_reward"
+            app:layout_constraintEnd_toStartOf="@id/tv_reward"
+            app:layout_constraintTop_toTopOf="@id/tv_reward" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:overScrollMode="never"
+        app:layout_constraintTop_toBottomOf="@id/layout_question" />
+
+
+    <EditText
+        android:id="@+id/edit_amount"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/dinbold"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLines="1"
+        android:textColor="@color/common_white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:bl_corners_radius="1.5dp"
+        app:bl_solid_color="@color/color_1AFFFFFF"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="63dp"
+        android:background="@color/color_232323"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@mipmap/room_icon_prediction_integral" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="7dp"
+                android:fontFamily="@font/dinbold"
+                android:textColor="@color/common_white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_submit"
+            android:layout_width="105dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/room_confirm_prediction"
+            android:textColor="@color/common_white"
+            android:textSize="16sp"
+            app:bl_corners_radius="22dp"
+            app:bl_solid_color="@color/color_6C74FB" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

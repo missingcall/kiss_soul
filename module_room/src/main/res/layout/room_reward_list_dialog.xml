@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:bl_corners_topLeftRadius="16dp"
+        app:bl_corners_topRightRadius="16dp"
+        app:bl_solid_color="@color/color_E6000000">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="看直播领积分"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:src="@mipmap/room_icon_reward_question"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_task_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="13dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="13dp"
+            android:minHeight="105dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+
+        <TextView
+            android:id="@+id/tv_integral_balance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="18dp"
+            android:layout_marginTop="26dp"
+            android:drawablePadding="1dp"
+            android:fontFamily="@font/dinbold"
+            android:gravity="center_vertical"
+            android:textColor="@color/common_white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@mipmap/room_icon_gift_integral"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_task_list"
+            tools:text="111" />
+
+        <TextView
+            android:id="@+id/tv_collect_points"
+            android:layout_width="92dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="45dp"
+            android:background="@mipmap/room_icon_use_integral"
+            android:gravity="center"
+            android:text="一键领取"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_use_integral"
+            app:layout_constraintTop_toBottomOf="@+id/rv_task_list" />
+
+        <TextView
+            android:id="@+id/tv_use_integral"
+            android:layout_width="92dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="23dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="45dp"
+            android:background="@mipmap/room_icon_use_integral"
+            android:gravity="center"
+            android:text="使用积分"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_task_list" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

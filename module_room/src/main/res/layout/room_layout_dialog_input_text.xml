@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:bl_corners_topRadius="12dp"
+    app:bl_solid_color="@color/color_E6000000">
+
+    <EditText
+        android:id="@+id/et_input"
+        android:layout_width="0dp"
+        android:layout_height="44dp"
+        android:background="@null"
+        android:gravity="center_vertical"
+        android:hint="@string/room_chat_message_hint"
+        android:importantForAutofill="no"
+        android:lines="1"
+        android:maxLength="200"
+        android:paddingStart="10dp"
+        android:paddingEnd="110dp"
+        android:textColor="@color/white"
+        android:textColorHint="@color/color_CCC7CC"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="LabelFor,TextFields" />
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:background="@mipmap/room_icon_send_chat_normal"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless"
+        app:layout_constraintBottom_toBottomOf="@id/et_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/et_input" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

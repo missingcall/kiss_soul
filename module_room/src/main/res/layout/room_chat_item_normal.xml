@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.immessage.RoomChatMessageModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+            android:id="@+id/flt_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_avatar"
+                loadCircleImage="@{m.profilePath}"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop" />
+
+            <com.kissspace.common.widget.HeadWearView
+                headPagUrl="@{m.headwearUrl}"
+                headStaticUrl="@{m.headwearUrl}"
+                android:layout_width="44dp"
+                android:layout_height="44dp" />
+        </FrameLayout>
+
+
+        <com.nex3z.flowlayout.FlowLayout
+            android:id="@+id/layout_nickname"
+            showUserMedal="@{m}"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:flChildSpacing="2dp"
+            app:flRowSpacing="5dp"
+            app:flRowVerticalGravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/flt_avatar"
+            app:layout_constraintTop_toTopOf="@id/flt_avatar" />
+
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/layout_nickname"
+            app:layout_constraintTop_toBottomOf="@id/layout_nickname">
+
+            <TextView
+                roomChatContext="@{m.contentSpan}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="5dp"
+                android:textColor="@color/common_white"
+                android:textSize="14sp"
+                app:bl_corners_bottomLeftRadius="12dp"
+                app:bl_corners_bottomRightRadius="12dp"
+                app:bl_corners_topLeftRadius="3dp"
+                app:bl_corners_topRightRadius="12dp"
+                app:bl_solid_color="@color/color_4D000000" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

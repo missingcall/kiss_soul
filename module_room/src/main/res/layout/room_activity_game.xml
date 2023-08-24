@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:barStyle="transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftHorizontalPadding="16dp"
+        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:lineVisible="false" />
+
+    <FrameLayout
+        android:id="@+id/game_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_below="@id/title_bar"
+        app:layout_constraintTop_toBottomOf="@id/title_bar"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:id="@+id/con_game_message"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:visibility="gone"
+       android:layout_marginStart="16dp"
+       android:layout_marginEnd="16dp"
+       app:layout_constraintBottom_toBottomOf="parent">
+
+       <TextView
+           android:id="@+id/tv_input"
+           android:layout_width="match_parent"
+           android:layout_height="32dp"
+           app:bl_solid_color="#66000000"
+           android:text="请输入你的答案"
+           android:gravity="center"
+           android:visibility="invisible"
+           android:textColor="@color/common_white"
+           app:layout_constraintBottom_toBottomOf="parent"
+           android:layout_marginBottom="10dp"
+           />
+
+
+       <androidx.recyclerview.widget.RecyclerView
+           android:id="@+id/recycler"
+           android:layout_width="match_parent"
+           android:layout_height="80dp"
+           app:bl_solid_color="#66000000"
+           app:layout_constraintBottom_toTopOf="@id/tv_input"
+           android:layout_marginBottom="10dp"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.kissspace.room.widget.RoomInputMsgView
+        android:id="@+id/room_input_msg_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

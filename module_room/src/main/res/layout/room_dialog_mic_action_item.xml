@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+           <variable
+               name="m"
+               type="com.kissspace.room.widget.MicActionDialog.Items" />
+    </data>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="57dp"
+        android:orientation="vertical"
+        android:id="@+id/root"
+        android:text="@{m.text}"
+        android:textSize="16sp"
+        android:textColor="@color/color_80FFFFFF"
+        android:gravity="center" />
+</layout>
+

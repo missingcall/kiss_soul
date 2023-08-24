@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.mine.viewmodel.FamilyViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:lineVisible="false"
+            app:rightHorizontalPadding="22dp"
+            app:rightTitle="保存"
+            app:rightTitleColor="@color/color_FFFD62"
+            app:rightTitleSize="14sp"
+            app:barStyle="transparent"
+            app:titleIcon="@mipmap/mine_icon_family_modify_text"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_bar">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_avatar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="10dp"
+                    android:text="家族头像:"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <ImageView
+                    android:id="@+id/iv_add_family"
+                    android:layout_width="87dp"
+                    android:layout_height="87dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:padding="27.5dp"
+                    android:src="@mipmap/mine_modify_add"
+                    app:bl_corners_radius="12dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_avatar" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_family"
+                    android:layout_width="87dp"
+                    android:layout_height="87dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="12dp"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_avatar">
+
+                    <ImageView
+                        android:id="@+id/iv_family"
+                        android:layout_width="87dp"
+                        android:layout_height="87dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/iv_close"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginRight="6dp"
+                        android:src="@mipmap/mine_icon_modify_delete"
+                        app:layout_constraintRight_toRightOf="@+id/iv_family"
+                        app:layout_constraintTop_toTopOf="@+id/iv_family" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_family_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="115dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_avatar">
+
+                    <TextView
+                        android:id="@+id/tv_describe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginTop="12dp"
+                        android:text="家族介绍:"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                        <com.kissspace.common.widget.LimitNumEditText
+                            android:id="@+id/et_describe"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="12dp"
+                            android:minHeight="135dp"
+                            app:limitBackGround="@drawable/mine_family_edittext_round"
+                            android:background="@null"
+                            android:gravity="top"
+                            android:textSize="15sp"
+                            app:contentText="@{m.familyDesc}"
+                            app:hintText="请输入家族介绍"
+                            app:hintTextColor="@color/color_C4C1D7"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_describe"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:limitTextColor="@color/white"
+                            app:maxWordsNum="140" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tv_notice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginTop="16dp"
+                    android:text="家族公告:"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cl_family_desc" />
+
+                    <com.kissspace.common.widget.LimitNumEditText
+                        android:id="@+id/et_notice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:minHeight="135dp"
+                        app:limitBackGround="@drawable/mine_family_edittext_round"
+                        app:contentText="@{m.familyNotice}"
+                        app:hintText="请输入家族公告"
+                        app:hintTextColor="@color/color_CCC7CC"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:limitTextColor="@color/white"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_notice"
+                        app:maxWordsNum="200" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/common_transparent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

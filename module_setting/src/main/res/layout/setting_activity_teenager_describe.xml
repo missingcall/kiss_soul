@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common_white">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:background="@color/common_transparent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/common_icon_back_black"
+            app:lineVisible="false"
+            app:title="青少年模式" />
+
+        <ImageView
+            android:id="@+id/iv_title"
+            style="@style/DJSTextView"
+            android:layout_marginTop="48dp"
+            android:src="@mipmap/setting_icon_teenager"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_bar" />
+
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/DJSTextView"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_title"
+            tools:text="开启青少年模式" />
+
+
+        <TextView
+            android:id="@+id/tv_tips"
+            style="@style/DJSSubTextView"
+            android:layout_width="0dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginRight="32dp"
+            android:drawableLeft="@mipmap/setting_icon_teenager_oval"
+            android:drawablePadding="6dp"
+            android:gravity="left"
+            android:textSize="11sp"
+            android:text="青少年模式开启后，用户无法使用软件，需开启密码后才能继续使用"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+        <TextView
+            android:id="@+id/tv_tips1"
+            style="@style/DJSSubTextView"
+            android:layout_width="0dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="32dp"
+            android:drawableLeft="@mipmap/setting_icon_teenager_oval"
+            android:drawablePadding="6dp"
+            android:gravity="left"
+            android:textSize="11sp"
+            android:text="开启青少年模式需要设置独立密码，如果忘记密码可通过找回密码进行设置"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tips" />
+
+        <TextView
+            android:id="@+id/tv_tips2"
+            style="@style/DJSSubTextView"
+            android:layout_width="0dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="32dp"
+            android:drawableLeft="@mipmap/setting_icon_teenager_oval"
+            android:drawablePadding="6dp"
+            android:gravity="left"
+            android:textSize="11sp"
+            android:text="为了促进青少年健康成长，本软件特别推出青少年模式，未来我们也将致力于优化升级该模式"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tips1" />
+
+        <TextView
+            android:id="@+id/tv_open"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center"
+            android:text="开启青少年模式"
+            android:textColor="@color/common_white"
+            android:textSize="17sp"
+            app:bl_corners_radius="22dp"
+            app:bl_gradient_angle="0"
+            app:bl_gradient_endColor="@color/color_6C74FB"
+            app:bl_gradient_startColor="@color/color_936DDE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tips2" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

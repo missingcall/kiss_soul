@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.family.FamilyMemberRecord" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_choose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            imageViewSelected="@{m.isSelected}"
+            android:src="@drawable/mine_wallet_transfer_item_selector"
+            android:padding="10dp" />
+
+        <ImageView
+            android:id="@+id/iv_family"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="11dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/iv_choose"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadCircleImage="@{m.profilePath}"/>
+
+        <LinearLayout
+            android:id="@+id/layout_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family"
+            app:layout_constraintTop_toTopOf="@+id/iv_family"
+            android:layout_marginTop="6dp">
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:id="@+id/lever1"
+            userLevelCount='@{m.consumeLevel}'
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:level_type="TYPE_EXPEND" />
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:id="@+id/level2"
+            userLevelCount="@{m.charmLevel}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            app:level_type="TYPE_INCOME" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            android:text='@{"ID:"+m.displayId}'
+            android:textColor="@color/color_949499"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family"
+            app:layout_constraintTop_toBottomOf="@+id/tv_name"
+            tools:text="ID:1234" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="6dp"
+            android:text="@{m.nickname}"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/layout_level"
+            app:layout_constraintTop_toTopOf="@+id/iv_family"
+            tools:text="海绵宝宝" />
+
+        <View
+            android:id="@id/view_line"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/color_E5E5E5"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

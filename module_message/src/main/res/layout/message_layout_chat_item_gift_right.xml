@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.ChatModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_time"
+            chatDate="@{m}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/color_A8A8B3"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_avatar_right"
+            loadCircleImage="@{m.avatar}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_gift_right"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="12dp"
+            android:minWidth="165dp"
+            android:paddingStart="20dp"
+            android:paddingEnd="12dp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/white"
+            app:layout_constraintEnd_toStartOf="@id/iv_avatar_right"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar_right">
+
+            <ImageView
+                android:id="@+id/iv_gift_right"
+                loadImage="@{m.giftUrl}"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_gift_name_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@{m.giftName}"
+                android:textColor="@color/color_313133"
+                android:textSize="14sp"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:layout_constraintBottom_toTopOf="@id/tv_gift_amount_right"
+                app:layout_constraintEnd_toStartOf="@id/iv_gift_right"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_gift_amount_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"x"+m.giftNum}'
+                android:textColor="@color/color_6C74FB"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/tv_gift_name_right"
+                app:layout_constraintTop_toBottomOf="@id/tv_gift_name_right" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

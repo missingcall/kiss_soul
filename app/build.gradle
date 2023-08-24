@@ -1,0 +1,4 @@
+apply from: "${rootProject.rootDir}/common.gradle"
+apply from: "${rootProject.rootDir}/pgyer-upload.gradle"
+project.ext.setAppDefaultConfig project
+apply from: "${rootProject.rootDir}/build-task/releaseapk/releaseapk.gradle"

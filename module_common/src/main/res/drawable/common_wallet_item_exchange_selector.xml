@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@mipmap/common_wallet_item_exchange_selector_selected">
+    </item>
+    <!-- Default state -->
+    <item  android:state_selected="false" android:drawable="@mipmap/common_wallet_item_exchange_not_selected">
+    </item>
+</selector>
+

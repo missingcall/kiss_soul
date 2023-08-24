@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.ChatListModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root_chat"
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <com.opensource.svgaplayer.SVGAImageView
+            android:id="@+id/svga_online"
+            chatUserOnlineState="@{m.onlineState}"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            app:autoPlay="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:source="online.svga" />
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            loadCircleImage="@{m.avatar}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="16dp"
+            android:text="@{m.nickname}"
+            android:textColor="#E5E1F8"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_follow_room"
+            messageFollowRoomVisible="@{m.followRoomId}"
+            android:layout_width="66dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="6dp"
+            android:gravity="center"
+            android:background="@mipmap/message_icon_follow_room"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_nickname">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:layout_width="12dp"
+                android:layout_height="13dp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="lottie/inroom/data.json"
+                app:lottie_imageAssetsFolder="lottie/inroom/images"
+                app:lottie_loop="true"
+                android:visibility="gone"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/message_follow_room"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:ellipsize="end"
+            android:lines="1"
+            android:maxLength="20"
+            android:text="@{m.content}"
+            android:textColor="@color/white50"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:text="@{m.date}"
+            android:textColor="@color/white40"
+            android:textSize="11sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_message_count"
+            messageUnReadCount="@{m.unReadCount}"
+            android:layout_width="wrap_content"
+            android:layout_height="15dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:minWidth="15dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            app:bl_corners_radius="15dp"
+            app:bl_solid_color="@color/color_FA3127"
+            app:layout_constraintEnd_toEndOf="@id/tv_date"
+            app:layout_constraintTop_toBottomOf="@id/tv_date" />
+
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="0dp"
+            android:layout_height="0.5dp"
+            android:layout_marginStart="70dp"
+            android:background="@color/color_494B70"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

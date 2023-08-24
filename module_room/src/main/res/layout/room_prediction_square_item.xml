@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.PredictionSquareListBean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="93dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        app:bl_corners_radius="12dp"
+        app:bl_solid_color="@color/color_212121">
+
+        <ImageView
+            android:id="@+id/iv_poster"
+            imageRadius="@{8f}"
+            imageUrl="@{m.roomIcon}"
+            android:layout_width="84dp"
+            android:layout_height="84dp"
+            android:layout_marginStart="5dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="84dp"
+            android:layout_height="29dp"
+            android:background="@mipmap/room_bg_prediction_square_item_nickname"
+            android:gravity="center_vertical"
+            android:paddingStart="9dp"
+            android:text="@{m.creatorNickName}"
+            android:textColor="@color/common_white"
+            android:textSize="9sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_poster"
+            app:layout_constraintStart_toStartOf="@id/iv_poster" />
+
+        <TextView
+            android:id="@+id/tv_notice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="@{m.roomTitle}"
+            android:textColor="@color/color_80FFFFFF"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_question"
+            app:layout_constraintStart_toEndOf="@id/iv_poster"
+            app:layout_constraintTop_toTopOf="@id/iv_poster" />
+
+        <TextView
+            android:id="@+id/tv_question"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{m.integralGuessTitle}"
+            android:textColor="@color/common_white"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_members"
+            app:layout_constraintStart_toStartOf="@id/tv_notice"
+            app:layout_constraintTop_toBottomOf="@id/tv_notice" />
+
+        <TextView
+            android:id="@+id/tv_members"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{"参与人数"+m.totalBetNum+"人"}'
+            android:textColor="@color/color_CCFFFFFF"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_poster"
+            app:layout_constraintStart_toStartOf="@id/tv_notice"
+            app:layout_constraintTop_toBottomOf="@id/tv_question" />
+
+        <TextView
+            android:id="@+id/tv_current"
+            android:layout_width="58dp"
+            android:layout_height="22dp"
+            android:gravity="center"
+            android:text="@string/room_current"
+            android:textColor="@color/color_FEC238"
+            android:textSize="10sp"
+            android:visibility="gone"
+            app:bl_corners_bottomRightRadius="12dp"
+            app:bl_corners_topLeftRadius="12dp"
+            app:bl_solid_color="#0AFFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

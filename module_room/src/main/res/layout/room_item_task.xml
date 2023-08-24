@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_task"
+        android:layout_width="76dp"
+        android:layout_height="106dp"
+        app:bl_corners_radius="6dp"
+        app:bl_solid_color="@color/color_212120">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_tv_status"
+            android:layout_width="56dp"
+            android:layout_height="wrap_content"
+            app:bl_corners_bottomLeftRadius="6dp"
+            app:bl_corners_bottomRightRadius="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            app:bl_solid_color="@color/color_373736"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_status"
+                android:layout_width="56dp"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+                android:textColor="@color/white"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:gravity="center"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="积分盲盒" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_gift"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/tv_count"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toBottomOf="@+id/cl_tv_status"
+            app:layout_constraintBottom_toTopOf="@+id/tv_time" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintTop_toTopOf="@+id/iv_gift"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gift"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/iv_gift"
+            tools:text="111" />
+
+        <TextView
+            android:id="@+id/tv_reward"
+            android:layout_width="67dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="63dp"
+            android:textColor="@color/color_FFFD62"
+            android:textSize="12sp"
+            android:layout_marginBottom="2dp"
+            android:gravity="center"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="拆盲盒" />
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.5dp"
+            android:layout_marginTop="8.5dp"
+            android:layout_marginRight="10.5dp"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingRight="11.5dp"
+            android:paddingLeft="11.5dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:bl_corners_radius="4dp"
+            app:bl_stroke_color="@color/color_373736"
+            app:bl_stroke_width="0.5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="05:00" />
+
+        <TextView
+            android:id="@+id/tv_receive_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10.5dp"
+            android:layout_marginTop="8.5dp"
+            android:layout_marginRight="10.5dp"
+            android:layout_marginBottom="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:paddingRight="11.5dp"
+            android:paddingLeft="11.5dp"
+            android:textColor="@color/color_80FFFFFF"
+            android:textSize="12sp"
+            android:visibility="gone"
+            app:bl_corners_radius="4dp"
+            app:bl_stroke_color="@color/color_373736"
+            app:bl_stroke_width="0.5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="05:00" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

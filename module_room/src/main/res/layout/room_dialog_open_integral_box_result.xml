@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.kissspace.common.model.PointsBoxResultBean" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:bl_corners_radius="12dp"
+            app:bl_solid_color="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/room_integral_result_title"
+                android:textColor="@color/color_313133"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/iv_picture"
+                loadImage="@{model.url}"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:layout_marginTop="11dp"
+                android:adjustViewBounds="true" />
+
+            <TextView
+                android:id="@+id/tv_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text='@{"获得："+model.totalPoints+"积分"}'
+                android:textColor="@color/color_313133"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_times"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text='@{"抽取："+model.number+"次"}'
+                android:textColor="@color/color_949499"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                style="@style/RoomCommonFullButton"
+                android:layout_width="167dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/common_confirm" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

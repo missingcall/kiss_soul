@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:barStyle="transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:lineVisible="false"
+            app:rightTitleColor="@color/color_FFFD62"
+            app:titleIcon="@mipmap/mine_family_member" />
+
+        <com.kissspace.common.widget.CommonSearchView
+            android:id="@+id/commonSearchView"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="16dp"
+            app:isShowCancelText="false"
+            app:isShowClearIcon="true"
+            app:search_hintText="昵称/ID" />
+
+        <com.drake.brv.PageRefreshLayout
+            android:id="@+id/page_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:overScrollMode="never">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never" />
+
+        </com.drake.brv.PageRefreshLayout>
+
+        <!--        <androidx.core.widget.NestedScrollView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="0dp"-->
+        <!--            android:fillViewport="true"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--            app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/title_bar">-->
+
+        <!--            <androidx.appcompat.widget.LinearLayoutCompat-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:orientation="vertical">-->
+
+        <!--                <TextView-->
+        <!--                    android:id="@+id/tv_identity"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginLeft="16dp"-->
+        <!--                    android:layout_marginTop="16dp"-->
+        <!--                    android:layout_marginBottom="12dp"-->
+        <!--                    android:text="族长"-->
+        <!--                    android:textColor="@color/white"-->
+        <!--                    android:textSize="15sp"-->
+        <!--                    android:textStyle="bold" />-->
+
+        <!--                <androidx.recyclerview.widget.RecyclerView-->
+        <!--                    android:id="@+id/rv_family_header"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--                    app:layout_constraintTop_toBottomOf="@+id/title_bar" />-->
+
+        <!--                <TextView-->
+        <!--                    android:id="@+id/tv_identity1"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_marginLeft="16dp"-->
+        <!--                    android:layout_marginTop="16dp"-->
+        <!--                    android:paddingBottom="12dp"-->
+        <!--                    android:text="成员"-->
+        <!--                    android:textColor="@color/white"-->
+        <!--                    android:textSize="15sp"-->
+        <!--                    android:textStyle="bold"-->
+        <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--                    app:layout_constraintTop_toBottomOf="@+id/title_bar" />-->
+
+        <!--                <androidx.recyclerview.widget.RecyclerView-->
+        <!--                    android:id="@+id/rv_family_member"-->
+        <!--                    android:layout_width="match_parent"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+        <!--                    app:layout_constraintTop_toBottomOf="@+id/tv_identity1" />-->
+
+        <!--                <TextView-->
+        <!--                    android:id="@+id/iv_empty"-->
+        <!--                    android:layout_width="wrap_content"-->
+        <!--                    android:layout_height="wrap_content"-->
+        <!--                    android:layout_gravity="center"-->
+        <!--                    android:drawableTop="@mipmap/common_icon_empty"-->
+        <!--                    android:drawablePadding="12dp"-->
+        <!--                    android:gravity="center"-->
+        <!--                    android:text="暂时还没有用户申请加入"-->
+        <!--                    android:textColor="@color/color_949499"-->
+        <!--                    android:textSize="13sp"-->
+        <!--                    app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                    app:layout_constraintStart_toStartOf="parent"-->
+        <!--                    app:layout_constraintTop_toBottomOf="@id/tv_identity1" />-->
+        <!--            </androidx.appcompat.widget.LinearLayoutCompat>-->
+        <!--        </androidx.core.widget.NestedScrollView>-->
+    </LinearLayout>
+</layout>

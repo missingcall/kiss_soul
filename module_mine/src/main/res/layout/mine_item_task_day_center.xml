@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.task.DailyTaskInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_task"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            loadCircleImage="@{m.taskIcon}"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="11.5dp"
+            android:layout_marginBottom="11.5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_task"
+            style="@style/DJSTextView"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="1dp"
+            android:text="@{m.taskDesc}"
+            app:layout_constraintLeft_toRightOf="@+id/iv_task"
+            app:layout_constraintTop_toTopOf="@+id/iv_task"
+            tools:text="完善资料" />
+
+        <ImageView
+            android:id="@+id/iv_gift"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/iv_task"
+            app:layout_constraintTop_toBottomOf="@+id/tv_task" />
+
+        <TextView
+            android:id="@+id/tv_task_reward"
+            style="@style/DJSSubTextView"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="14dp"
+            android:textSize="12sp"
+            android:textColor="@color/color_FFFD62"
+            app:layout_constraintLeft_toRightOf="@+id/iv_gift"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gift"
+            tools:text="鱼跃龙门" />
+
+        <ImageView
+            android:id="@+id/iv_gift1"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_task_reward"
+            app:layout_constraintTop_toBottomOf="@+id/tv_task" />
+
+        <TextView
+            android:id="@+id/tv_task_reward1"
+            style="@style/DJSSubTextView"
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="14dp"
+            android:textSize="12sp"
+            android:textColor="@color/color_FFFD62"
+            app:layout_constraintLeft_toRightOf="@+id/iv_gift1"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_gift"
+            tools:text="鱼跃龙门" />
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15.5dp"
+            android:background="@color/color_494B70"
+            app:layout_constraintLeft_toRightOf="@+id/iv_task"
+            app:layout_constraintTop_toBottomOf="@+id/tv_task_reward"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="0.5dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:layout_marginEnd="16dp">
+
+        <TextView
+            android:id="@+id/tv_button"
+            android:layout_width="88dp"
+            android:layout_height="40dp"
+            android:gravity="center"
+            android:textSize="12sp"
+            app:bl_corners_radius="14dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="前往" />
+
+        <TextView
+            android:id="@+id/tv_task_progress"
+            style="@style/DJSSubTextView"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_button"
+            app:layout_constraintRight_toRightOf="@+id/tv_button"
+            app:layout_constraintTop_toBottomOf="@+id/tv_button"
+            android:layout_marginTop="6dp"
+            app:layout_constraintVertical_chainStyle="packed"
+            android:visibility="gone"
+            android:text="进度0/3"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">module_message</string>
+        <string name="message">消息</string>
+        <string name="message_open_notification">去开启</string>
+        <string name="message_close_notification">开启通知权限，不错过消息通知</string>
+        <string name="enter_true_love_wall">进入真爱墙</string>
+        <string name="message_follow">关注</string>
+        <string name="message_chat_hint">请输入内容…</string>
+        <string name="message_chat_audio_tips1">松开发送，上滑取消</string>
+        <string name="message_chat_audio_tips2">松开手指，取消发送</string>
+        <string name="message_chat_audio_tips3">说话时间太短</string>
+        <string name="message_send">发送</string>
+        <string name="message_love_wall">真爱墙</string>
+        <string name="message_love_wall_newest">最新</string>
+        <string name="message_love_wall_richest">最壕</string>
+        <string name="message_love_wall_tips_title">礼物墙规则</string>
+        <string name="message_love_wall_tips_know">我知道了</string>
+        <string name="message_chat_black_list">拉黑用户</string>
+        <string name="message_chat_report">举报用户</string>
+        <string name="message_love_wall_tips_newest">【最新榜】单次赠送礼物金额合计大于等于%1$s金币时，按照送礼时间排序</string>
+        <string name="message_love_wall_tips_richest">【最壕榜】单次赠送礼物金额合计大于等于%1$s金币时，按照送礼价值排序</string>
+        <string name="message_love_wall_price">礼物价值%1$s</string>
+        <string name="message_un_read_count">(%1$s)</string>
+        <string name="message_follow_room">跟随</string>
+        <string name="message_system">系统消息</string>
+</resources>

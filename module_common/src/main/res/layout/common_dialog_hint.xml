@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/common_bg_dialog">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="12dp"
+            android:src="@mipmap/common_icon_hint_dialog_close"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="如需创建家族请联系关注公众号" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="28dp"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_hint"
+            app:layout_constraintRight_toRightOf="@+id/tv_hint"
+            app:layout_constraintTop_toBottomOf="@+id/tv_hint">
+
+
+            <TextView
+                android:id="@+id/tv_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/color_FFFD62"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="123456789" />
+
+            <TextView
+                android:id="@+id/tv_copy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:paddingLeft="8dp"
+                android:paddingTop="2.5dp"
+                android:paddingRight="8dp"
+                android:paddingBottom="2.5dp"
+                android:text="复制"
+                android:textColor="@color/white"
+                android:textSize="11sp"
+                app:bl_corners_radius="9.5dp"
+                app:bl_stroke_color="@color/white"
+                app:bl_stroke_width="0.5dp"
+                app:layout_constraintBottom_toBottomOf="@id/tv_number"
+                app:layout_constraintLeft_toRightOf="@+id/tv_number"
+                app:layout_constraintTop_toTopOf="@+id/tv_number" />
+
+            <TextView
+                android:id="@+id/tv_hintTitle"
+                style="@style/DJSSubTitleTextView"
+                android:textSize="15sp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="已绑定手机号：15026074236" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/cl_bottom"
+            android:layout_width="179dp"
+            android:layout_height="56dp"
+            android:layout_marginBottom="24dp"
+            android:background="@mipmap/common_btn_dialog_single"
+            android:gravity="center"
+            android:text="更换绑定"
+            android:textColor="@color/color_FFFD62"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_hint"
+            app:layout_constraintRight_toRightOf="@+id/tv_hint"
+            app:layout_constraintTop_toBottomOf="@+id/cl_top" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

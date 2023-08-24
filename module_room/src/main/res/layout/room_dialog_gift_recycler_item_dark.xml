@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.GiftModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        giftChecked="@{m.checked}"
+        android:layout_width="match_parent"
+        android:layout_height="105dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="4dp">
+
+
+        <ImageView
+            android:id="@+id/iv_gift"
+            loadImage="@{m.url}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_gift_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{m.name}"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_gift" />
+
+        <TextView
+            giftPriceVisible="@{m.freeNumber}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:drawablePadding="1dp"
+            android:fontFamily="@font/dinbold"
+            android:gravity="center_vertical"
+            android:text='@{""+m.price}'
+            android:textColor="@color/color_B3FFFFFF"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@mipmap/room_icon_gift_gold_coin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gift_name" />
+
+        <TextView
+            giftFreeCountVisible="@{m.freeNumber}"
+            android:layout_width="wrap_content"
+            android:layout_height="13dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:paddingStart="3dp"
+            android:paddingEnd="3dp"
+            android:text='@{"免费X"+m.freeNumber}'
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            app:bl_corners_radius="7dp"
+            app:bl_gradient_angle="45"
+            app:bl_gradient_endColor="@color/color_F638FF"
+            app:bl_gradient_startColor="@color/color_FF7C37"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_gift_name" />
+
+        <ImageView
+            android:id="@+id/iv_lock"
+            giftLockDark="@{m}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            packGiftCountVisible="@{m.packGift}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:text='@{"x"+m.num}'
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

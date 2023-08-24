@@ -1,0 +1,131 @@
+import groovy.json.JsonSlurper
+
+project.afterEvaluate {
+    android.applicationVariants.all { variant ->
+        String taskSuffix = variant.name.capitalize()
+        println("------------------taskSuffix" + taskSuffix)
+        if (taskSuffix.contains("Release")) {
+            task("pgyerBuildRelease") {
+                dependsOn ":app:assembleRelease"
+                group 'build'
+                description 'Custom task for gradle'
+                doLast {
+                    variant.outputs.all { output ->
+                        println("------------Release------modifyVersionCode")
+                        modifyVersionCode()
+                        uploadApk(output.outputFile,"正式包")
+                    }
+                }
+            }
+        } else if (taskSuffix.contains("Debug")) {
+            task("pgyerBuildDebug") {
+                dependsOn ":app:assembleDebug"
+                group 'build'
+                description 'Custom task for gradle'
+                doLast {
+                    variant.outputs.all { output ->
+                        println("-----------Debug-------modifyVersionCode")
+                        modifyVersionCode()
+                        uploadApk(output.outputFile,"测试包")
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+ext.uploadApk = this.&uploadApk
+/**
+ * 上传 apk 到蒲公英
+ */
+def uploadApk(File apk,String type) {
+    if (apk == null) {
+        throw new RuntimeException("apk file not exists!")
+    }
+    //加载资源
+    def twoHyphens = "--"
+    def boundary = "*********"
+    def end = "\r\n"
+    // 模拟表单上传 multipart/form-data
+    def conn = new URL("https://www.pgyer.com/apiv2/app/upload").openConnection()
+    conn.setRequestMethod('POST')
+    conn.setRequestProperty("Connection", "Keep-Alive")
+    conn.setRequestProperty("Charset", "UTF-8")
+    conn.setRequestProperty("Content-Type", "multipart/form-data;charset=UTF-8; boundary=" + boundary)
+    conn.setDoInput(true)
+    conn.setDoOutput(true)
+    // 添加参数:_api_key
+    def _api_key="46a3b7ba6b6c4ce451d048076b818763";
+    def sb = new StringBuilder()
+    sb.append(twoHyphens).append(boundary).append(end)
+    sb.append("Content-Disposition: form-data; name=_api_key")
+    sb.append(end).append(end)
+    sb.append(_api_key).append(end)
+    sb.append(twoHyphens).append(boundary).append(end)
+    sb.append("Content-Disposition: form-data; name=buildUpdateDescription")
+    sb.append(end).append(end)
+    sb.append(type).append(end)
+    // 添加参数 file: 需要上传的 apk 文件
+    sb.append(twoHyphens).append(boundary).append(end)
+    sb.append("Content-Disposition: form-data; name=file;filename=").append(apk.getName())
+    sb.append(end).append(end)
+    def dos = new DataOutputStream(conn.getOutputStream())
+    dos.write(sb.toString().getBytes("UTF-8"))
+    dos.flush()
+    println sb.toString()
+    sb.delete(0, sb.length())
+    def fis = new FileInputStream(apk)
+    byte[] bf = new byte[8192]
+    int len
+    while ((len = fis.read(bf)) != -1) {
+        dos.write(bf, 0, len)
+    }
+    sb.append(end)
+    sb.append(twoHyphens).append(boundary).append(end)
+    dos.writeBytes(sb.toString())
+    dos.flush()
+    fis.close()
+    dos.close()
+    conn.connect()
+    def text = conn.getContent().text
+    def resp = new JsonSlurper().parseText(text)
+    println text
+    println "*************** upload finish ${apk.size()}  ${resp.code} ***************"
+    if (resp.code != 0) {
+        throw new RuntimeException(resp.message)
+    }
+}
+
+def modifyVersionCode() {
+    println("modifyVersionCode")
+    File file = new File(projectDir.getParent(), '/app/src/main/assets/version.properties')
+    if(!file.exists())
+        return
+    RandomAccessFile raf = null
+    try {
+        raf = new RandomAccessFile(file, "rw")
+        String line = null
+        long lastPoint = 0 //记住上一次的偏移量
+        while ((line = raf.readLine()) != null) {
+            final long point = raf.getFilePointer()
+            if (line.contains("VERSION_TEST_CODE")) {
+//                String line2 = line.replaceAll(Pattern.compile("\\s*|\t|\r|\n"), "")
+                String version = line.substring(line.indexOf('=') + 1, line.length())
+                String lineNew = line.replace(version, (version.toInteger() + 1) + "")
+                raf.seek(lastPoint)
+                raf.writeBytes(lineNew)
+            }
+            lastPoint = point
+        }
+    } catch (Exception e) {
+        e.printStackTrace()
+    } finally {
+        try {
+            raf.close()
+        } catch (IOException e) {
+            e.printStackTrace()
+        }
+    }
+    return true
+}

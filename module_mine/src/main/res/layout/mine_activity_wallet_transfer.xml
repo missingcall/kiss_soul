@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.kissspace.common.widget.binding.DjsInverseBindingKt" />
+
+        <variable
+            name="m"
+            type="com.kissspace.mine.viewmodel.TransferViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_top"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/mine_icon_wallet_bg"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <View
+                android:id="@+id/view_status_bar"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toTopOf="@+id/cl_title"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_title"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view_status_bar">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/common_icon_back_purple"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@{m.transferTitleBg}"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_back"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_back"
+                    tools:text="金币转账" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_gold_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="42dp"
+                android:text="@{m.mGoldNumber}"
+                android:textColor="@color/white"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_title"
+                tools:text="1111" />
+
+            <TextView
+                android:id="@+id/tv_gold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:text="@{m.transferType}"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_gold_number"
+                app:layout_constraintLeft_toRightOf="@+id/tv_gold_number"
+                tools:text="金币" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_charge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-20dp"
+            app:bl_corners_topLeftRadius="16dp"
+            app:bl_corners_topRightRadius="16dp"
+            app:bl_solid_color="@color/color_372648"
+            app:layout_constraintTop_toBottomOf="@+id/cl_top">
+
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                app:bl_corners_topLeftRadius="16dp"
+                app:bl_corners_topRightRadius="16dp"
+                app:bl_solid_color="@color/color_372648"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="16dp"
+                app:bl_corners_radius="16dp"
+                app:bl_solid_color="@color/color_483759"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view1">
+
+                <TextView
+                    android:id="@+id/tv_transfer_member"
+                    goneUnless="@{m.isTransferMultiple()}"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="20dp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textSize="15sp"
+                    android:textColor="@color/white"
+                    android:text="@{m.multipleTransferText}"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="转账给用户觅不见…/黯然人…等10位用户转账" />
+
+                <EditText
+                    android:id="@+id/et_userId"
+                    goneIf="@{m.isTransferMultiple}"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@null"
+                    android:drawableStart="@mipmap/mine_wallet_id_card"
+                    android:drawablePadding="12dp"
+                    android:hint="输入用户ID"
+                    android:inputType="number"
+                    android:maxLength="8"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/color_949499"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/view3"
+                    style="@style/ViewHorizonLine"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@color/color_E5E5E5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/et_userId" />
+
+                <TextView
+                    android:id="@+id/tv_titles"
+                    style="@style/DJSTextView"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="12dp"
+                    android:text="@{m.transferTitle}"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/view3"
+                    tools:text="金币转账" />
+
+                <TextView
+                    android:id="@+id/tv_title2"
+                    style="@style/DJSSubTextView"
+                    android:layout_marginStart="8dp"
+                    android:text="@{m.transferTitleHint}"
+                    android:textColor="@color/color_949499"
+                    app:layout_constraintLeft_toRightOf="@+id/tv_titles"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_titles" />
+
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    loadImageResource="@{m.transferImage}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="26dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginBottom="16dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_titles" />
+
+                <com.kissspace.common.widget.NumberEditText
+                    android:id="@+id/et_gold"
+                    style="@style/DJSSubTextView"
+                    android:layout_width="0dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:inputType="number"
+                    android:maxLength="7"
+                    android:textColor="@color/color_FFFD62"
+                    android:textColorHint="@color/color_949499"
+                    android:textSize="20sp"
+                    app:layout_constraintLeft_toRightOf="@+id/iv_icon"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/iv_icon"
+                    app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+                    tools:text="16" />
+
+<!--                <View-->
+<!--                    android:id="@+id/view2"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="0.5dp"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginRight="16dp"-->
+<!--                    android:background="@color/color_E5E5E5"-->
+<!--                    goneUnless="@{m.isShowTransferTrueMoney}"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/et_gold" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_1"-->
+<!--                    goneUnless="@{m.isShowTransferTrueMoney}"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginLeft="16dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:layout_marginBottom="16dp"-->
+<!--                    android:text="实付金额:"-->
+<!--                    android:textColor="@color/color_949499"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view2" />-->
+
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_truemoney"-->
+<!--                    style="@style/DJSTextView"-->
+<!--                    goneUnless="@{m.isShowTransferTrueMoney}"-->
+<!--                    android:layout_marginLeft="10dp"-->
+<!--                    android:layout_marginTop="16dp"-->
+<!--                    android:text="@{m.coinTransferUserNumberString}"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintLeft_toRightOf="@+id/tv_1"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/view2"-->
+<!--                    tools:text="0" />-->
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tv_confirm"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="16dp"
+                android:background="@drawable/mine_wallet_button_enable_selector"
+                android:enabled="@{m.isTransferCoinEnable()}"
+                android:gravity="center"
+                android:text="转账"
+                android:textStyle="bold"
+                android:textColor="@drawable/mine_wallet_text_enable_selector"
+                android:textSize="16sp"
+                app:layout_constraintTop_toBottomOf="@+id/cl_container" />
+
+            <TextView
+                android:id="@+id/tv_hint"
+                style="@style/DJSSubTextView"
+                android:textColor="@color/color_949499"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@{m.transferWalletHint}"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_confirm" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

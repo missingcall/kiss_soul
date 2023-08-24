@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.RoomRankUser" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
+
+
+        <TextView
+            android:id="@+id/iv_index"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="13dp"
+            android:background="@mipmap/room_icon_ranking_first"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            loadCircleImage="@{m.profilePath}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8.5dp"
+            app:layout_constraintStart_toEndOf="@id/iv_index"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@{m.nickname}"
+            android:textColor="@color/common_white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_amount"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <TextView
+            android:id="@+id/tv_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text='@{""+m.value}'
+            android:textColor="@color/color_80FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
+
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar"
+            app:level_count="69"
+            app:level_type="TYPE_INCOME" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

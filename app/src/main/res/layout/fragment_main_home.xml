@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.android.viewmodel.HomeViewModel" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:id="@+id/appbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:elevation="0dp">
+
+                    <com.google.android.material.appbar.CollapsingToolbarLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:layout_collapseMode="parallax"
+                            app:layout_collapseParallaxMultiplier="0.7">
+
+                            <com.youth.banner.Banner
+                                android:id="@+id/banner"
+                                android:layout_width="match_parent"
+                                android:layout_height="290dp"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        <androidx.appcompat.widget.Toolbar
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/common_transparent"
+                            app:contentInsetEnd="0dp"
+                            app:contentInsetLeft="0dp"
+                            app:contentInsetRight="0dp"
+                            app:contentInsetStart="0dp"
+                            app:layout_collapseMode="pin"
+                            app:titleMargin="0dp">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:id="@+id/layout_top"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@color/common_transparent"
+                                android:paddingBottom="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:id="@+id/layout_search"
+                                    android:layout_width="0dp"
+                                    android:layout_height="36dp"
+                                    android:layout_marginStart="15dp"
+                                    android:layout_marginTop="48dp"
+                                    android:layout_marginEnd="30dp"
+                                    app:bl_corners_radius="20dp"
+                                    app:bl_solid_color="#50ffffff"
+                                    app:bl_stroke_color="@color/white"
+                                    app:bl_stroke_width="0.5dp"
+                                    app:layout_constraintEnd_toStartOf="@id/iv_first_recharge"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <TextView
+                                        android:id="@+id/tv_search"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="12dp"
+                                        android:drawableStart="@mipmap/app_icon_home_search_white"
+                                        android:drawablePadding="8dp"
+                                        android:gravity="center_vertical"
+                                        android:text="@string/search_hint"
+                                        android:textColor="@color/white"
+                                        android:textSize="13sp"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintStart_toStartOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent" />
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                                <ImageView
+                                    android:id="@+id/iv_my_room"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingEnd="16dp"
+                                    android:src="@mipmap/app_icon_home_my_room_white"
+                                    app:layout_constraintBottom_toBottomOf="@id/layout_search"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="@id/layout_search" />
+
+                                <ImageView
+                                    android:id="@+id/iv_ranking"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="10dp"
+                                    android:paddingEnd="20dp"
+                                    android:src="@mipmap/app_icon_home_my_ranking_white"
+                                    app:layout_constraintEnd_toStartOf="@id/iv_my_room"
+                                    app:layout_constraintTop_toTopOf="@id/iv_my_room" />
+
+                                <ImageView
+                                    android:id="@+id/iv_first_recharge"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:paddingEnd="10dp"
+                                    goneUnless="@{m.isShowFirstRecharge()}"
+                                    android:src="@mipmap/icon_home_first_recharge"
+                                    app:layout_constraintEnd_toStartOf="@id/iv_ranking"
+                                    app:layout_constraintTop_toTopOf="@id/iv_ranking" />
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.appcompat.widget.Toolbar>
+                    </com.google.android.material.appbar.CollapsingToolbarLayout>
+                </com.google.android.material.appbar.AppBarLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="-20dp"
+                    android:orientation="vertical"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+                    <View
+                        android:id="@+id/v_radius"
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        app:bl_corners_topRadius="16dp"
+                        app:bl_solid_color="@color/common_white"
+                        app:layout_constraintBottom_toBottomOf="parent" />
+
+                    <com.angcyo.tablayout.DslTabLayout
+                        android:id="@+id/tab_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="-20dp"
+                        android:paddingStart="8dp"
+                        app:tab_deselect_color="@color/color_636366"
+                        app:tab_draw_indicator="true"
+                        app:tab_enable_text_bold="true"
+                        app:tab_indicator_drawable="@mipmap/icon_home_banner_indicator"
+                        app:tab_indicator_height="8dp"
+                        app:tab_indicator_width="44dp"
+                        app:tab_orientation="HORIZONTAL"
+                        app:tab_select_color="@color/color_313133"
+                        app:tab_text_max_size="20sp"
+                        app:tab_text_min_size="15sp" />
+
+                    <androidx.viewpager2.widget.ViewPager2
+                        android:id="@+id/view_pager"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="16dp" />
+
+                </LinearLayout>
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

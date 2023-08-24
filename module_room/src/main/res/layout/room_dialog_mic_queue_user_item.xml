@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.MicQueueUserModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
+
+        <TextView
+            android:id="@+id/tv_index"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:textColor="@color/color_80FFFFFF"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            loadCircleImage="@{m.profilePath}"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toEndOf="@id/tv_index"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/layout_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toStartOf="@id/tv_id"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar">
+
+            <com.kissspace.common.widget.UserLevelIconView
+                userLevelCount="@{m.wealthLevel}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="2dp"
+                app:level_type="TYPE_EXPEND" />
+
+            <com.kissspace.common.widget.UserLevelIconView
+                userLevelCount="@{m.charmLevel}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                app:level_type="TYPE_INCOME" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{m.nickname}"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                app:layout_constraintBottom_toBottomOf="@id/layout_level"
+                app:layout_constraintStart_toEndOf="@id/layout_level"
+                app:layout_constraintTop_toTopOf="@id/layout_level" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginBottom="3dp"
+            android:text='@{"ID: "+m.displayId}'
+            android:textColor="@color/color_80FFFFFF"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

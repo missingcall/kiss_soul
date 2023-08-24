@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.family.FamilyMemberRecord" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_family"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="11dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:loadCircleImage="@{m.profilePath}" />
+
+        <TextView
+            android:id="@+id/tv_role"
+            isShowMemberManager="@{m.userRole}"
+            memberRoleText="@{m.userRole}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="3dp"
+            android:paddingTop="1dp"
+            android:paddingRight="3dp"
+            android:paddingBottom="1dp"
+            android:textColor="@color/white"
+            android:textSize="9sp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_6C74FB"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_family"
+            app:layout_constraintLeft_toLeftOf="@+id/iv_family"
+            app:layout_constraintRight_toRightOf="@+id/iv_family" />
+
+        <RelativeLayout
+            android:id="@+id/con_level"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="3dp"
+            app:layout_constraintEnd_toStartOf="@id/con_right"
+            app:layout_constraintStart_toEndOf="@id/iv_family"
+            app:layout_constraintTop_toTopOf="@+id/iv_family">
+
+            <com.kissspace.common.widget.UserLevelIconView
+                android:id="@+id/lever1"
+                userLevelCount='@{m.consumeLevel}'
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_centerVertical="true"
+                app:level_type="TYPE_EXPEND" />
+
+            <com.kissspace.common.widget.UserLevelIconView
+                android:id="@+id/level2"
+                userLevelCount="@{m.charmLevel}"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/lever1"
+                app:level_type="TYPE_INCOME" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:layout_toRightOf="@id/level2"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="@{m.nickname}"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="海绵宝宝" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="6dp"
+            android:text='@{"ID: "+m.displayId}'
+            android:textColor="@color/common_white80"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@id/iv_family"
+            app:layout_constraintTop_toBottomOf="@id/con_level"
+            tools:text="ID:1234" />
+
+
+        <View
+            android:id="@+id/v_line"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/color_494B70"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family"
+            app:layout_constraintTop_toBottomOf="@id/tv_id" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_pass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@mipmap/mine_bg_btn_setting_manager"
+                android:gravity="center"
+                android:text="移出"
+                goneUnless="@{m.showMoveOut}"
+                android:textColor="@color/color_FFFD62"
+                android:textSize="13sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_setting_manager"
+                familyMemberManagerText="@{m.userRole}"
+                goneUnless="@{m.isShowSettingManager}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@mipmap/mine_bg_btn_setting_manager"
+                android:gravity="center"
+                android:textColor="@color/color_FFFD62"
+                android:textSize="13sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:src="@mipmap/common_icon_hint_dialog_close"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_pass"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_pass"
+                app:layout_constraintTop_toTopOf="@+id/tv_pass" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

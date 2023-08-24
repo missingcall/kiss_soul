@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">kiss空间</string>
+    <string name="search_hint">搜索昵称/ID/房间名</string>
+    <string name="input_room_password">输入房间密码</string>
+    <string name="input_room_password_tips">请输入房间密码</string>
+    <string name="app_confirm">确定</string>
+    <string name="app_upgrade_title">发现新版本</string>
+    <string name="app_upgrade_new">NEW</string>
+    <string name="app_upgrade_now">立即升级</string>
+    <string name="app_not_upgrade">不更新，退出APP</string>
+    <string name="app_collect_room_count">%1$s个收藏房间</string>
+</resources>

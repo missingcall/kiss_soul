@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.kissspace.common.widget.binding.DjsInverseBindingKt"/>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.wallet.WalletListModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_charge"
+        android:layout_width="106dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        app:clIsSelected="@{m.isWalletSelected}"
+        android:background="@drawable/mine_wallet_item_exchange_selector">
+
+        <TextView
+            android:id="@+id/tv_gold"
+            style="@style/DJSTextView"
+            android:layout_marginTop="16.5dp"
+            android:textColor="@drawable/common_wallet_item_exchange_text_selector"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text='@{DjsInverseBindingKt.doubleToIntToString(m.exchangeNumber)+"金币"}'
+            tools:text="600金币" />
+
+        <ImageView
+            android:id="@+id/iv_type"
+            style="@style/DJSSubTextView"
+            android:layout_width="12dp"
+            android:layout_height="12dp"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_gold"
+            app:layout_constraintRight_toLeftOf="@+id/tv_rmb"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_rmb"
+            app:layout_constraintTop_toTopOf="@+id/tv_rmb" />
+
+        <TextView
+            android:id="@+id/tv_rmb"
+            style="@style/DJSSubTextView"
+            android:layout_marginLeft="4dp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16.5dp"
+            tools:text="200"
+            android:text="@{DjsInverseBindingKt.doubleToIntToString(m.rmbNumber)}"
+            android:textColor="@drawable/common_item_recharge_text_selector"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toRightOf="@+id/iv_type"
+            app:layout_constraintRight_toRightOf="@+id/tv_gold" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

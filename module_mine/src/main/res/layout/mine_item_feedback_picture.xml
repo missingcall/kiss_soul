@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="m"
+            type="java.lang.String" />
+    </data>
+
+    <ImageView
+        imageRadius="@{8f}"
+        imageUrl="@{m}"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="12dp"
+        android:scaleType="centerCrop" />
+
+</layout>

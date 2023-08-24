@@ -1,0 +1,104 @@
+
+
+
+//是否启用加固
+def isStartUsingReinforce = false
+//是否多渠道加固
+def isChannelReinforce = false
+
+afterEvaluate{
+    tasks.names.forEach{taskName ->
+        if (taskName == "assembleRelease"){
+            tasks.getByName(taskName).doLast{
+                if (!isStartUsingReinforce){
+                    println '当前应用无需加固流程...'
+                    return
+                }
+                println ' assembleRelease结束，开始加固...'
+                def apkRootPath = buildDir.absolutePath+'/outputs/apk/'
+                println 'right name is' + taskName
+                def apkFilePath = getOldApkFilePath(apkRootPath,"release")
+                if (apkFilePath == null){
+                    throw GradleException("待加固的apk文件不存在")
+                }
+                println '遍历获取得到待加固和签名的安装包： '+ apkFilePath
+                println '-----------开始加固------------'
+                reinforceApk(apkFilePath,isChannelReinforce)
+            }
+        }
+    }
+}
+
+def reinforceApk(apkPath,channel){
+    println '-----------网易易盾 running------------'
+    if (channel){
+        exec {
+            executable = 'java'
+            args = ['-jar', rootDir.absolutePath+'/build-task/releaseapk/NHPProtect.jar',
+                    '-yunconfig', '',
+                    '-channel', '',
+                    '-fullapk', '',
+                    '-apksign', '',
+                    '-zipalign', '',
+                    '-input', apkPath,
+            ]
+        }
+    }else{
+        exec {
+            executable = 'java'
+            args = ['-jar', rootDir.absolutePath+'/build-task/releaseapk/NHPProtect.jar',
+                    '-yunconfig', '',
+                    '-fullapk', '',
+                    '-apksign', '',
+                    '-zipalign', '',
+                    '-input', apkPath,
+            ]
+        }
+    }
+}
+
+private def getOldApkFilePath(String dirPath){
+    def dirFile=new File(dirPath)
+    if (!dirFile.exists()) {
+        println "dir not exists：" + dirFile.path
+        return null
+    }
+    String finalPath=null
+    File[] files = dirFile.listFiles()
+    for(file in files){
+        boolean isApk= file.isFile()&&file.name.endsWith('.apk');
+        if(isApk){
+            return file.getAbsolutePath()
+        }else {
+            if(file.isDirectory()){
+                return getOldApkFilePath(file.getAbsolutePath())
+            }
+        }
+    }
+
+    return finalPath
+}
+private def getOldApkFilePath(String dirPath,String rightName){
+    def dirFile=new File(dirPath)
+    if (!dirFile.exists()) {
+        println "dir not exists：" + dirFile.path
+        return null
+    }
+    String finalPath=null
+    File[] files = dirFile.listFiles()
+    for(file in files){
+        if(file.isDirectory()){
+            def result= getOldApkFilePath(file.getAbsolutePath(),rightName)
+            if(result!=null){
+                return result
+            }
+        }else {
+            boolean isApk=file.isFile() && file.name.contains(rightName)&&file.name.endsWith(".apk")
+            if(isApk){
+                return file.getAbsolutePath()
+            }
+        }
+
+    }
+    return finalPath
+}

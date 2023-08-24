@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.GoodsListBean" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:paddingBottom="24dp"
+            app:bl_corners_radius="12dp"
+            app:bl_gradient_startColor="@color/color_7558AC"
+            app:bl_gradient_endColor="@color/color_333169"
+            app:bl_gradient_angle="45">
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/mine_buy_way"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_pay_type_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:drawablePadding="12dp"
+                android:gravity="center"
+                android:text='@{"金币"+m.coinPrice}'
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:drawableStartCompat="@mipmap/mine_icon_buy_way_coin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_title" />
+
+            <ImageView
+                android:id="@+id/iv_check_coin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:src="@mipmap/common_icon_checkbox_selected"
+                app:layout_constraintBottom_toBottomOf="@id/tv_pay_type_coin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_pay_type_coin" />
+
+            <TextView
+                android:id="@+id/tv_pay_type_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:drawablePadding="12dp"
+                android:gravity="center"
+                android:text='@{"积分"+m.pointsPrice}'
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:drawableStartCompat="@mipmap/mine_icon_buy_way_points"
+                app:layout_constraintStart_toStartOf="@id/tv_pay_type_coin"
+                app:layout_constraintTop_toBottomOf="@id/tv_pay_type_coin" />
+
+            <ImageView
+                android:id="@+id/iv_check_points"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:src="@mipmap/common_icon_check_normal"
+                app:layout_constraintBottom_toBottomOf="@id/tv_pay_type_points"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_pay_type_points" />
+
+            <TextView
+                android:id="@+id/tv_buy"
+                style="@style/CommonFullButton"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="28dp"
+                android:layout_marginEnd="16dp"
+                commonBtnState="@{true}"
+                android:text="@string/mine_store_buy"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_pay_type_points"
+                app:layout_goneMarginEnd="16dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</layout>

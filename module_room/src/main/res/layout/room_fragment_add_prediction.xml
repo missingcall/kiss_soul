@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kissspace.room.viewmodel.AddPredictionViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_161616"
+        android:paddingBottom="20dp">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/color_161616"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/room_icon_prediction_back"
+            app:lineVisible="false"
+            app:title="预言设置"
+            app:titleColor="@color/white"
+            app:titleSize="17sp"
+            app:titleStyle="bold" />
+
+        <TextView
+            android:id="@+id/tv_input_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/room_prediction_input_title"
+            android:textColor="@color/common_white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_bar" />
+
+        <EditText
+            android:id="@+id/edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:afterTextChanged="@{()->vm.checkInfo()}"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="@string/room_prediction_title_hint"
+            android:lines="1"
+            android:maxLength="15"
+            android:paddingStart="21dp"
+            android:paddingEnd="50dp"
+            android:text="@={vm.title}"
+            android:textColor="@color/color_82FFFFFF"
+            android:textSize="14sp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_212121"
+            app:layout_constraintTop_toBottomOf="@id/tv_input_title" />
+
+        <TextView
+            android:id="@+id/tv_title_length"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text='@{vm.titleLength+"/15"}'
+            android:textColor="#4DFFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@id/edit_title"
+            app:layout_constraintEnd_toEndOf="@id/edit_title"
+            app:layout_constraintTop_toTopOf="@id/edit_title" />
+
+        <TextView
+            android:id="@+id/tv_option_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/room_prediction_title_option"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/edit_title" />
+
+        <ImageView
+            android:id="@+id/iv_vs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:src="@mipmap/room_icon_prediction_vs"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_option_title" />
+
+        <LinearLayout
+            android:layout_width="126dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/room_bg_prediction_question_left_normal"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/iv_vs"
+            app:layout_constraintEnd_toStartOf="@id/iv_vs"
+            app:layout_constraintTop_toTopOf="@id/iv_vs">
+
+            <EditText
+                android:id="@+id/edit_option_left"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:afterTextChanged="@{()->vm.checkInfo()}"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="@string/room_prediction_input_option"
+                android:lines="1"
+                android:maxLength="5"
+                android:text="@={vm.leftOption}"
+                android:textColor="@color/common_white"
+                android:textColorHint="@color/color_82FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_left_option_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"("+vm.leftOptionLength+"/5)"}'
+                android:textColor="@color/color_82FFFFFF"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llt_option_right"
+            android:layout_width="126dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="10dp"
+            android:background="@drawable/room_bg_prediction_question_right_normal"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="@id/iv_vs"
+            app:layout_constraintStart_toEndOf="@id/iv_vs"
+            app:layout_constraintTop_toTopOf="@id/iv_vs">
+
+            <EditText
+                android:id="@+id/edit_option_right"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:afterTextChanged="@{()->vm.checkInfo()}"
+                android:background="@null"
+                android:gravity="center"
+                android:hint="@string/room_prediction_input_option"
+                android:lines="1"
+                android:maxLength="5"
+                android:text="@={vm.rightOption}"
+                android:textColor="@color/common_white"
+                android:textColorHint="@color/color_82FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_right_option_length"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{"("+vm.rightOptionLength+"/5)"}'
+                android:textColor="@color/color_82FFFFFF"
+                android:textSize="12sp" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_time_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/room_prediction_title_valid_time"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/llt_option_right" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            app:layout_constraintTop_toBottomOf="@id/tv_time_title" />
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="85dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="85dp"
+            android:gravity="center"
+            android:text="@string/room_prediction_add_tips"
+            android:textColor="@color/color_82FFFFFF"
+            android:textSize="10sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recycler_time" />
+
+        <TextView
+            android:id="@+id/tv_submit"
+            predictionButtonEnable="@{vm.buttonEnable}"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/room_prediction_add"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_tips" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

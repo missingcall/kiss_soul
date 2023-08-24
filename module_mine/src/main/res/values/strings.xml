@@ -1,0 +1,106 @@
+<resources>
+    <string name="app_name">module_mine</string>
+    <string name="mine_follow">关注</string>
+    <string name="mine_fans">粉丝</string>
+    <string name="mine_visitor">访客</string>
+    <string name="mine_collect">收藏</string>
+    <string name="mine_wallet">我的钱包</string>
+    <string name="mine_room">我的房间</string>
+    <string name="mine_store">装扮商城</string>
+    <string name="mine_more">更多功能</string>
+    <string name="mine_grade">我的等级</string>
+    <string name="mine_task_center">任务中心</string>
+    <string name="mine_action_center">活动中心</string>
+    <string name="mine_feedback">意见反馈</string>
+    <string name="mine_service">在线客服</string>
+    <string name="mine_settings">系统设置</string>
+    <string name="mine_store_my_dress">我的装扮</string>
+    <string name="mine_store_coin">金币</string>
+    <string name="mine_store_points">积分</string>
+    <string name="mine_recharge">充值</string>
+    <string name="mine_store_car">坐驾</string>
+    <string name="mine_store_avatar">头像框</string>
+    <string name="mine_store_background">背景</string>
+    <string name="mine_store_preview">查看</string>
+    <string name="mine_store_buy">购买</string>
+    <string name="mine_about_me">关于我</string>
+    <string name="mine_id">ID：</string>
+    <string name="mine_birthday">出生日期：</string>
+    <string name="mine_age">年龄：</string>
+    <string name="mine_family">家族</string>
+    <string name="mine_sign">个性签名：</string>
+    <string name="mine_profile_car">坐骑</string>
+    <string name="mine_profile_gift">礼物墙</string>
+    <string name="mine_no_car_mine">您还没有坐骑，快去购买一辆吧</string>
+    <string name="mine_no_car_other">该用户还未拥有坐骑</string>
+    <string name="mine_buy_car">去装扮商城</string>
+    <string name="mine_profile_edit">编辑资料</string>
+    <string name="mine_profile_avatar">头像</string>
+    <string name="mine_profile_avatar_tips">头像为照片墙首位展示，请谨慎更改</string>
+    <string name="mine_profile_nickname">昵称</string>
+    <string name="mine_profile_sign">签名</string>
+    <string name="mine_profile_birthday">生日</string>
+    <string name="mine_profile_upload">上传照片</string>
+    <string name="mine_save">保存</string>
+    <string name="mine_edit_name_tips">昵称长度1~10个字符</string>
+    <string name="mine_edit_sign_title">个性签名</string>
+    <string name="mine_edit_sign_tips1">简单介绍下自己吧</string>
+    <string name="mine_edit_sign_tips2">有趣的签名会极大提升你的魅力</string>
+    <string name="mine_edit_sign_hint">请填写个性签名</string>
+    <string name="mine_wallet_charge_hint">
+        温馨提示\n
+        1.充值前请确认已满18周岁，未成年人不得充值打赏\n
+        2.切勿轻信刷单、低价充值等类似言论，谨防上当受骗\n
+        3.充值可能会出金币延迟到账问题，之后90分钟内属于正常现象，请耐心等候\n
+        4.如有疑问请截图后请在公众号：%s 内联系客服"\n</string>
+    <string name="mine_wallet_transfer_hint">
+        温馨提示\n
+        1.转账前请确认对方是否为本人操作，请合适用户信息后再进行转账\n
+        2.切勿轻信刷单、低价充值等类似言论，谨防上当受骗\n
+        3.如有疑问请截图后请在公众号：%s 内联系客服"\n</string>
+    <string name="mine_wallet_transfer_diamond_hint">
+        温馨提示\n
+        1.转账前请确认对方是否为本人操作，请合适用户信息后再进行转账\n
+        2.切勿轻信刷单、低价充值等类似言论，谨防上当受骗\n
+        3.如有疑问请截图后请在公众号：%s 内联系客服"\n</string>
+
+    <string name="mine_wallet_exchange_earns_hint">
+         温馨提示\n
+         1.兑换前请确认已满18周岁，未成年人不得充值打赏\n
+         2.切勿轻信刷单、低价充值等类似言论，谨防上当受骗\n
+         3.兑换可能会出金币延迟到账问题，之后90分钟分钟内属于正常现象，请耐心等候\n
+         4.如有疑问请截图后请在公众号：%s 内联系客服"\n
+    </string>
+
+    <string name="mine_wallet_withdraw_earns_hint">
+        温馨提示\n
+        1.主播的收益可进行提现，收益一旦兑换为金币，兑换过的收益将无法提现\n
+        2.提现收益最低为10000，最高为9000000\n
+        3.收益提现必须为10000的整倍数\n
+        4.收益提现每月最大为9000000\n
+        5.提现收益预计在3-5个工作日到账，节假日顺延发放\n
+        6.如有疑问请截图后请在公众号：%s 内联系客服</string>
+    <string name="mine_wallet_withdraw_diamond_hint">
+        温馨提示\n
+        1.钻石可进行提现，钻石一旦兑换为金币，兑换过的钻石将无法提现\n
+        2.提现钻石最低为10000，最高为9000000\n
+        3.钻石提现必须为10000的整倍数\n
+        4.提现钻石预计在3–5个工作日到账，节假日顺延发放\n
+        5.金币与钻石兑换比例为1:100\n
+        6.提现信息会在提现记录内显示，请及时查看账单\n
+        7.如有疑问请截图后请在公众号：%s 内联系客服</string>
+    <string name="mine_collect_title">我的收藏</string>
+    <string name="mine_collect_video">潮播</string>
+    <string name="mine_collect_party">派对</string>
+    <string name="mine_my_dress_up">我的装扮</string>
+    <string name="mine_enter_room">进入房间</string>
+    <string name="mine_visitor_title">谁看过我</string>
+    <string name="mine_profile_chat">私聊</string>
+    <string name="mine_my_level">我的等级</string>
+    <string name="mine_level_expend">财富等级</string>
+    <string name="mine_level_income">魅力等级</string>
+    <string name="mine_level_expend_tips">财富等级：通过金币购买礼物，送礼物获得</string>
+    <string name="mine_level_income_tips">魅力等级：每收到1金币消费获得1魅力值</string>
+    <string name="mine_verify">审核中</string>
+    <string name="mine_buy_way">请选择购买方式</string>
+</resources>

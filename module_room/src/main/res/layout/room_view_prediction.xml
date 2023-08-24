@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="97.5dp"
+    android:layout_height="wrap_content"
+    android:background="@mipmap/room_bg_pk"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_count_down"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:fontFamily="@font/youshebiaotihei"
+        android:textColor="@color/color_99FFFFFF"
+        android:textSize="9sp" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="10sp" />
+
+    <com.kissspace.room.widget.PredictionProgressView
+        android:id="@+id/progress"
+        android:layout_width="80dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginBottom="3dp" />
+</LinearLayout>

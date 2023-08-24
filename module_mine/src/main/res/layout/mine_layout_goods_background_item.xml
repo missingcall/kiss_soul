@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.GoodsListBean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:paddingBottom="12dp"
+        app:bl_corners_radius="12dp"
+        app:bl_solid_color="@color/color_483759">
+
+        <FrameLayout
+            android:id="@+id/flt_car"
+            android:layout_width="match_parent"
+            android:layout_height="106dp"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                loadGoodsBackground="@{m.icon}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop" />
+        </FrameLayout>
+
+        <TextView
+            android:layout_width="44dp"
+            android:layout_height="20dp"
+            android:gravity="center"
+            android:text="@string/mine_store_preview"
+            android:textColor="@color/color_FFFD62"
+            android:textSize="11sp"
+            app:bl_corners_bottomRightRadius="12dp"
+            app:bl_corners_topLeftRadius="12dp"
+            app:bl_solid_color="#483759"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:text="@{m.commodityName}"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flt_car" />
+
+        <TextView
+            android:id="@+id/tv_valid_day"
+            goodsInvalidDaysVisible="@{m.attribute}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text='@{m.timeLimit+"天"}'
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_name" />
+
+        <TextView
+            android:id="@+id/tv_price_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/dinbold"
+            android:gravity="center"
+            android:textColor="@color/color_FFFD62"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textStyle="bold"
+            app:drawableStartCompat="@mipmap/mine_icon_store_coin"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+
+        <TextView
+            android:id="@+id/tv_price_points"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/dinbold"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/color_FFFD62"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:drawableStartCompat="@mipmap/mine_icon_integral_store"
+            app:layout_constraintTop_toBottomOf="@id/tv_name" />
+
+
+        <ImageView
+            android:id="@+id/tv_buy"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:src="@mipmap/mine_icon_store_buy_goods"
+            app:layout_constraintEnd_toEndOf="@id/flt_car"
+            app:layout_constraintStart_toStartOf="@id/flt_car"
+            app:layout_constraintTop_toBottomOf="@id/tv_price_coin" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

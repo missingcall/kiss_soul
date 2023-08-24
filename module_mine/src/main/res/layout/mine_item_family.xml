@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.kissspace.common.widget.binding.DjsInverseBindingKt" />
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.family.FamilyListModels" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/iv_family"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4.5dp"
+            android:layout_marginBottom="4.5dp"
+            app:imageRadius="@{12f}"
+            app:imageUrl="@{m.familyIcon}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_family_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toLeftOf="@+id/tv_add"
+            android:layout_marginStart="8dp"
+            android:text="@{m.familyName}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family"
+            app:layout_constraintTop_toTopOf="@id/iv_family"
+            tools:text="神秘组织" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            app:text='@{m.getDefaultFamilyDesc()}'
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_family"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family"
+            app:layout_constraintRight_toLeftOf="@+id/tv_add"
+            tools:text="家族长制定的家族工会简介家族长制定的家族工会简介家族长制定的家族工会简介" />
+
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text='@{"ID: "+m.displayId}'
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@+id/iv_family"
+            app:layout_constraintTop_toBottomOf="@id/tv_family_name"
+            app:layout_constraintBottom_toTopOf="@id/tv_desc"
+            tools:text="ID:1234" />
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:drawableLeft="@mipmap/mine_icon_family_apply_info"
+            android:drawablePadding="4dp"
+            android:text='@{m.familyUserNum + ""}'
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_id"
+            app:layout_constraintTop_toTopOf="@id/tv_id"
+            app:layout_constraintBottom_toBottomOf="@id/tv_id"
+            tools:text="66" />
+
+
+        <ImageView
+            android:id="@+id/tv_add"
+            android:layout_width="88dp"
+            android:layout_height="37dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

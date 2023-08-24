@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@drawable/authsdk*,
+@drawable/umcsdk*,
+@layout/widget_pns_*,
+@layout/umcsdk*,
+@anim/authsdk*,
+@anim/umcsdk*,
+@theme/authsdk_*,
+@id/pns_*,
+@id/authsdk*,
+@id/umcsdk*,
+@color/pns_*,
+@dimen/pns_*,
+@string/umcsdk*,
+@style/umcsdk*">
+</resources>

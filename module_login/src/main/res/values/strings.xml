@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">module_login</string>
+    <string name="login_welcome">欢迎登录</string>
+    <string name="login_other_way">其他号码登录</string>
+    <string name="login_quick_login">本机号码一键登录</string>
+    <string name="login_please_input_phone_number">请输入手机号码</string>
+    <string name="login_get_sms_code">获取验证码</string>
+    <string name="login_login">手机登录/注册</string>
+    <string name="login_login_password">密码登录</string>
+    <string name="login_please_input_sms_code">请输入短信验证码</string>
+    <string name="login_input_sms_code_tips">验证码已发送至 +86 %1$s</string>
+    <string name="login_edit_profile_title">完善个人信息</string>
+    <string name="login_nickname">昵称</string>
+    <string name="login_sex">性别</string>
+    <string name="login_sex_tips">只有一次选择性别的机会，要想清楚呀</string>
+    <string name="login_sex_male">男生</string>
+    <string name="login_sex_female">女生</string>
+    <string name="login_btn_submit_profile">开启神秘之旅</string>
+    <string name="login_privacy_exit">不同意并退出APP</string>
+    <string name="login_privacy_agree">同意</string>
+    <string name="users_note">用户须知</string>
+    <string name="privacy_tips_key1">《用户协议》</string>
+    <string name="privacy_tips_key2">《隐私协议》</string>
+    <string name="privacy_tips_key3">《第三方共享个人信息清单》</string>
+    <string name="privacy_tips">欢迎使用kiss空间！我们将通过《用户协议》和《隐私协议》帮助您了解我们所提供的服务以及我们收集和处理您个人信息的情况，并告知您所享有的相关权利。
+    为向您提供更加安全、便捷、良好体验的服务，我们会在您使用相关功能时申请有关设备权限，您可通过“系统权限设置”查阅并选择是否授权我们收集这些信息。您也可以通过“我的-设置-隐私设置”来管理隐私相关等功能。
+    未经您的授权同意，我们不会主动向任何第三方共享您的个人信息。您可以通过《第三方共享个人信息清单》了解我们接入第三方SDK及与第三方共享信息的情况。
+    如果您是14周岁以下的未成年人，则不能使用我们的产品、服务，请勿注册、登录或向我们提供个人信息。
+    请您务必在使用本软件前仔细阅读上述法律文件，如您同意，请点击同意后开始使用我们的服务。如果您是14周岁以上18周岁以下的未成年人，您还需要先和您的监护人一起仔细阅读上述法律文件，并征得您的监护人的同意。</string>
+    <string name="confirmed">用户须知已确认</string>
+    <string name="opt_terms">用户协议</string>
+    <string name="opt_privacy">隐私协议</string>
+</resources>

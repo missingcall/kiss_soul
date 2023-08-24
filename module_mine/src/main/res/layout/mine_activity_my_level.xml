@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:leftHorizontalPadding="16dp"
+        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:titleIcon="@mipmap/mine_my_level_title_bg"
+        app:lineVisible="false"
+        app:rightHorizontalPadding="16dp"
+        app:rightIcon="@mipmap/common_icon_question"
+        app:barStyle="transparent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layout_expend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingBottom="16dp"
+        app:bl_corners_radius="16dp"
+        app:bl_solid_color="@color/color_1A000000">
+
+        <TextView
+            android:id="@+id/tv_expend_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/mine_level_expend"
+            android:textColor="@color/common_white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:id="@+id/icon_userConsume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_expend_title"
+            app:layout_constraintStart_toEndOf="@id/tv_expend_title"
+            app:layout_constraintTop_toTopOf="@id/tv_expend_title"
+            app:level_type="TYPE_EXPEND" />
+
+        <FrameLayout
+            android:id="@+id/flt_expend_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_expend_title">
+
+            <com.dinuscxj.progressbar.CircleProgressBar
+                android:id="@+id/expend_progress_outer"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                app:line_count="30"
+                app:line_width="4dp"
+                app:progress_background_color="@color/common_transparent"
+                app:progress_end_color="@color/color_FFFD62"
+                app:progress_shader="sweep"
+                app:progress_start_color="@color/color_FFFD62"
+                app:progress_stroke_cap="round"
+                app:progress_stroke_width="4dp"
+                app:progress_style="solid_line"
+                app:progress_text_color="@color/common_transparent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/mine_bg_level_progress" />
+
+            <com.dinuscxj.progressbar.CircleProgressBar
+                android:id="@+id/expend_progress_inner"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:line_count="200"
+                app:line_width="1dp"
+                app:progress_background_color="@color/white50"
+                app:progress_end_color="@color/color_FF955C"
+                app:progress_start_color="@color/color_FF955C"
+                app:progress_text_color="@color/color_FFFD62"
+                app:progress_text_size="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_charm_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="当前财富值：50"
+            android:textColor="@color/white50"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flt_expend_progress" />
+
+        <TextView
+            android:id="@+id/tv_charm_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="距离升级还需要消耗：500金币"
+            android:textColor="@color/white50"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_charm_value" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingBottom="16dp"
+        app:bl_corners_radius="16dp"
+        app:bl_solid_color="@color/color_1A000000">
+
+        <TextView
+            android:id="@+id/tv_income_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/mine_level_income"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:id="@+id/icon_userCharm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_income_title"
+            app:layout_constraintStart_toEndOf="@id/tv_income_title"
+            app:layout_constraintTop_toTopOf="@id/tv_income_title"
+            app:level_type="TYPE_INCOME" />
+
+        <FrameLayout
+            android:id="@+id/flt_income_progress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_income_title">
+
+            <com.dinuscxj.progressbar.CircleProgressBar
+                android:id="@+id/income_progress_outer"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="center"
+                app:line_count="30"
+                app:line_width="4dp"
+                app:progress_background_color="@color/common_transparent"
+                app:progress_end_color="@color/color_FFFD62"
+                app:progress_shader="sweep"
+                app:progress_start_color="@color/color_FFFD62"
+                app:progress_stroke_cap="round"
+                app:progress_stroke_width="4dp"
+                app:progress_style="solid_line"
+                app:progress_text_color="@color/common_transparent" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/mine_bg_level_progress" />
+
+            <com.dinuscxj.progressbar.CircleProgressBar
+                android:id="@+id/income_progress_inner"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                app:line_count="200"
+                app:line_width="1dp"
+                app:progress_background_color="@color/white50"
+                app:progress_end_color="@color/color_FF955C"
+                app:progress_start_color="@color/color_FF955C"
+                app:progress_text_color="@color/color_FFFD62"
+                app:progress_text_size="16sp" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/tv_consume_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="当前魅力值：50"
+            android:textColor="@color/white50"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flt_income_progress" />
+
+        <TextView
+            android:id="@+id/tv_consume_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            tools:text="距离升级还需要消耗：500金币"
+            android:textColor="@color/white50"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_consume_value" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/mine_level_expend_tips"
+        android:textColor="@color/white50"
+        android:textSize="12sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/mine_level_income_tips"
+        android:textColor="@color/white50"
+        android:textSize="12sp" />
+</LinearLayout>

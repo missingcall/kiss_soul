@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserLevelIconView">
+        <attr name="level_type" format="enum">
+            <enum name="TYPE_EXPEND" value="0" />
+            <enum name="TYPE_INCOME" value="0x1" />
+        </attr>
+        <attr name="level_count" format="integer" />
+    </declare-styleable>
+
+
+    <declare-styleable name="PredictionProgressView">
+        <attr name="gradient_startColor" format="color" />
+        <attr name="gradient_endColor" format="color" />
+        <attr name="progress" format="integer" />
+        <attr name="progress_type" format="enum">
+            <enum name="TYPE_POSITIVE" value="0" />
+            <enum name="TYPE_NEGATIVE" value="1" />
+        </attr>
+    </declare-styleable>
+
+</resources>

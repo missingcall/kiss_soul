@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="59dp"
+            app:bl_corners_radius="16dp"
+            app:bl_solid_color="@color/common_white"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tv_text"
+                style="@style/DJSTextView"
+                android:layout_width="0dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="82dp"
+                android:layout_marginRight="35dp"
+                android:gravity="center"
+                android:text="为了呵护未成年的健康成长，我们特别推出青少年模式，该模式下需进行密码输入"
+                android:textColor="@color/color_363636"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_teenager"
+                style="@style/DJSSubTextView"
+                android:layout_marginTop="16dp"
+                android:drawableRight="@mipmap/setting_icon_arrow_right"
+                android:drawablePadding="4dp"
+                android:text="进入青少年模式"
+                android:textColor="@color/color_949499"
+                android:textSize="14sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_text" />
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="167dp"
+                android:layout_height="44dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="24dp"
+                android:gravity="center"
+                android:text="知道了"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:bl_corners_radius="48dp"
+                app:bl_gradient_angle="45"
+                app:bl_gradient_endColor="@color/color_6C74FB"
+                app:bl_gradient_startColor="@color/color_936DDE"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_teenager" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/setting_icon_teenager_dialog"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftHorizontalPadding="16dp"
+        app:leftIcon="@mipmap/common_icon_back_black"
+        app:lineVisible="false"
+        app:title="设置"
+        app:titleColor="@color/color_313133"
+        app:titleSize="18sp" />
+
+    <RadioGroup
+        android:id="@+id/rg_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp">
+
+        <RadioButton
+            android:id="@+id/rb_debug"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="测试环境"
+            android:textSize="18sp"
+            android:textColor="#000000"/>
+        <RadioButton
+            android:id="@+id/rb_pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="预生产环境"
+            android:textSize="18sp"
+            android:textColor="#000000"/>
+        <RadioButton
+            android:id="@+id/rb_release"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="正式环境"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:textColor="#000000"/>
+    </RadioGroup>
+
+    <!--    <CheckBox-->
+<!--        android:id="@+id/cb_debug"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="13dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:clickable="false"-->
+<!--        android:button="@drawable/mine_wallet_check_selector"-->
+<!--        android:checked="false"-->
+<!--        android:text="测试环境"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintLeft_toLeftOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"/>-->
+
+<!--    <CheckBox-->
+<!--        android:id="@+id/cb_release"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginLeft="13dp"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:clickable="false"-->
+<!--        android:text="正式环境"-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="@color/black"-->
+<!--        android:button="@drawable/mine_wallet_check_selector"-->
+<!--        android:checked="false"-->
+<!--        app:layout_constraintRight_toRightOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/cb_debug" />-->
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:text="确定"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:bl_corners_radius="22dp"
+        app:bl_gradient_angle="90"
+        app:bl_gradient_endColor="@color/color_936DDE"
+        app:bl_gradient_startColor="@color/color_6C74FB"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/rg_vertical" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

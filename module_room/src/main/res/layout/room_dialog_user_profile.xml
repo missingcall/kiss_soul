@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="25dp"
+    app:bl_corners_topRadius="16dp"
+    app:bl_solid_color="@color/color_212121">
+
+    <ImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_sex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-4dp"
+        app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+        app:layout_constraintEnd_toEndOf="@id/iv_avatar" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/common_white"
+        android:textSize="15sp"
+        app:layout_constraintStart_toEndOf="@id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+    <TextView
+        android:id="@+id/tv_user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:drawableEnd="@mipmap/room_icon_copy_id"
+        android:drawablePadding="4dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_949499"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@id/tv_nickname"
+        app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
+
+    <TextView
+        android:id="@+id/tv_family"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:textColor="@color/color_949499"
+        android:textSize="12sp"
+        app:layout_constraintTop_toTopOf="@id/tv_user_id"
+        app:layout_constraintBottom_toBottomOf="@id/tv_user_id"
+        app:layout_constraintStart_toEndOf="@id/tv_user_id" />
+
+    <com.nex3z.flowlayout.FlowLayout
+        android:id="@+id/layout_level"
+        showUserMedal="@{m}"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:flChildSpacing="2dp"
+        app:flRowSpacing="5dp"
+        app:flRowVerticalGravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tv_nickname"
+        app:layout_constraintTop_toBottomOf="@id/tv_user_id" />
+
+
+    <ImageView
+        android:id="@+id/iv_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:src="@mipmap/room_icon_prediction_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/line_avatar"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/color_313133"
+        app:layout_constraintTop_toBottomOf="@id/layout_level" />
+
+    <TextView
+        android:id="@+id/tv_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/color_949499"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_avatar" />
+
+    <TextView
+        android:id="@+id/iv_chat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="25dp"
+        android:drawableStart="@mipmap/room_icon_user_profile_chat"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="@string/room_user_profile_chat"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/iv_send_gift"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sign" />
+
+    <TextView
+        android:id="@+id/iv_send_gift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableStart="@mipmap/room_icon_user_profile_send_gift"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="@string/room_user_profile_send_gift"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/iv_follow"
+        app:layout_constraintStart_toEndOf="@id/iv_chat"
+        app:layout_constraintTop_toTopOf="@id/iv_chat" />
+
+    <TextView
+        android:id="@+id/iv_follow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="@string/room_user_profile_follow"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_send_gift"
+        app:layout_constraintTop_toTopOf="@id/iv_chat" />
+
+    <View
+        android:id="@+id/line_manager"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@color/color_313133"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/iv_chat" />
+
+    <TextView
+        android:id="@+id/iv_unchat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="17dp"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="@string/room_user_profile_untalk"
+        android:textColor="@color/color_FDC983"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/iv_mute"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/line_manager" />
+
+    <TextView
+        android:id="@+id/iv_mute"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/color_FDC983"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@id/iv_kick_out"
+        app:layout_constraintStart_toEndOf="@id/iv_unchat"
+        app:layout_constraintTop_toTopOf="@id/iv_unchat" />
+
+
+    <TextView
+        android:id="@+id/iv_kick_out"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:drawableStart="@mipmap/room_icon_user_profile_kick_out"
+        android:drawablePadding="6dp"
+        android:gravity="center_vertical"
+        android:text="@string/room_user_profile_kick_out"
+        android:textColor="@color/color_FDC983"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_mute"
+        app:layout_constraintTop_toTopOf="@id/iv_unchat" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

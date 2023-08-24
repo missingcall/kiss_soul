@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.RoomOnLineUserListBean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:paddingEnd="16dp">
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            loadCircleImage="@{m.profilePath}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@{m.ellipsizeName}"
+            android:textColor="@color/common_white"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toTopOf="@id/tv_id"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+
+        <TextView
+            android:id="@+id/tv_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text='@{"ID："+m.showId}'
+            android:textColor="@color/color_80FFFFFF"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
+
+        <ImageView
+            android:id="@+id/iv_manager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            isShowManagerIcon="@{m.role}"
+            android:src="@mipmap/room_icon_user_list_manager"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/tv_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_nickname" />
+
+        <TextView
+            android:id="@+id/tv_status"
+            android:layout_width="39dp"
+            android:layout_height="15dp"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            userIsOnMic="@{m.microPhone}"
+            android:text="@string/room_user_on_mic"
+            android:textColor="@color/common_white"
+            android:textSize="11sp"
+            app:bl_corners_radius="3dp"
+            app:bl_solid_color="@color/color_33FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@id/iv_manager"
+            app:layout_constraintTop_toTopOf="@id/tv_nickname" />
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:id="@+id/level_income"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar"
+            userLevelCount="@{m.charmLevel}"
+            app:level_type="TYPE_INCOME" />
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_avatar"
+            app:layout_constraintEnd_toStartOf="@id/level_income"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar"
+            app:layout_goneMarginEnd="4dp"
+            userLevelCount="@{m.wealthLevel}"
+            app:level_type="TYPE_EXPEND" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

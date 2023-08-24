@@ -1,0 +1,388 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kissspace.room.viewmodel.LiveViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.kissspace.room.widget.RoomActionBarView
+            android:id="@+id/layout_action_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/flt_mic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            app:layout_constraintTop_toBottomOf="@id/layout_action_bar">
+
+            <com.kissspace.room.widget.RoomMicrophoneLayout
+                android:id="@+id/layout_microphone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_integral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/prediction_view"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/prediction_view">
+
+
+            <ImageView
+                android:id="@+id/iv_integral"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/room_icon_integral"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/tv_integral_count"
+                style="@style/RedDotStyle"
+                android:layout_marginStart="18dp"
+                android:layout_marginTop="-5dp"
+                app:layout_constraintStart_toStartOf="@id/iv_integral"
+                app:layout_constraintTop_toTopOf="@id/iv_integral"
+                tools:text="99+"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/iv_can_get_integral"
+                android:layout_width="28dp"
+                android:layout_height="11dp"
+                android:layout_marginTop="-5dp"
+                android:gravity="center"
+                android:text="@string/room_get_integral"
+                android:textColor="@color/common_white"
+                android:textSize="8sp"
+                app:bl_corners_radius="6dp"
+                app:bl_gradient_angle="45"
+                app:bl_gradient_endColor="@color/color_D35FED"
+                app:bl_gradient_startColor="@color/color_FC767F"
+                app:layout_constraintEnd_toEndOf="@id/iv_integral"
+                app:layout_constraintStart_toStartOf="@id/iv_integral"
+                app:layout_constraintTop_toBottomOf="@id/iv_integral"
+                tools:visibility="visible" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.kissspace.room.widget.RoomPredictionView
+            android:id="@+id/prediction_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layout_action_bar" />
+
+        <com.angcyo.tablayout.DslTabLayout
+            android:id="@+id/tab_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/flt_mic"
+            app:tab_deselect_color="@color/color_80FFFFFF"
+            app:tab_draw_indicator="true"
+            app:tab_indicator_drawable="@drawable/room_chat_tab_indicator"
+            app:tab_indicator_height="2dp"
+            app:tab_indicator_style="STYLE_BOTTOM"
+            app:tab_indicator_width="12dp"
+            app:tab_select_color="@color/white">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="@string/room_chat_tab_all"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="@string/room_chat_tab_room"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:text="@string/room_chat_tab_lucky"
+                android:textSize="14sp" />
+
+        </com.angcyo.tablayout.DslTabLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_chat"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="12dp"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/layout_navigation_bar"
+            app:layout_constraintEnd_toStartOf="@id/banner_activity"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_chat" />
+
+
+        <ImageView
+            android:id="@+id/iv_new_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/room_icon_new_message"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/recycler_chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_navigation_bar"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:id="@+id/tv_up_mic"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="12dp"
+                android:gravity="center"
+                android:src="@mipmap/room_icon_up_mic"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/tv_queue"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:src="@mipmap/room_icon_mic_queue"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/layout_chat"
+                app:layout_constraintStart_toEndOf="@id/tv_up_mic"
+                app:layout_constraintTop_toTopOf="@id/layout_chat" />
+
+            <TextView
+                android:id="@+id/tv_queue_amount"
+                style="@style/WhiteDotStyle"
+                android:layout_marginStart="-7dp"
+                android:layout_marginTop="-5dp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@id/tv_queue"
+                app:layout_constraintTop_toTopOf="@id/tv_queue" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_chat"
+                android:layout_width="104dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:paddingStart="8dp"
+                app:bl_corners_radius="18dp"
+                app:bl_solid_color="@color/color_4D000000"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_queue"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:paddingStart="8dp"
+                    android:text="@string/room_chat_hint"
+                    android:textColor="@color/common_white"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/iv_emoji"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingEnd="8dp"
+                    android:src="@mipmap/room_icon_emoji"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <ImageView
+                android:id="@+id/iv_gift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:src="@mipmap/room_icon_gift"
+                app:layout_constraintBottom_toBottomOf="@id/layout_chat"
+                app:layout_constraintStart_toEndOf="@id/layout_chat"
+                app:layout_constraintTop_toTopOf="@id/layout_chat" />
+
+            <ImageView
+                android:id="@+id/iv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:src="@mipmap/room_icon_more"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="-5dp"
+                android:src="@mipmap/room_icon_message"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_more"
+                app:layout_constraintTop_toTopOf="parent" />
+            b
+
+            <TextView
+                style="@style/RedDotStyle"
+                roomMessageUnReadCount="@{vm.unReadCount}"
+                android:layout_marginStart="-15dp"
+                android:layout_marginTop="-6dp"
+                app:layout_constraintStart_toEndOf="@id/iv_message"
+                app:layout_constraintTop_toTopOf="@id/iv_message" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <com.zhpan.bannerview.BannerViewPager
+            android:id="@+id/banner_activity"
+            android:layout_width="70dp"
+            android:layout_height="65dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="25dp"
+            android:visibility="gone"
+            app:bvp_indicator_checked_color="@color/white"
+            app:bvp_indicator_normal_color="#1AFFFFFF"
+            app:bvp_indicator_visibility="visible"
+            app:layout_constraintBottom_toTopOf="@id/layout_navigation_bar"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_water_game"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@id/banner_activity"
+            app:layout_constraintEnd_toEndOf="@id/banner_activity" />
+
+
+        <com.kissspace.room.widget.RoomPKInfoView
+            android:id="@+id/pk_info_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/recycler_chat" />
+
+        <com.tencent.qgame.animplayer.AnimView
+            android:id="@+id/anim_car"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.tencent.qgame.animplayer.AnimView
+            android:id="@+id/gift_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <com.kissspace.room.widget.UserEnterRoomView
+            android:id="@+id/user_enter_room_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/recycler_chat" />
+
+        <!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+        <!--            android:id="@+id/layout_chat_input"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="44dp"-->
+        <!--            android:visibility="gone"-->
+        <!--            app:bl_corners_topRadius="12dp"-->
+        <!--            app:bl_solid_color="@color/color_E6000000"-->
+        <!--            app:layout_constraintBottom_toBottomOf="parent">-->
+
+        <!--            <ImageView-->
+        <!--                android:id="@+id/tv_chat_send"-->
+        <!--                roomSendChatBtn="@{vm.sendChatBtnEnable}"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:layout_marginEnd="10dp"-->
+        <!--                android:gravity="center"-->
+        <!--                app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--                app:layout_constraintEnd_toEndOf="parent"-->
+        <!--                app:layout_constraintTop_toTopOf="parent" />-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/edit_chat"-->
+        <!--                android:layout_width="0dp"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:afterTextChanged="@{vm.onChatEditChange}"-->
+        <!--                android:background="@null"-->
+        <!--                android:gravity="center_vertical"-->
+        <!--                android:hint="@string/room_chat_message_hint"-->
+        <!--                android:lines="1"-->
+        <!--                android:maxLength="200"-->
+        <!--                android:paddingStart="16dp"-->
+        <!--                android:paddingEnd="20dp"-->
+        <!--                android:textColor="@color/white"-->
+        <!--                android:textColorHint="@color/color_CCC7CC"-->
+        <!--                android:textSize="14sp"-->
+        <!--                app:layout_constraintEnd_toStartOf="@id/tv_chat_send"-->
+        <!--                app:layout_constraintStart_toStartOf="parent" />-->
+        <!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+        <View
+            android:id="@+id/gift_fly_end"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintBottom_toTopOf="@id/layout_navigation_bar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

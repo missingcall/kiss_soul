@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CounterLayout">
+        <attr name="normal_color" format="color" />
+        <attr name="excessive_color" format="color" />
+        <attr name="max_count" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="RedXinTextView">
+        <attr name="redxin_orientation" format="enum">
+            <enum name="first" value="0" />
+            <enum name="end" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>

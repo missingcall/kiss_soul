@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/common_app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/common_app_logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Unicorn_soul">
+
+        <activity
+            android:name="com.kissspace.message.ui.activity.ChatActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+            android:name="com.kissspace.message.ui.activity.LoveWallActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kissspace.message.ui.activity.SystemMessageActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

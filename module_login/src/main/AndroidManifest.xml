@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.kissspace.login">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/common_app_logo"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/common_app_logo_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Unicorn_soul">
+
+
+        <activity
+            android:name="com.kissspace.login.ui.LoginActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.kissspace.login.ui.PhoneCodeLoginActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kissspace.login.ui.InputSmsCodeActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.kissspace.login.ui.PasswordLoginActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kissspace.login.ui.LoginEditProfileActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.kissspace.login.ui.ChooseAccountActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+    </application>
+
+</manifest>

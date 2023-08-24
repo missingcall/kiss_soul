@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kissspace.message.viewmodel.ChatViewModel" />
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/common_page_background">
+
+        <LinearLayout
+            android:id="@+id/root"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <com.hjq.bar.TitleBar
+                    android:id="@+id/title_bar"
+                    chatTitle="@{vm.friendUserInfo.nickname}"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:leftHorizontalPadding="16dp"
+                    app:barStyle="transparent"
+                    app:leftIcon="@mipmap/common_icon_back_purple"
+                    app:lineVisible="false"
+                    app:titleColor="@color/color_FFFD62"
+                    app:titleSize="18sp" />
+
+                <ImageView
+                    android:id="@+id/iv_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="16dp"
+                    android:src="@mipmap/message_icon_chat_menu"
+                    app:layout_constraintBottom_toBottomOf="@id/title_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/title_bar" />
+
+                <FrameLayout
+                    android:id="@+id/flt_follow"
+                    android:layout_width="69dp"
+                    android:layout_height="36dp"
+                    android:onClick="@{()->vm.follow()}"
+                    app:layout_constraintBottom_toBottomOf="@id/title_bar"
+                    app:layout_constraintEnd_toStartOf="@id/iv_menu"
+                    app:layout_constraintTop_toTopOf="@id/title_bar">
+
+                    <ImageView
+                        android:id="@+id/tv_follow"
+                        chatFollowText="@{vm.friendUserInfo.attention}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        />
+                </FrameLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_follow_room"
+                chatFollowRoomVisible="@{vm.friendUserInfo.followRoomId}"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/black10">
+
+                <ImageView
+                    android:id="@+id/iv_room_icon"
+                    loadCircleImage="@{vm.friendUserInfo.followRoomIcon}"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@{vm.friendUserInfo.followRoomName}"
+                    android:textColor="@color/common_white"
+                    android:textSize="15sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/iv_room_icon"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:src="@mipmap/message_chat_start_video" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:id="@+id/smart_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never"
+                    android:paddingBottom="10dp"
+                    app:reverseLayout="true"
+                    app:stackFromEnd="true" />
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+            <com.kissspace.message.widget.ChatPanelView
+                android:id="@+id/chat_panel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <com.kissspace.message.widget.AudioInputToast
+            android:id="@+id/toast_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone" />
+
+        <com.tencent.qgame.animplayer.AnimView
+            android:id="@+id/gift_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop" />
+    </FrameLayout>
+
+</layout>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingBottom="28dp"
+    app:bl_corners_radius="12dp"
+    app:bl_solid_color="@color/color_FAFAFA">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="29dp"
+        android:gravity="center"
+        android:paddingRight="43.5dp"
+        android:paddingLeft="43.5dp"
+        android:textColor="@color/color_313133"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:text="登录应用的kiss空间账号与当前kiss空间账号不一致"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_sub_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:textColor="@color/color_636366"
+        android:textSize="15sp"
+        tools:text="副标题"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
+
+
+    <TextView
+        android:id="@+id/tv_positive"
+        android:layout_width="167dp"
+        android:layout_height="45dp"
+        android:background="@drawable/common_btn"
+        android:gravity="center"
+        android:text="@string/common_positive"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/common_white"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_sub_title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

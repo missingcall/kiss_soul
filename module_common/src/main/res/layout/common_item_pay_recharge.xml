@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.kissspace.common.widget.binding.DjsInverseBindingKt"/>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.wallet.PayProductResponses" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_charge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:clIsSelected="@{m.isSelected}"
+        android:layout_marginTop="6dp"
+        android:background="@drawable/common_wallet_item_exchange_selector">
+
+        <TextView
+            android:id="@+id/tv_gold"
+            style="@style/DJSTextView"
+            android:layout_marginTop="16.5dp"
+            android:textColor="@drawable/common_item_recharge_text_number_selector"
+            android:textStyle="bold"
+            android:text='@{DjsInverseBindingKt.doubleToIntToString(m.payProductGoldCoin)+"金币"}'
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="600金币" />
+
+        <TextView
+            android:id="@+id/tv_rmb1"
+            style="@style/DJSSubTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="¥"
+            android:textColor="@drawable/common_item_recharge_text_selector"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="@+id/tv_gold"
+            app:layout_constraintRight_toLeftOf="@+id/tv_rmb"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gold" />
+
+        <TextView
+            android:id="@+id/tv_rmb"
+            style="@style/DJSSubTextView"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="8dp"
+            android:paddingBottom="16.5dp"
+            tools:text="200"
+            android:text='@{DjsInverseBindingKt.doubleToString(m.payProductCash)+"元"}'
+            android:textColor="@drawable/common_item_recharge_text_selector"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toRightOf="@+id/tv_rmb1"
+            app:layout_constraintRight_toRightOf="@+id/tv_gold"
+            app:layout_constraintTop_toBottomOf="@+id/tv_gold" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingBottom="20dp"
+    app:bl_corners_topRadius="16dp"
+    app:bl_solid_color="@color/color_E6000000">
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="18dp"
+        android:text="房间黑名单"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+
+    <com.drake.statelayout.StateLayout
+        android:id="@+id/page_refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        app:empty_layout="@layout/common_view_empty">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="350dp" />
+    </com.drake.statelayout.StateLayout>
+
+</LinearLayout>

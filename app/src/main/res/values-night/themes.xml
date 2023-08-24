@@ -1,0 +1,7 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Unicorn_soul" parent="@style/QMUI.Compat.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:windowSplashScreenBackground" tools:targetApi="31">@color/color_6C74FB</item>
+    </style>
+</resources>

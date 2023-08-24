@@ -1,0 +1,12 @@
+Public|APP_CHANNEL
+Hn-xiaofei|APP_CHANNEL
+xiaomi|APP_CHANNEL
+huawei|APP_CHANNEL
+vivo|APP_CHANNEL
+oppo|APP_CHANNEL
+yingyongbao|APP_CHANNEL
+meizu|APP_CHANNEL
+ppzhushou|APP_CHANNEL
+wandoujia|APP_CHANNEL
+ali|APP_CHANNEL
+baidu|APP_CHANNEL

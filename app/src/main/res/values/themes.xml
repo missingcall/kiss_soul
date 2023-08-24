@@ -1,0 +1,14 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.Unicorn_soul" parent="@style/QMUI.Compat.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:windowBackground">@mipmap/common_page_background</item>
+    </style>
+
+
+
+    <style name="Theme.Splash" parent="@style/QMUI.Compat.NoActionBar">
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+        <item name="android:windowBackground">@mipmap/login_bg_splash</item>
+    </style>
+</resources>

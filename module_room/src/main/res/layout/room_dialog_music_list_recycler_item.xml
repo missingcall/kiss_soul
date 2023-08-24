@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.MusicSongsInfoModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="58dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/iv_play"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            musicPlay="@{m.checked}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:lottie_autoPlay="false"
+            app:lottie_fileName="music.json"
+            app:lottie_loop="true"
+            android:paddingRight="11dp"/>
+
+        <TextView
+            android:id="@+id/tv_music_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{m.song_name}"
+            playChangeStatus="@{m.checked}"
+            android:textSize="15sp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_play"
+            app:layout_constraintBottom_toTopOf="@id/tv_singer_name"
+            />
+
+        <TextView
+            android:id="@+id/tv_singer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:text="@{m.singer_name}"
+            playChangeStatus="@{m.checked}"
+            app:layout_constraintTop_toBottomOf="@id/tv_music_name"
+            app:layout_constraintLeft_toLeftOf="@id/tv_music_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+        
+        <ImageView
+            android:id="@+id/iv_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/room_bg_music_list_collect_normal"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="2dp"
+            isShowCollectMusic="@{m.collect}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@color/color_33E5E5E5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

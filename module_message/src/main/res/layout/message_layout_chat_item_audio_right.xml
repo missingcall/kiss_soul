@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.ChatModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_time"
+            chatDate="@{m}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/color_A8A8B3"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_avatar_right"
+            loadCircleImage="@{m.avatar}"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_time" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_audio_right"
+            android:layout_width="106dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="8dp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_6C74FB"
+            app:layout_constraintEnd_toStartOf="@id/iv_avatar_right"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar_right">
+
+            <ImageView
+                android:id="@+id/iv_talking_right"
+                rightAudioIconState="@{m.playAudioAnimation}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="4dp"
+                android:text='@{m.audioTime+"s"}'
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_talking_right"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            audioUnReadDotVisible="@{m.isAudioPlayed}"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_marginEnd="4dp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_FA3127"
+            app:layout_constraintBottom_toBottomOf="@id/layout_audio_right"
+            app:layout_constraintEnd_toStartOf="@id/layout_audio_right"
+            app:layout_constraintTop_toTopOf="@id/layout_audio_right" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

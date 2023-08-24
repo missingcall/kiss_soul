@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#2D2447"
+    android:paddingTop="8dp">
+
+    <FrameLayout
+        android:id="@+id/flt_emoji"
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_emoji"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/iv_chat_talking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="18dp"
+        android:src="@mipmap/message_icon_chat_talking"
+        app:layout_constraintBottom_toTopOf="@id/flt_emoji"
+        app:layout_constraintEnd_toStartOf="@id/iv_chat_camera"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_chat_camera"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/message_icon_chat_camera"
+        app:layout_constraintBottom_toBottomOf="@id/iv_chat_talking"
+        app:layout_constraintEnd_toStartOf="@id/iv_chat_picture"
+        app:layout_constraintStart_toEndOf="@id/iv_chat_talking" />
+
+    <ImageView
+        android:id="@+id/iv_chat_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/message_icon_chat_picture"
+        app:layout_constraintBottom_toBottomOf="@id/iv_chat_talking"
+        app:layout_constraintEnd_toStartOf="@id/iv_send_gift"
+        app:layout_constraintStart_toEndOf="@id/iv_chat_camera" />
+
+    <ImageView
+        android:id="@+id/iv_send_gift"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:src="@mipmap/message_icon_chat_gift"
+        app:layout_constraintBottom_toBottomOf="@id/iv_chat_talking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/iv_chat_picture" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="18dp"
+        app:layout_constraintBottom_toTopOf="@id/iv_chat_talking"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/tv_send_chat"
+            android:layout_width="72dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="16dp"
+            android:background="@mipmap/message_bg_chat_send_btn_disable_bg"
+            app:layout_constraintBottom_toBottomOf="@id/edit_chat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/edit_chat" />
+
+        <EditText
+            android:id="@+id/edit_chat"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:hint="@string/message_chat_hint"
+            android:lines="1"
+            android:paddingStart="15dp"
+            android:paddingEnd="50dp"
+            android:textColor="@color/color_313133"
+            android:textColorHint="@color/color_949499"
+            android:textSize="14sp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_F8F8F9"
+            app:layout_constraintEnd_toStartOf="@id/tv_send_chat"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_talking"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="按住 说话"
+            android:textColor="@color/color_313133"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_DDDDDD"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_emoji_chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="16dp"
+            android:paddingStart="10dp"
+            android:src="@mipmap/message_icon_chat_emoji"
+            app:layout_constraintBottom_toBottomOf="@id/edit_chat"
+            app:layout_constraintEnd_toEndOf="@id/edit_chat"
+            app:layout_constraintTop_toTopOf="@id/edit_chat" />
+
+        <ImageView
+            android:id="@+id/iv_emoji_talking"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="16dp"
+            android:paddingStart="10dp"
+            android:src="@mipmap/message_icon_chat_emoji"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/tv_talking"
+            app:layout_constraintEnd_toEndOf="@id/tv_talking"
+            app:layout_constraintTop_toTopOf="@id/tv_talking" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
+

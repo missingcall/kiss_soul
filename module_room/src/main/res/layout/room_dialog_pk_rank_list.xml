@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="456dp"
+    app:bl_corners_topRadius="12dp"
+    app:bl_solid_color="@color/color_E6000000">
+
+    <com.angcyo.tablayout.DslTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tab_deselect_color="@color/color_949499"
+        app:tab_draw_indicator="true"
+        app:tab_enable_gradient_text_size="true"
+        app:tab_enable_text_bold="true"
+        app:tab_indicator_color="@color/white"
+        app:tab_indicator_height="2dp"
+        app:tab_indicator_radius="1.5dp"
+        app:tab_indicator_width="28dp"
+        app:tab_indicator_y_offset="5dp"
+        app:tab_item_is_equ_width="true"
+        app:tab_min_scale="0.8"
+        app:tab_select_color="@color/white">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/room_pk_rank_list_blue"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/room_pk_rank_list_red"
+            android:textSize="16sp" />
+    </com.angcyo.tablayout.DslTabLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

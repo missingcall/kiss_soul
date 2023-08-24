@@ -1,0 +1,302 @@
+project.ext {
+    //是否允许module单独编译
+    isModuleDebug = false
+    //单独调试module名
+    moduleName = ""
+    applicationId = "com.kissspace.android"
+    compileSdk = 33
+    minSdk = 21
+    targetSdk = 33
+    versionCode = 1025
+    versionName = "1.0.25"
+
+    setAppDefaultConfig = { extension ->
+        extension.apply plugin: 'com.android.application'
+        extension.description "app"
+        //公共的apply 主要是用于三方库
+        extension.apply plugin: 'kotlin-android'
+        extension.apply plugin: 'kotlin-parcelize'
+        extension.apply plugin: 'kotlin-kapt'
+        extension.apply plugin: 'com.didi.drouter'
+        extension.apply plugin: 'com.tencent.vasdolly'
+        appImplementation = "app"
+        //设置项目的android
+        setAppAndroidConfig extension.android
+        //设置项目的三方库依赖
+        setDependencies extension.dependencies
+        //多渠道设置
+        extension.channel {
+            //多渠道包的输出目录
+            outputDir = new File(project.buildDir, "channel")
+            //多渠道包的命名规则，默认为：${appName}-${versionName}-${versionCode}-${flavorName}-${buildType}-${buildTime}
+            apkNameFormat = 'kissspace_v${versionName}_${buildType}-${flavorName}'
+            //快速模式：生成渠道包时不进行校验（速度可以提升10倍以上，默认为false）
+            fastMode = false
+            //buildTime的时间格式，默认格式：yyyyMMdd-HHmmss
+            buildTimeDateFormat = 'yyyyMMdd-HH:mm:ss'
+            //低内存模式（仅针对V2签名，默认为false）：只把签名块、中央目录和EOCD读取到内存，不把最大头的内容块读取到内存，在手机上合成APK时，可以使用该模式
+            lowMemory = false
+        }
+        extension.rebuildChannel {
+            channelFile = file("../flavor_channel.txt")
+            baseApk = new File(project.rootDir, "/djsoul_v1.1.10_release_0528-22-18-31-base.apk")
+            outputDir = new File(project.buildDir, "rebuildChannel")
+            fastMode = false
+            lowMemory = false
+        }
+        //设置打包的apk
+        android.applicationVariants.all { variant ->
+            def date = new Date().format("MMdd-HH-mm-ss")
+            variant.outputs.all {
+                outputFileName = "kissspace_v${variant.versionName}_${variant.name}_${date}.apk"
+            }
+
+        }
+
+    }
+
+    setAppAndroidConfig = { extension ->
+        extension.compileSdk project.ext.compileSdk
+        extension.defaultConfig {
+            applicationId project.ext.applicationId
+            minSdk project.ext.minSdk
+            targetSdk project.ext.targetSdk
+            versionCode project.ext.versionCode
+            versionName project.ext.versionName
+            multiDexEnabled true
+            extension.flavorDimensions "versionCode"
+            testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            ndk {
+                abiFilters "arm64-v8a", "armeabi-v7a"
+            }
+        }
+        extension.signingConfigs {
+            debug {
+                storeFile file("../kissspace.jks")
+                storePassword "kp123456"
+                keyAlias "kp"
+                keyPassword "kp123456"
+            }
+            release {
+                storeFile file("../kissspace.jks")
+                storePassword "kp123456"
+                keyAlias "kp"
+                keyPassword "kp123456"
+            }
+        }
+        extension.buildTypes {
+            debug {
+                minifyEnabled false
+                debuggable true
+//                shrinkResources true
+//                proguardFiles extension.getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//                zipAlignEnabled true
+                signingConfig extension.signingConfigs.debug
+            }
+            release {
+                minifyEnabled false
+                debuggable false
+//                shrinkResources true
+//                proguardFiles extension.getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+                zipAlignEnabled true
+                signingConfig extension.signingConfigs.release
+            }
+        }
+        extension.compileOptions {
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+        extension.kotlinOptions {
+            jvmTarget = '1.8'
+        }
+        extension.packagingOptions {
+            pickFirst '**/*.so'
+        }
+        extension.buildFeatures.dataBinding = true
+        extension.buildFeatures.viewBinding = true
+    }
+
+    //动态改变，用于单模块调试
+    setAppOrLibDefaultConfig = {
+        extension ->
+            if (project.ext.isModuleDebug && project.ext.moduleName == project.name) {
+                extension.apply plugin: 'com.android.application'
+                extension.description "app"
+
+            } else {
+                extension.apply plugin: 'com.android.library'
+                extension.description "lib"
+
+            }
+            extension.apply plugin: 'kotlin-android'
+            extension.apply plugin: 'kotlin-parcelize'
+            extension.apply plugin: 'kotlin-kapt'
+            extension.apply plugin: 'kotlinx-serialization'
+            appImplementation = project.name
+
+            //设置通用Android配置
+            setAppOrLibAndroidConfig extension.android
+            //设置通用依赖配置
+            setDependencies extension.dependencies
+    }
+
+    setAppOrLibAndroidConfig = {
+        extension ->
+            extension.compileSdk project.ext.compileSdk
+            extension.namespace "com.kissspace.$project.name"
+            extension.defaultConfig {
+                minSdk project.ext.minSdk
+                targetSdk project.ext.targetSdk
+                versionCode project.ext.versionCode
+                versionName project.ext.versionName
+                extension.flavorDimensions "versionCode"
+                testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+            }
+            //使用的jdk版本
+            extension.compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+            extension.kotlinOptions {
+                jvmTarget = '1.8'
+            }
+            extension.buildFeatures.dataBinding = true
+            extension.buildFeatures.viewBinding = true
+            //动态改变清单文件资源指向
+            extension.sourceSets {
+                main {
+                    jniLibs.srcDirs = ['libs']
+                    if (project.ext.isModuleDebug && project.ext.moduleName == project.name) {
+                        manifest.srcFile 'src/main/manifest/AndroidManifest.xml'
+                    } else {
+                        manifest.srcFile 'src/main/AndroidManifest.xml'
+                    }
+                }
+            }
+    }
+
+    setDependencies = {
+        extension ->
+            if (appImplementation == "module_common") {
+                extension.compileOnly fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+            } else {
+                extension.implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+            }
+            if (appImplementation != "module_common" &&
+                    appImplementation != "module_util" &&
+                    appImplementation != "module_network") {
+                extension.implementation extension.project(path: ':module_common')
+            }
+            switch (appImplementation) {
+                case "app":
+                    if (!project.ext.isModuleDebug) {
+                        extension.implementation extension.project(path: ':module_login')
+                        extension.implementation extension.project(path: ':module_message')
+                        extension.implementation extension.project(path: ':module_mine')
+                        extension.implementation extension.project(path: ':module_room')
+                        extension.implementation extension.project(path: ':module_setting')
+                        extension.implementation extension.project(path: ':module_webview')
+                        extension.implementation extension.project(path: ':module_pay')
+                    }
+                    break
+                case "module_common":
+                    extension.api extension.project(path: ':module_util')
+                    extension.api extension.project(path: ':module_network')
+                    extension.api "androidx.appcompat:appcompat:1.5.0"
+                    extension.api "androidx.core:core-ktx:1.8.0"
+                    extension.api "androidx.activity:activity-ktx:1.5.0"
+                    extension.api "androidx.fragment:fragment-ktx:1.5.5"
+                    extension.api "com.google.android.material:material:1.6.1"
+                    extension.api "com.netease.nimlib:basesdk:8.9.112"
+                    extension.api "com.netease.nimlib:chatroom:8.9.112"
+                    extension.api "com.guolindev.permissionx:permissionx:1.6.1"
+                    extension.api "com.github.DylanCaiCoding:MMKV-KTX:1.2.13"
+                    extension.api "io.github.youth5201314:banner:2.2.2"
+                    extension.api "com.github.liangjingkanji:BRV:1.4.1"
+                    extension.api "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.10"
+                    extension.api "com.github.getActivity:TitleBar:9.6"
+                    extension.api "com.github.JavaNoober.BackgroundLibrary:libraryx:1.7.5"
+                    extension.api "io.github.lucksiege:pictureselector:v3.11.1"
+                    extension.api "io.github.lucksiege:compress:v3.10.7"
+                    extension.api "io.github.lucksiege:ucrop:v3.10.7"
+                    extension.api "com.github.angcyo.DslTablayout:TabLayout:3.5.4"
+                    extension.api "com.github.angcyo.DslTablayout:ViewPager2Delegate:3.5.4"
+                    extension.api "com.umeng.umsdk:common:9.5.6"
+                    extension.api "com.umeng.umsdk:asms:1.6.3"
+                    extension.api "com.umeng.umsdk:apm:1.7.0"
+                    extension.api "com.umeng.umsdk:share-core:7.2.2"
+                    extension.api "com.umeng.umsdk:share-wx:7.2.2"
+                    extension.api 'com.tencent.mm.opensdk:wechat-sdk-android:+'
+                    extension.api "com.umeng.umsdk:uverify:2.5.9"
+                    extension.api "com.umeng.umsdk:uverify-main:2.1.4"
+                    extension.api "com.umeng.umsdk:uverify-logger:2.1.4"
+                    extension.api "com.umeng.umsdk:uverify-crashshield:2.1.4"
+                    extension.api "io.github.scwang90:refresh-header-classics:2.0.5"
+                    extension.api "io.github.scwang90:refresh-footer-classics:2.0.5"
+                    extension.api "com.qmuiteam:qmui:2.0.0-alpha10"
+                    extension.api "io.github.razerdp:BasePopup:3.1.0"
+                    extension.api 'com.github.kongzue.DialogX:DialogX:0.0.46'
+                    extension.api 'com.github.Petterpx:FloatingX:1.3.0'
+                    extension.api 'com.github.kirich1409:viewbindingpropertydelegate:1.5.9'
+                    extension.api 'com.github.gzu-liyujiang.AndroidPicker:Common:4.1.11'
+                    extension.api 'com.github.gzu-liyujiang.AndroidPicker:WheelView:4.1.11'
+                    extension.api 'com.github.gzu-liyujiang.AndroidPicker:WheelPicker:4.1.11'
+                    extension.api 'com.github.gzu-liyujiang.AndroidPicker:CalendarPicker:4.1.11'
+                    extension.api 'com.dinuscxj:circleprogressbar:1.3.6'
+                    extension.api 'com.alipay.sdk:alipaysdk-android:+@aar'
+                    extension.api 'com.github.xiaweizi:MarqueeTextView:1.0'
+                    extension.api 'com.airbnb.android:lottie:5.2.0'
+                    extension.api "com.tencent.vasdolly:helper:3.0.5"
+                    extension.api 'com.github.gzu-liyujiang:Android_CN_OAID:4.2.4'
+                    extension.api 'io.github.yidun:livedetect:3.2.0.2'
+                    extension.api 'com.github.SherlockGougou:BigImageViewPager:androidx-7.2.5'
+                    extension.api 'com.github.bumptech.glide:glide:4.11.0'
+                    extension.api 'com.github.bumptech.glide:okhttp3-integration:4.11.0'
+                    extension.kapt 'com.github.bumptech.glide:compiler:4.11.0'
+                    extension.api 'io.github.didi:drouter-api:2.4.5'
+                    extension.api 'com.github.zhpanvip:bannerviewpager:3.5.10'
+                    extension.api 'com.tencent.bugly:crashreport:latest.release'
+                    extension.api 'com.github.yyued:SVGAPlayer-Android:2.6.1'
+                    extension.api 'com.tencent.tav:libpag:4.2.88'
+                    extension.api 'io.github.tencent:vap:2.0.28'
+                    extension.api 'org.apmem.tools:layouts:1.10@aar'
+                    extension.api 'com.nex3z:flow-layout:1.2.4'
+                    extension.compileOnly fileTree(dir: "../app/libs", include: ["*.aar"])
+                    break
+                case "module_network":
+                    extension.compileOnly extension.project(path: ':module_util')
+                    extension.api "com.squareup.retrofit2:retrofit:2.9.0"
+                    extension.api "com.squareup.okhttp3:okhttp:4.10.0"
+                    extension.api "com.squareup.retrofit2:converter-gson:2.9.0"
+                    extension.api "com.squareup.retrofit2:converter-scalars:2.9.0"
+                    extension.api "com.github.liangjingkanji:Net:3.5.8"
+                    extension.api "com.github.fengzhizi715:saf-logginginterceptor:v1.6.13"
+                    break
+                case "module_room":
+                    extension.implementation extension.project(path: ':module_webview')
+                    extension.implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.1.0'
+                    extension.implementation project(':SudMGPWrapper')
+                    break
+                case "module_webview":
+                    extension.api "com.tencent.tbs:tbssdk:44286"
+                    extension.implementation extension.project(path: ':module_pay')
+                    break
+                case "module_util":
+                    extension.api "com.blankj:utilcodex:1.31.1"
+                    extension.api 'com.github.liangjingkanji:soft-input-event:1.0.9'
+                    extension.implementation 'androidx.core:core-ktx:1.8.0'
+                    extension.implementation 'androidx.appcompat:appcompat:1.6.1'
+                    extension.implementation 'com.google.android.material:material:1.8.0'
+                    extension.implementation "androidx.startup:startup-runtime:1.1.1"
+                    extension.implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.4.0-alpha03"
+                    extension.implementation "androidx.lifecycle:lifecycle-common-java8:2.4.0-alpha03"
+                    extension.implementation "androidx.fragment:fragment-ktx:1.5.5"
+                    extension.implementation "com.squareup.okio:okio:3.0.0"
+                    extension.api "io.coil-kt:coil:2.3.0"
+                    extension.api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+                    break
+            }
+    }
+}
+
+

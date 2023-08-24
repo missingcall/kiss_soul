@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kissspace.setting.viewmodel.SayHiViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit"
+            android:layout_width="match_parent"
+            android:layout_height="105dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:afterTextChanged="@{vm.onTextChange}"
+            android:background="@null"
+            android:gravity="start"
+            android:hint="@string/setting_say_hi_text_hint"
+            android:maxLength="50"
+            android:paddingStart="16dp"
+            android:paddingTop="16dp"
+            android:paddingEnd="30dp"
+            android:paddingBottom="30dp"
+            android:text="@={vm.textString}"
+            android:textColor="@color/white"
+            android:textColorHint="@color/color_C4C1D7"
+            android:textSize="14sp"
+            app:bl_corners_radius="8dp"
+            app:bl_solid_color="@color/color_1A000000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:text="@{vm.textLength}"
+            android:textColor="@color/color_C4C1D7"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@id/edit"
+            app:layout_constraintEnd_toEndOf="@id/edit" />
+
+        <TextView
+            android:id="@+id/tv_submit"
+            commonBtnState="@{vm.submitEnable}"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="36dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:text="@string/setting_save"
+            android:textSize="16sp"
+            app:layout_constraintTop_toBottomOf="@id/edit" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

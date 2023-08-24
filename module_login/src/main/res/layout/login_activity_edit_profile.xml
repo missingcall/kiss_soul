@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.kissspace.login.viewmodel.EditProfileViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="30dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/common_icon_back_black"
+            app:lineVisible="false" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="@string/login_edit_profile_title"
+            android:textColor="@color/common_white"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_bar" />
+
+
+        <LinearLayout
+            android:id="@+id/llt_avatar"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:background="@mipmap/login_edit_profile_head"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title">
+
+            <ImageView
+                imageRadius="@{100f}"
+                imageUrl="@{vm.userInfoBean.profilePath}"
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:src="@mipmap/login_icon_avatar"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_choose_picture"
+            android:layout_width="74dp"
+            android:layout_height="28dp"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="去选择"
+            android:textColor="@color/common_white"
+            android:textSize="13sp"
+            android:background="@mipmap/login_edit_profile_head_choose"
+            app:layout_constraintBottom_toBottomOf="@id/llt_avatar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="40dp"
+            android:text="@string/login_nickname"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_choose_picture" />
+
+
+        <EditText
+            android:id="@+id/edit_nickname"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="32dp"
+            android:background="@mipmap/login_edit_profile_input_name"
+            android:gravity="center"
+            android:inputType="text"
+            android:maxLength="15"
+            android:maxLines="1"
+            android:text="@={vm.userInfoBean.nickname}"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
+
+        <ImageView
+            android:id="@+id/iv_clear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:src="@mipmap/login_icon_clear"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/edit_nickname"
+            app:layout_constraintEnd_toEndOf="@id/edit_nickname"
+            app:layout_constraintTop_toTopOf="@id/edit_nickname" />
+
+        <TextView
+            android:id="@+id/tv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="36dp"
+            android:text="@string/login_sex"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname"
+            app:layout_constraintTop_toBottomOf="@id/edit_nickname" />
+
+        <TextView
+            android:id="@+id/tv_sex_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/login_sex_tips"
+            android:textColor="@color/white80"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@id/tv_sex"
+            app:layout_constraintTop_toBottomOf="@id/tv_sex" />
+
+        <RelativeLayout
+            android:id="@+id/llt_sex_male"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="@id/tv_sex_tips"
+            app:layout_constraintTop_toBottomOf="@id/tv_sex_tips"
+            app:layout_constraintEnd_toStartOf="@id/llt_sex_female"
+            android:layout_marginEnd="6dp">
+
+            <ImageView
+                userMaleBg="@{vm.userInfoBean.sex}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    userMaleIconBg="@{vm.userInfoBean.sex}"
+                    android:gravity="center"
+                    android:text="@string/login_sex_male"
+                    android:textColor="@color/common_white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/llt_sex_female"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            app:layout_constraintEnd_toEndOf="@id/edit_nickname"
+            app:layout_constraintTop_toTopOf="@id/llt_sex_male"
+            app:layout_constraintStart_toEndOf="@id/llt_sex_male"
+            android:layout_marginStart="6dp">
+
+            <ImageView
+                userFemaleBg="@{vm.userInfoBean.sex}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="56dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    userFemaleIconBg="@{vm.userInfoBean.sex}"
+                    android:gravity="center"
+                    android:text="@string/login_sex_female"
+                    android:textColor="@color/common_white"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/text_submit"
+            commonBtnState="@{vm.submitBtnState}"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="93dp"
+            android:gravity="center"
+            android:text="@string/login_btn_submit_profile"
+            android:textColor="@color/common_white"
+            android:textSize="17sp"
+            app:layout_constraintEnd_toEndOf="@id/edit_nickname"
+            app:layout_constraintStart_toStartOf="@id/edit_nickname"
+            app:layout_constraintTop_toBottomOf="@id/tv_sex_tips" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

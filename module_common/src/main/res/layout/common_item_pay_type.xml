@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.wallet.WalletRechargeList" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_pay_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:clIsSelected="@{m.isSelected}"
+        android:layout_marginTop="24dp">
+
+        <ImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginLeft="16dp"
+            android:scaleType="centerInside"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/DJSTextView"
+            android:layout_marginLeft="12dp"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:text="@{m.payChannelName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/iv_icon"
+            app:layout_constraintTop_toTopOf="@+id/iv_icon"
+            tools:text="支付宝支付" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="13dp"
+            android:clickable="false"
+            android:button="@drawable/common_wallet_check_selector"
+            android:checked="@{m.isSelected}"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_icon"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_icon" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

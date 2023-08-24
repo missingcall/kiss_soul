@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="UserLevelIconView">
+        <attr name="level_type" format="enum">
+            <enum name="TYPE_EXPEND" value="10000" />
+            <enum name="TYPE_INCOME" value="10001" />
+        </attr>
+        <attr name="level_count" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="EasyPagView">
+        <attr name="clearAfterStop" format="boolean" />
+        <attr name="loop_count" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="CustomTabLayoutView">
+        <attr name="indicator_drawable" format="reference" />
+        <attr name="tab_item_text_default_color" format="color" />
+        <attr name="tab_item_text_default_size" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="HeadWearView">
+        <attr name="pagUrl" format="string" />
+        <attr name="staticUrl" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="StrokeTextView">
+        <attr name="stv_strokeTextColor" format="color|reference" />
+        <attr name="stv_strokeNumColor" format="color|reference" />
+        <attr name="stv_strokeColor" format="color|reference" />
+        <attr name="stv_strokeWidth" format="integer|reference" />
+        <attr name="stv_strokeIs" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="StateLayout">
+        <attr name="empty_layout" format="reference" />
+        <attr name="error_layout" format="reference" />
+        <attr name="loading_layout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SwitchButton">
+        <attr name="hasShadow" format="boolean" />
+        <attr name="primaryColor" format="color" />
+        <attr name="primaryColorDark" format="color" />
+        <attr name="offColor" format="color" />
+        <attr name="offColorDark" format="color" />
+        <attr name="barColor" format="color" />
+        <attr name="bgColor" format="color" />
+        <attr name="shadowColor" format="color" />
+        <attr name="ratioAspect" format="float" />
+        <attr name="isOpened" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="LimitNumEditText">
+        <attr name="maxWordsNum" format="integer" />
+        <attr name="hintText" format="string" />
+        <attr name="hintTextColor" format="color" />
+        <attr name="contentText" format="string" />
+        <attr name="limitTextColor" format="color" />
+        <attr name="limitTextSize" format="dimension" />
+        <attr name="onContentTextChanged" format="string" />
+        <attr name="limitBackGround" format="color|reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="CommonSearchView">
+        <attr name="search_hintText" format="string" />
+        <attr name="search_hintTextColor" format="color" />
+        <attr name="search_background" format="reference" />
+        <attr name="isShowCancelText" format="boolean" />
+        <attr name="isShowClearIcon" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="PhoneCode">
+        <!-- 验证码长度 默认5 -->
+        <attr name="codeLength" format="integer" />
+        <!-- 验证码字体大小 8-->
+        <attr name="codeTextSize" format="dimension" />
+        <!-- 验证码字体颜色 -->
+        <attr name="codeTextColor" format="color" />
+        <!-- 验证码框的宽度 -->
+        <attr name="tvWidth" format="dimension" />
+        <!-- 验证码框的高度 -->
+        <attr name="tvHeight" format="dimension" />
+        <!-- 验证码框间距 -->
+        <attr name="codeMargin" format="dimension" />
+        <!-- 验证码默认背景 -->
+        <attr name="bgNormal" format="reference" />
+        <!-- 验证码焦点背景 -->
+        <attr name="bgFocus" format="reference" />
+
+        <!--输入框样式-->
+        <attr name="codeStyle" format="integer" />
+        <!--正常时边框颜色-->
+        <attr name="normalStrokeColor" format="color" />
+        <!--正常时内容背景颜色-->
+        <attr name="normalContentColor" format="color" />
+        <!--焦点时边框颜色-->
+        <attr name="focusStrokeColor" format="color" />
+        <!--焦点时内容背景颜色-->
+        <attr name="focusContentColor" format="color" />
+        <!--是否加粗-->
+        <attr name="isBold" format="boolean" />
+        <!--边框的宽度-->
+        <attr name="strokeSize" format="dimension" />
+        <!--是否输入类型为数字  默认true -->
+        <attr name="isNumber" format="boolean" />
+        <!--是否隐藏输入为密码符号  默认false -->
+        <attr name="isShowPwd" format="boolean" />
+
+    </declare-styleable>
+
+
+    <!--背景图片-->
+    <attr name="src" format="reference" />
+    <!--遮罩层颜色，建议带透明度-->
+    <attr name="maskLayerColor" format="color" />
+    <!--是否滚动-->
+    <attr name="isScroll" format="boolean" />
+    <!--滚动速度,建议取值区间 [1,50] -->
+    <attr name="speed" format="integer">
+        <enum name="slow" value="1" />
+        <enum name="ordinary" value="3" />
+        <enum name="fast" value="5" />
+    </attr>
+    <!-- 滚动方向,默认是竖直方向滚动-->
+    <attr name="scrollOrientation" format="integer">
+        <enum name="toTop" value="0" />
+        <enum name="toBottom" value="1" />
+        <enum name="toLeft" value="2" />
+        <enum name="toRight" value="3" />
+    </attr>
+    <declare-styleable name="SrcScrollFrameLayout">
+        <attr name="src" />
+        <attr name="maskLayerColor" />
+        <attr name="isScroll" />
+        <attr name="speed" />
+        <attr name="scrollOrientation" />
+    </declare-styleable>
+    <declare-styleable name="SrcLoopScrollFrameLayout">
+        <attr name="src" />
+        <attr name="maskLayerColor" />
+        <attr name="isScroll" />
+        <attr name="speed" />
+        <attr name="scrollOrientation" />
+    </declare-styleable>
+
+</resources>
