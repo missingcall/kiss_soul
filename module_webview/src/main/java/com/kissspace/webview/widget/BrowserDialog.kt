@@ -9,27 +9,27 @@ import android.view.*
 import android.widget.LinearLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
-import com.kissspace.pay.ui.PayDialogFragment
+import com.didi.drouter.api.DRouter
 import com.kissspace.common.config.Constants
 import com.kissspace.common.config.Constants.TypeFaceRecognition
-import com.kissspace.common.router.jump
 import com.kissspace.common.flowbus.Event
 import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.http.getSelectPayChannelList
+import com.kissspace.common.http.getUserInfo
+import com.kissspace.common.provider.IPayProvider
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.router.RouterPath.PATH_USER_IDENTITY_AUTH
+import com.kissspace.common.router.jump
+import com.kissspace.common.util.format.Format
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.common.util.setApplicationValue
-import com.kissspace.module_common.databinding.CommonDialogBrowserBinding
-import com.kissspace.common.http.getUserInfo
-import com.kissspace.common.model.wallet.WalletRechargeList
+import com.kissspace.util.logE
 import com.kissspace.webview.init.WebViewCacheHolder
 import com.kissspace.webview.jsbridge.BridgeWebView
 import com.kissspace.webview.jsbridge.CommonJsBridge
 import com.kissspace.webview.jsbridge.JSName
-import com.kissspace.webview.jsbridge.*
-import com.kissspace.util.logE
 import java.text.DecimalFormat
+import com.kissspace.module_common.databinding.CommonDialogBrowserBinding
 
 /**
  *
@@ -42,18 +42,22 @@ class BrowserDialog : DialogFragment() {
     private lateinit var mBinding: CommonDialogBrowserBinding
     private lateinit var mWebView: BridgeWebView
     private lateinit var mUrl: String
+    private var isHideStatusBar: Boolean=false
 
     companion object {
-        fun newInstance(url: String) = BrowserDialog().apply {
-            arguments = bundleOf("url" to url)
+        fun newInstance(url: String,isHideStatusBar:Boolean?=false) = BrowserDialog().apply {
+            arguments = bundleOf("url" to url,"isHideStatusBar" to isHideStatusBar)
         }
     }
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setStyle(STYLE_NORMAL, android.R.style.Theme)
         arguments?.let {
             mUrl = it.getString("url")!!
+            isHideStatusBar =it.getBoolean("isHideStatusBar")
         }
     }
 
@@ -63,6 +67,12 @@ class BrowserDialog : DialogFragment() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         mBinding = CommonDialogBrowserBinding.inflate(layoutInflater)
         dialog.setContentView(mBinding.root)
+        if(isHideStatusBar){
+            dialog.window?.decorView?.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_FULLSCREEN  // 隐藏状态栏
+                            or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                    )
+        }
         dialog.window?.attributes?.apply {
             width = WindowManager.LayoutParams.MATCH_PARENT
             height = WindowManager.LayoutParams.MATCH_PARENT
@@ -76,26 +86,27 @@ class BrowserDialog : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
             ViewGroup.LayoutParams.MATCH_PARENT
         )
-        val commonJsBridge = CommonJsBridge { name, param ->
+
+        val commonJsBridge = CommonJsBridge { name, param1,param2 ->
             when (name) {
                 JSName.JSNAME_CLOSE_WEB -> {
                     dialog.dismiss()
                 }
 
                 JSName.JSNAME_IS_WATER -> {
-                    MMKVProvider.isShowWaterAnimation = param as Boolean
+                    MMKVProvider.isShowWaterAnimation = param1 as Boolean
                 }
 
                 JSName.JSNAME_GET_COIN -> {
                     getUserInfo(onSuccess = { userinfo ->
                         DecimalFormat("0")
                         refreshCoin(
-                            com.kissspace.common.util.format.Format.O_OO.format(
+                            Format.O_OO.format(
                                 userinfo.coin
                             )
                         )
                         logE(
-                            "----getCoin------" + com.kissspace.common.util.format.Format.O_OO.format(
+                            "----getCoin------" + Format.O_OO.format(
                                 userinfo.coin
                             )
                         )
@@ -103,22 +114,22 @@ class BrowserDialog : DialogFragment() {
                 }
 
                 JSName.JSNAME_jumpH5UserIdentity -> {
-                    jumpH5UserIdentity(param as String)
+                    jumpH5UserIdentity(param1 as String)
                 }
 
                 JSName.JSNAME_showPayDialogFragment -> {
                     getSelectPayChannelList { list ->
-                        PayDialogFragment.newInstance(list as ArrayList<WalletRechargeList>)
-                            .show(parentFragmentManager)
+                        DRouter.build(IPayProvider::class.java).getService()
+                            .showPayDialogFragment(parentFragmentManager, list)
                     }
                 }
 
                 JSName.JSNAME_GoConversation -> {
-                    logE("userId___$param")
+                    logE("userId___$param1")
                     jump(
                         RouterPath.PATH_CHAT,
-                        "account" to ("djs${param}"),
-                        "userId" to (param ?: "")
+                        "account" to ("djs${param1}"),
+                        "userId" to (param1 ?: "")
                     )
                 }
 
@@ -126,6 +137,7 @@ class BrowserDialog : DialogFragment() {
                     FlowBus.post(Event.ShowLuckyGiftEvent)
                     dismiss()
                 }
+
             }
         }
         mWebView.addJavascriptInterface(commonJsBridge, "android")
@@ -133,7 +145,7 @@ class BrowserDialog : DialogFragment() {
         mBinding.container.addView(mWebView, layoutParams)
         mWebView.loadUrl(mUrl)
         logE("url$mUrl")
-       // mWebView.loadUrl("http://192.168.8.49:8082/#/pages/game/wishPool")
+        // mWebView.loadUrl("http://192.168.8.49:8082/#/pages/game/wishPool")
 
         FlowBus.observerEvent<Event.RefreshCoin>(this) {
             getUserInfo(onSuccess = { userinfo ->
@@ -144,11 +156,16 @@ class BrowserDialog : DialogFragment() {
         FlowBus.observerEvent<Event.RefreshTree>(this) {
             refreshTree()
         }
+
+        FlowBus.observerEvent<Event.H5InterstellarEvent>(this) {
+            val method = "javascript:playStarGame('" + it.content + "')"
+            mWebView.evaluateJavascript(method,null)
+        }
         return dialog
     }
 
 
-    //h5调用app，刷新金币
+    //在 Android 调用 H5 中的 JavaScript 函数：
     private fun refreshCoin(coin: String) {
         mWebView.loadUrl("javascript:refreshCoin('$coin')")
     }

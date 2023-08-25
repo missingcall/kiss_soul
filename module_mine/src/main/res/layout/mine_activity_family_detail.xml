@@ -350,7 +350,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
                             app:layout_constraintTop_toBottomOf="@+id/view"
-                            app:limitBackGround="@drawable/mine_family_edittext_bottom_round"
+                            app:limitBackground="@drawable/mine_family_edittext_bottom_round"
                             app:limitTextColor="@color/white"
                             app:limitTextSize="15sp"
                             app:maxWordsNum="140" />

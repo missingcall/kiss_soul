@@ -115,7 +115,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/et_input" />
 
 
-                    <com.kissspace.mine.widget.PreviewImageView
+                    <com.kissspace.common.widget.PreviewImageView
                         android:id="@+id/mPreviewImageView"
                         android:layout_width="0dp"
                         android:paddingLeft="9dp"

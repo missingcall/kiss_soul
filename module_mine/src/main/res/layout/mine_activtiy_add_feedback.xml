@@ -143,7 +143,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <com.kissspace.mine.widget.PreviewImageView
+            <com.kissspace.common.widget.PreviewImageView
                 android:id="@+id/mPreviewImageView"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

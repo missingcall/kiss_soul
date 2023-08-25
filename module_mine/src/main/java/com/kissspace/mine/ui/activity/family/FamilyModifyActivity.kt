@@ -80,7 +80,7 @@ class FamilyModifyActivity : com.kissspace.common.base.BaseActivity(R.layout.min
             mBinding.ivAddFamily.visibility = View.VISIBLE
         }
         mBinding.ivAddFamily.safeClick {
-            openPictureSelector(1) {
+            openPictureSelector(this,1) {
                 mBinding.ivAddFamily.visibility = View.GONE
                 mBinding.ivFamily.visibility = View.VISIBLE
                 mBinding.clFamily.visibility = View.VISIBLE

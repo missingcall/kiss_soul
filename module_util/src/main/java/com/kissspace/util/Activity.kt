@@ -19,7 +19,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import java.util.*
 
-internal val activityCache = LinkedList<Activity>()
+val activityCache = LinkedList<Activity>()
 
 fun startActivity(intent: Intent) = topActivity.startActivity(intent)
 

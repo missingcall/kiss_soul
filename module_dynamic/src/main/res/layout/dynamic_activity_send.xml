@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.dynamic.ui.viewmodel.SendDynamicViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:lineVisible="false"
+            app:barStyle="transparent"
+            app:title="发动态"
+            app:titleColor="@color/white"
+            app:titleSize="18sp" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:padding="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/title_bar"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/title_bar">
+
+            <TextView
+                android:id="@+id/bt_send"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@drawable/send_dynamic_text_selector"
+                android:text="发布"
+                android:enabled="@{m.isCouldSend}"
+                />
+        </FrameLayout>
+
+
+        <com.kissspace.common.widget.LimitNumEditText
+            android:id="@+id/et_input"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="16dp"
+            app:contentText="@={m.sendDynamicText}"
+            app:hintText="和大家分享一下此刻的心情和想法吧"
+            app:hintTextColor="@color/color_33FFFFFF"
+            app:limitTextColor="@color/white"
+            app:tipTextColor="@color/color_33FFFFFF"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:limitBackground="@drawable/dynamic_edittext_round_shape"
+            app:layout_constraintTop_toBottomOf="@+id/title_bar"
+            app:maxWordsNum="100" />
+
+
+        <TextView
+            android:id="@+id/tv_picture"
+            style="@style/DJSTextView"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="添加图片"
+            goneUnless="@{m.isPictureSelected}"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/et_input"
+            />
+
+        <TextView
+            android:id="@+id/tv_image_count"
+            style="@style/DJSTextView"
+            android:layout_marginTop="20dp"
+            app:layout_constraintLeft_toRightOf="@+id/tv_picture"
+            app:layout_constraintTop_toBottomOf="@+id/et_input"
+            tools:text="(0/3)"
+            android:layout_marginLeft="5dp"
+            goneUnless="@{m.isPictureSelected}"
+            android:text='@{"("+m.selectImageCount+"/"+"9)"}'
+            />
+
+
+        <com.kissspace.common.widget.PreviewImageView
+            android:id="@+id/mPreviewImageView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:layout_marginTop="16dp"
+            app:image_padding="4dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            goneUnless="@{m.isPictureSelected}"
+            app:layout_constraintTop_toBottomOf="@+id/tv_picture" />
+
+        <TextView
+            android:id="@+id/tv_voice"
+            style="@style/DJSTextView"
+            android:textSize="15sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="20dp"
+            android:text="添加语音"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/mPreviewImageView"
+            goneUnless="@{m.isShowRecordFile()}"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_voice"
+            android:layout_width="186dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="16dp"
+            goneUnless="@{m.isShowRecordFile()}"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/dynamic_round_shape"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_voice">
+
+
+            <ImageView
+                android:id="@+id/iv_voice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/common_anim_audio_play_left"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="20dp"/>
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text='@{m.recordDuration+"s"}'
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:layout_marginLeft="16dp"
+                android:paddingRight="20dp"
+                app:layout_constraintLeft_toRightOf="@+id/iv_voice"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageView
+            android:id="@+id/iv_delete_record"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/common_icon_image_delete"
+            android:layout_marginLeft="16dp"
+            goneUnless="@{m.isShowRecordFile()}"
+            app:layout_constraintLeft_toRightOf="@+id/cl_voice"
+            app:layout_constraintTop_toTopOf="@+id/cl_voice"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_voice"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="4dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/color_181530"
+            app:layout_constraintBottom_toTopOf="@+id/fl_layout"
+            app:layout_constraintLeft_toLeftOf="parent">
+
+
+            <ImageView
+                android:id="@+id/iv_send_picture"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:padding="10dp"
+                android:layout_marginLeft="14dp"
+                imageViewSelected="@{m.isPictureSelected}"
+                android:src="@drawable/send_dynamic_picture_selector"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/iv_send_voice"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:padding="10dp"
+                android:layout_marginLeft="20dp"
+                imageViewSelected="@{!m.isPictureSelected}"
+                android:src="@drawable/send_dynamic_voice_selector"
+                app:layout_constraintLeft_toRightOf="@+id/iv_send_picture"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <FrameLayout
+            android:id="@+id/fl_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="gone"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

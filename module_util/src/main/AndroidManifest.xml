@@ -4,14 +4,5 @@
 
     <application>
 
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="com.kissspace.android.androidx-startup"
-            android:exported="false"
-            tools:node="merge">
-            <meta-data
-                android:name="com.kissspace.util.AppInitializer"
-                android:value="androidx.startup" />
-        </provider>
     </application>
 </manifest>

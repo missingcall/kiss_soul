@@ -74,7 +74,7 @@ class EditProfileActivity : com.kissspace.common.base.BaseActivity(R.layout.mine
             }
         })
         mBinding.addPicture.setOnClickListener {
-            openPictureSelector(4 - mBinding.recyclerView.mutable.size) {
+            openPictureSelector(this,4 - mBinding.recyclerView.mutable.size) {
                 val file = mutableListOf<File>()
                 it?.forEach { path ->
                     file.add(File(path))
@@ -132,7 +132,7 @@ class EditProfileActivity : com.kissspace.common.base.BaseActivity(R.layout.mine
         }
 
         mBinding.layoutAvatar.setOnClickListener {
-            openPictureSelector(isCrop = true) {
+            openPictureSelector(this,isCrop = true) {
                 uploadPicture(mutableListOf(File(it!![0]))) { pic ->
                     mViewModel.editAvatar(pic[0])
                 }

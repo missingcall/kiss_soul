@@ -39,11 +39,13 @@ class SayHiPictureFragment : BaseFragment(R.layout.setting_fragment_say_hi_pictu
         }
         mBinding.ivPicture.setOnClickListener {
             if (currentPicture == null) {
-                openPictureSelector(1) {
-                    currentPicture = it?.get(0)
-                    mBinding.ivPicture.loadImage(File(currentPicture!!), radius = 8f)
-                    mBinding.ivDeletePicture.visibility = View.VISIBLE
-                    mViewModel.submitEnable.set(true)
+                activity?.let { it1 ->
+                    openPictureSelector(it1,1) {
+                        currentPicture = it?.get(0)
+                        mBinding.ivPicture.loadImage(File(currentPicture!!), radius = 8f)
+                        mBinding.ivDeletePicture.visibility = View.VISIBLE
+                        mViewModel.submitEnable.set(true)
+                    }
                 }
             }
         }

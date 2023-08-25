@@ -166,7 +166,7 @@ class ChatPanelView : FrameLayout, IAudioRecordCallback {
         }
 
         mPictureButton.setOnClickListener {
-           openPictureSelector(1) {
+           openPictureSelector(context,1) {
                 it?.forEach { path ->
                     onChatPanelCallBack.onSendImageMessage(path)
                 }

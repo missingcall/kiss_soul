@@ -1,5 +1,6 @@
 package com.kissspace.common.util.init
 
+import android.app.Application
 import android.content.Context
 import androidx.startup.Initializer
 import by.kirich1409.viewbindingdelegate.ViewBindingPropertyDelegate
@@ -34,6 +35,9 @@ import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.module_common.BuildConfig
 import com.kissspace.network.net.netInit
 import com.kissspace.util.AppFileHelper
+import com.kissspace.util.activityCache
+import com.kissspace.util.application
+import com.kissspace.util.doOnActivityLifecycle
 import com.kissspace.util.getNimSdkPath
 import com.kissspace.util.isNotEmpty
 import kotlinx.coroutines.CoroutineScope
@@ -52,6 +56,15 @@ class LibraryInit : Initializer<Unit> {
         if (!isMainProcess(context)) {
             return
         }
+        application = context as Application
+        application.doOnActivityLifecycle(
+            onActivityCreated = { activity, _ ->
+                activityCache.add(activity)
+            },
+            onActivityDestroyed = { activity ->
+                activityCache.remove(activity)
+            }
+        )
         MMKV.initialize(context)
         netInit(MMKVProvider.baseUrl) {
             writeTimeout((30 * 1000).toLong(), TimeUnit.MILLISECONDS)
