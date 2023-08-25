@@ -272,7 +272,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_more"
                 app:layout_constraintTop_toTopOf="parent" />
-            b
+
 
             <TextView
                 style="@style/RedDotStyle"
