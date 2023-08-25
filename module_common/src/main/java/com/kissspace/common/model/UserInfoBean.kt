@@ -67,7 +67,8 @@ data class UserInfoBean(
     //头像框
     val headwearUrl: String = "",
     val medalList: MutableList<UserMedalBean> = mutableListOf(),
-    val isSetPassword: Boolean = false
+    val isSetPassword: Boolean = false,
+    val likesReceivedNum:String ="0",
 
 ) : Parcelable {
     fun getIntegralLong(): Long = integral.roundToLong()

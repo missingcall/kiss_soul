@@ -33,4 +33,10 @@ object Api {
     //活体认证
     const val API_FACE_RECOGNITION = "/djsoul-user/authentication/faceRecognition"
 
+    //获取热门用户
+    const val API_POPULAR_USER_LIST = "/djsoul-user/indexHome/popularUserList"
+
+    //获取全服广播
+    const val API_HOME_QUERY_MESSAGE = "/djsoul-chatroom/largeScreenInteractionMessage/queryCurrentMessage"
+
 }

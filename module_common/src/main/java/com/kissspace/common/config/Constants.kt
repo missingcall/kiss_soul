@@ -384,6 +384,12 @@ object Constants {
         //游戏公聊文本消息
         const val MSG_TYPE_ROOM_CHAT_GAME = "108"
 
+        //全房间广播
+        const val MSG_TYPE_ROOM_NEW_BROADCAST_MESSAGE = "061"
+
+        //全房间广播结束
+        const val MSG_TYPE_ROOM_NEW_BROADCAST_END = "062"
+
     }
 
 //    操作类型 1.充值 2.提现 3.消费 4.兑换 5.转账 6.其他

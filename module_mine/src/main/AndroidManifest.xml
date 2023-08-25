@@ -44,6 +44,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.kissspace.mine.ui.activity.AuthActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.kissspace.mine.ui.activity.StoreActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

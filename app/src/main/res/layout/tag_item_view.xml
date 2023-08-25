@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/iv"
+        android:layout_width="39dp"
+        android:layout_height="39dp"
+        app:bl_stroke_width="0.5dp"
+        app:bl_stroke_color="#1DF7FF"
+        app:bl_shape="oval"
+        app:bl_solid_color="@color/common_transparent"
+        android:padding="0.5dp"
+        />
+
+</FrameLayout>

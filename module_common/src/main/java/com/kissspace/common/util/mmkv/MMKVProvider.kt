@@ -140,6 +140,9 @@ object MMKVProvider : MMKVOwner {
 
     var gameConfig by mmkvString()
 
+    var userHour by mmkvInt(default = 0)
+    var userHourDate by mmkvString(default = "")
+
 }
 
 /**

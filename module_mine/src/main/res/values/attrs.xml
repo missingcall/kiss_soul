@@ -12,4 +12,10 @@
             <enum name="end" value="1" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="MineInletView">
+        <attr name="mineInletView_labelText" format="string" />
+        <attr name="mineInletView_labelColor" format="reference|color" />
+        <attr name="mineInletView_arrow" format="reference" />
+    </declare-styleable>
 </resources>

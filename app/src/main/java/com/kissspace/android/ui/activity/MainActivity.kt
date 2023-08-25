@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.load
 import com.blankj.utilcode.util.GsonUtils
@@ -30,6 +31,7 @@ import com.petterp.floatingx.assist.helper.ScopeHelper
 import com.petterp.floatingx.listener.control.IFxControl
 import com.kissspace.android.R
 import com.kissspace.android.databinding.ActivityMainBinding
+import com.kissspace.android.ui.fragment.HomeFragment
 import com.kissspace.android.ui.fragment.PartyFragment
 import com.kissspace.android.viewmodel.MainViewModel
 import com.kissspace.android.widget.UpgradeDialog
@@ -52,12 +54,14 @@ import com.kissspace.common.http.getUserInfo
 import com.kissspace.common.model.config.RoomGameConfig
 import com.kissspace.common.model.config.WaterConfig
 import com.kissspace.room.manager.RoomServiceManager
+import com.kissspace.util.YYYY_MM_DD
 import com.kissspace.util.apkAbsolutePath
 import com.kissspace.util.appVersionCode
 import com.kissspace.util.deleteDir
 import com.kissspace.util.immersiveStatusBar
 import com.kissspace.util.loadImageCircle
 import com.kissspace.util.logE
+import com.kissspace.util.millis2String
 import com.kissspace.util.orZero
 import com.petterp.floatingx.listener.control.IFxScopeControl
 import com.tencent.mmkv.MMKV
@@ -76,7 +80,6 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
     private val mBinding by viewBinding<ActivityMainBinding>()
     private val mViewModel by viewModels<MainViewModel>()
     private var roomFloating: IFxScopeControl<Activity> ?= null
-    private var invitationDialog: InvitationDialog? = null
     private var index = 0
 
     private val onlineStatusObserver = Observer<StatusCode> {
@@ -96,7 +99,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         super.onNewIntent(intent)
         setIntent(intent)
         index = intent?.getIntExtra("index", 0).orZero()
-        mBinding.tabLayout.setDefaultItem(index.orZero())
+        refreshBottomBar(index, true)
         mBinding.viewPager.setCurrentItem(index.orZero(), false)
     }
 
@@ -108,9 +111,28 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         mBinding.collectRoomView.setOnClickListener {
             jump(RouterPath.PATH_MY_COLLECT)
         }
+        initViewClick()
         initData()
         initAppConfig()
 
+    }
+
+    private fun initViewClick() {
+        mBinding.view1.setOnClickListener {
+            mBinding.viewPager.currentItem = 0
+        }
+        mBinding.view2.setOnClickListener {
+            mBinding.viewPager.currentItem = 1
+        }
+        mBinding.view3.setOnClickListener {
+            mBinding.viewPager.currentItem = 3
+        }
+        mBinding.view4.setOnClickListener {
+            mBinding.viewPager.currentItem = 4
+        }
+        mBinding.ivParty.setOnClickListener {
+            mBinding.viewPager.currentItem = 2
+        }
     }
 
     private fun initData() {
@@ -138,6 +160,12 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         getAppConfigByKey<List<RoomGameConfig>>(AppConfigKey.ROOM_ACTIVE_PATH_CONFIG) { gameConfig ->
             MMKVProvider.gameConfig = GsonUtils.toJson(gameConfig)
         }
+
+        val currentTimeString = System.currentTimeMillis().millis2String(YYYY_MM_DD)
+        if (MMKVProvider.userHourDate != currentTimeString){
+            MMKVProvider.userHour = MMKVProvider.userHour + 1
+            MMKVProvider.userHourDate = currentTimeString
+        }
     }
 
     private fun showOtherDialog() {
@@ -147,8 +175,9 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
     }
 
     private fun initViewPager() {
-        val fragments = arrayOf(PartyFragment(), MessageFragment(), MineFragment())
+        val fragments = arrayOf(HomeFragment(),PartyFragment(),PartyFragment(), MessageFragment(), MineFragment())
         mBinding.viewPager.apply {
+            offscreenPageLimit = fragments.size
             isUserInputEnabled = false
             adapter = object : FragmentStateAdapter(this@MainActivity) {
                 override fun getItemCount(): Int = fragments.size
@@ -159,48 +188,54 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
                 }
             }
         }
+        mBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                if (index != -1) {
+                    refreshBottomBar(index, false)
+                }
+                refreshBottomBar(position, true)
+                index = position
+            }
+        })
+    }
 
-        val tab1 = BottomTabBean(
-            "派对",
-            0,
-            com.kissspace.module_common.R.color.color_7B6F9F,
-            com.kissspace.module_common.R.color.color_FFEF71,
-            R.mipmap.icon_tab_party_normal,
-            R.mipmap.icon_tab_party_selected,
-            true
-        )
-        val tab2 = BottomTabBean(
-            "消息",
-            1,
-            com.kissspace.module_common.R.color.color_7B6F9F,
-            com.kissspace.module_common.R.color.color_7ADFFF,
-            R.mipmap.icon_tab_message_normal,
-            R.mipmap.icon_tab_message_selected,
-            false
-        )
-        val tab3 = BottomTabBean(
-            "我的",
-            2,
-            com.kissspace.module_common.R.color.color_7B6F9F,
-            com.kissspace.module_common.R.color.color_92FFA0,
-            R.mipmap.icon_tab_mine_normal,
-            R.mipmap.icon_tab_mine_selected,
-            false
-        )
+    fun refreshBottomBar(index: Int, isAnim: Boolean) {
+        when (index) {
+            0 -> {
+                alphaTo(mBinding.ivExplore, if (isAnim) 0f else 1f)
+                alphaTo(mBinding.animviewExplore, if (isAnim) 1f else 0f)
+                if (isAnim) {
+                    mBinding.animviewExplore.startPlay()
+                }
+            }
 
-        mBinding.tabLayout.addTabItem(tab1)
-        mBinding.tabLayout.addTabItem(tab2)
-        mBinding.tabLayout.addTabItem(tab3)
-        mBinding.tabLayout.setDefaultItem(index)
-        mBinding.viewPager.setCurrentItem(index.orZero(), false)
-        mBinding.tabLayout.setOnTabChangedListener {
-            mBinding.viewPager.setCurrentItem(it, false)
-            mViewModel.requestCollectList()
-            if (it != 0) {
-                immersiveStatusBar(true)
+            1 -> {
+                alphaTo(mBinding.ivTrends, if (isAnim) 0f else 1f)
+                alphaTo(mBinding.animviewTrends, if (isAnim) 1f else 0f)
+                if (isAnim) {
+                    mBinding.animviewTrends.startPlay()
+                }
+            }
+
+            3 -> {
+                alphaTo(mBinding.ivMessage, if (isAnim) 0f else 1f)
+                alphaTo(mBinding.animviewMessage, if (isAnim) 1f else 0f)
+                if (isAnim) {
+                    mBinding.animviewMessage.startPlay()
+                }
+            }
+
+            4 -> {
+                alphaTo(mBinding.ivMine, if (isAnim) 0f else 1f)
+                alphaTo(mBinding.animviewMine, if (isAnim) 1f else 0f)
+                if (isAnim) {
+                    mBinding.animviewMine.startPlay()
+                }
             }
         }
     }
+
 
     override fun onResume() {
         super.onResume()
@@ -301,7 +336,8 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         try {
             val unReadCount =
                 NIMClient.getService(MsgService::class.java).totalUnreadCount + MMKVProvider.systemMessageUnReadCount
-            mBinding.tabLayout.updateMessageUnReadCount(unReadCount)
+            mBinding.tvNotifyCount.visibility = if (unReadCount > 0) View.VISIBLE else View.GONE
+            mBinding.tvNotifyCount.text = if (unReadCount > 99) "99+" else unReadCount.toString()
         } catch (e: IllegalStateException) {
             e.printStackTrace()
         }

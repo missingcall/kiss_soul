@@ -1,294 +1,224 @@
 package com.kissspace.android.ui.fragment
 
-import android.graphics.Color
+import android.animation.Animator
+import android.animation.ValueAnimator
 import android.os.Bundle
-import android.view.Gravity
 import android.view.View
-import android.widget.LinearLayout.LayoutParams
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
+import android.view.ViewGroup
+import android.view.animation.LinearInterpolator
+import android.webkit.JavascriptInterface
+import android.webkit.WebView
+import android.widget.LinearLayout
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.viewModels
-import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.angcyo.tablayout.DslTabLayout
-import com.angcyo.tablayout.delegate2.ViewPager2Delegate
 import com.blankj.utilcode.util.BarUtils
-import com.blankj.utilcode.util.ConvertUtils
-import com.blankj.utilcode.util.SizeUtils
-import com.kissspace.util.dp
-import com.google.android.material.appbar.AppBarLayout
-import com.kissspace.mine.widget.FirstChargeDialog
-import com.kissspace.pay.utils.PayUtils
-import com.noober.background.drawable.DrawableCreator
+import com.blankj.utilcode.util.LogUtils
 import com.kissspace.android.R
-import com.kissspace.android.adapter.HomeBannerAdapter
+import com.kissspace.android.adapter.ViewTagsAdapter
 import com.kissspace.android.databinding.FragmentMainHomeBinding
 import com.kissspace.android.viewmodel.HomeViewModel
+import com.kissspace.android.widget.HomeUserInfoDialog
 import com.kissspace.common.base.BaseFragment
 import com.kissspace.common.config.Constants
 import com.kissspace.common.router.jump
 import com.kissspace.common.ext.safeClick
-import com.kissspace.common.flowbus.Event
-import com.kissspace.common.flowbus.FlowBus
-import com.kissspace.common.http.getSelectPayChannelList
-import com.kissspace.common.model.RoomTagListBean
-import com.kissspace.common.model.VideoBannerListBean
+import com.kissspace.common.model.RoomScreenMessageModel
+import com.kissspace.common.model.immessage.BaseAttachment
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.util.*
-import com.kissspace.common.util.mmkv.MMKVProvider
-import com.kissspace.common.widget.appbarlayout.AppBarStateChangeListener
 import com.kissspace.network.result.collectData
-import com.kissspace.util.immersiveStatusBar
-import com.kissspace.util.logE
-import com.youth.banner.config.IndicatorConfig
-import com.youth.banner.indicator.RectangleIndicator
-import kotlin.collections.isNotEmpty
+import com.kissspace.util.resToColor
+import com.kissspace.util.runOnUi
+import com.kissspace.webview.init.WebViewCacheHolder
+import com.netease.nimlib.sdk.NIMClient
+import com.netease.nimlib.sdk.Observer
+import com.netease.nimlib.sdk.chatroom.ChatRoomServiceObserver
+import com.netease.nimlib.sdk.chatroom.model.ChatRoomMessage
+import org.json.JSONObject
 
 
 /**
  *
  * @Author: nicko
  * @CreateDate: 2022/11/3
- * @Description: 潮播fragment
- *
+ * @Description: 首页fragment
  */
-class HomeFragment : BaseFragment(R.layout.fragment_main_home) {
+class HomeFragment : BaseFragment(R.layout.fragment_main_home) , WebViewUtil.JsCall {
+
     private val mBinding by viewBinding<FragmentMainHomeBinding>()
     private val mViewModel by viewModels<HomeViewModel>()
-    private val mTabList = mutableListOf<RoomTagListBean>()
-
-    /**
-     * 是否是展开状态
-     */
-    private var isExpanded = true
-
-    override fun initView(savedInstanceState: Bundle?) {
-        immersiveStatusBar(false)
-        mBinding.m=mViewModel
-        mBinding.lifecycleOwner = this
-        mViewModel.isShowFirstRecharge.value = MMKVProvider.firstRecharge
-        mViewModel.getHomeBanner()
-        mViewModel.getRoomTagList()
-        initBanner(mutableListOf())
-        initViewPager()
-        initRefresh()
-        initClickEvent()
-        initAppBarLayout()
-    }
-
-    private fun initAppBarLayout() {
-        val expandedDrawable =
-            DrawableCreator.Builder().setCornersRadius(ConvertUtils.dp2px(20f).toFloat())
-                .setSolidColor(Color.parseColor("#50ffffff"))
-                .setStrokeColor(Color.parseColor("#ffffff"))
-                .setStrokeWidth(ConvertUtils.dp2px(0.5f).toFloat()).build()
-        val searchExpandedDrawable = resources.getDrawable(R.mipmap.app_icon_home_search_white)
-        searchExpandedDrawable.setBounds(
-            0,
-            0,
-            searchExpandedDrawable.minimumWidth,
-            searchExpandedDrawable.minimumHeight
-        )
-        val collapsedDrawable =
-            DrawableCreator.Builder().setCornersRadius(ConvertUtils.dp2px(20f).toFloat())
-                .setSolidColor(Color.parseColor("#F8F8F9"))
-                .setStrokeColor(Color.parseColor("#F8F8F9"))
-                .setStrokeWidth(ConvertUtils.dp2px(0.5f).toFloat()).build()
-        val searchCollapsedDrawable = resources.getDrawable(com.kissspace.module_common.R.mipmap.common_icon_search)
-        searchCollapsedDrawable.setBounds(
-            0,
-            0,
-            searchExpandedDrawable.minimumWidth,
-            searchExpandedDrawable.minimumHeight
-        )
-        mBinding.appbarLayout.addOnOffsetChangedListener(object : AppBarStateChangeListener() {
-            override fun onStateChanged(appBarLayout: AppBarLayout, state: State, alpha: Int) {
-                when (state) {
-                    State.EXPANDED -> {
-                        //展开状态
-                        isExpanded = true
-                        mBinding.ivRanking.setImageResource(R.mipmap.app_icon_home_my_ranking_white)
-                        mBinding.ivMyRoom.setImageResource(R.mipmap.app_icon_home_my_room_white)
-                        mBinding.layoutSearch.background = expandedDrawable
-                        mBinding.tvSearch.setTextColor(resources.getColor(com.kissspace.module_common.R.color.common_white))
-                        mBinding.tvSearch.setCompoundDrawables(
-                            searchExpandedDrawable,
-                            null,
-                            null,
-                            null
-                        )
-                        immersiveStatusBar(false)
-                        mBinding.layoutTop.setBackgroundColor(Color.TRANSPARENT)
-                        mBinding.vRadius.visibility = View.VISIBLE
+    private lateinit var mWebView: WebView
+    private lateinit var mAdapter: ViewTagsAdapter
+    private var isFirst = true
+    private var angleNumber = 1
+    private var mRoomCircleAngleLast  = 0
+    private var mRankCircleAngleLast  = 0
+    private var mRoomAngleList = arrayListOf(30,335,210)
+    private var mRankAngleList = arrayListOf(210,145,30)
+    private val customMessageObservable = Observer<List<ChatRoomMessage>> {
+        it.forEach { that ->
+            try {
+                val json = JSONObject(that.attachStr)
+                val type = json.getString("type")
+                val attachment = BaseAttachment(type, json.get("data"))
+                when (attachment.type) {
+                    Constants.IMMessageType.MSG_TYPE_ROOM_NEW_BROADCAST_MESSAGE -> {
+                        val data = parseCustomMessage<RoomScreenMessageModel>(attachment.data)
+                        mBinding.conMessage.visibility = View.VISIBLE
+                        mBinding.tvMessage.text = data.messageContent
+                        mBinding.tvMessage.isSelected = true
                     }
-
-                    State.COLLAPSED -> {
-                        //折叠状态
-                        isExpanded = false
-                        mBinding.ivRanking.setImageResource(R.mipmap.icon_home_ranking)
-                        mBinding.ivMyRoom.setImageResource(R.mipmap.icon_home_my_room)
-                        mBinding.layoutSearch.background = collapsedDrawable
-                        mBinding.tvSearch.setTextColor(resources.getColor(com.kissspace.module_common.R.color.color_A8A8B3))
-                        mBinding.tvSearch.setCompoundDrawables(
-                            searchCollapsedDrawable,
-                            null,
-                            null,
-                            null
-                        )
-                        immersiveStatusBar(true)
-                        mBinding.layoutTop.setBackgroundColor(Color.WHITE)
-                        mBinding.vRadius.visibility = View.INVISIBLE
-                    }
-
-                    else -> {
-                        //中间状态
-                        mBinding.layoutTop.setBackgroundColor(Color.WHITE)
-                        mBinding.layoutTop.background.alpha = alpha
-                        if (mBinding.vRadius.visibility == View.INVISIBLE) {
-                            mBinding.vRadius.visibility = View.VISIBLE
-                        }
+                    Constants.IMMessageType.MSG_TYPE_ROOM_NEW_BROADCAST_END -> {
+                        mBinding.conMessage.visibility = View.GONE
+                        mBinding.tvMessage.text = ""
                     }
                 }
+            } catch (e: Exception) {
+                LogUtils.e("消息格式错误！${e.message}")
+            }
+        }
+    }
+
+    private var animRunnable = Runnable {
+        cardMoveAnim()
+    }
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        NIMClient.getService(ChatRoomServiceObserver::class.java)
+            .observeReceiveMessage(customMessageObservable, true)
+    }
+
+    override fun initView(savedInstanceState: Bundle?) {
+        mViewModel.getCurrentMessage()
+        initEvents()
+        initWebView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isFirst){
+            mViewModel.getHomeUserList()
+        }
+    }
+
+    override fun createDataObserver() {
+        super.createDataObserver()
+        collectData(mViewModel.roomList, onSuccess = {
+            mAdapter = ViewTagsAdapter(it)
+            mBinding.tagCloud.setAdapter(mAdapter)
+        })
+
+        collectData(mViewModel.homeMessage, onSuccess = {
+            if (it != null){
+                mBinding.conMessage.visibility = View.VISIBLE
+                mBinding.tvMessage.text = it.messageContent
+                mBinding.tvMessage.isSelected = true
             }
         })
     }
 
-    private fun initClickEvent() {
-        mBinding.ivFirstRecharge.safeClick {
-            getSelectPayChannelList {
-                val firstChargeDialog = FirstChargeDialog(requireContext())
-                firstChargeDialog.callBack = { payChannelType: String, payProductId: String ->
-                    PayUtils.pay(payChannelType, payProductId, activity as AppCompatActivity, onSuccess = {
-                        mViewModel.isShowFirstRecharge.value =false
-                        MMKVProvider.firstRecharge = false
-                    })
-                    firstChargeDialog.dismiss()
-                }
-                firstChargeDialog.show()
-                if (it.isNotEmpty()) {
-                    if (it.size > 1) {
-                        firstChargeDialog.setData(
-                            it[0].firstRechargePayProductListResponses,
-                            it[1].firstRechargePayProductListResponses
-                        )
-                    }
-                }
-            }
+    private fun initEvents() {
+        mBinding.flRoom.safeClick {
+            jumpRoom(roomType = Constants.ROOM_TYPE_PARTY)
         }
-
-        mBinding.layoutSearch.safeClick {
-            jump(RouterPath.PATH_SEARCH)
-        }
-
-        mBinding.ivRanking.setOnClickListener {
+        mBinding.flRank.safeClick {
             val url =
                 getH5Url(
                     Constants.H5.roomRankUrl,
                     true
                 ) + "&fixedHeight=${BarUtils.getStatusBarHeight()}"
-            logE("rank url------${url}")
             jump(RouterPath.PATH_WEBVIEW, "url" to url)
         }
-        mBinding.ivMyRoom.safeClick {
-            jumpRoom(roomType = Constants.ROOM_TYPE_PARTY)
+        mBinding.conHomeSearch.safeClick {
+            jump(RouterPath.PATH_SEARCH)
+        }
+        mBinding.tagCloud.setOnTagClickListener { _, _, position ->
+            HomeUserInfoDialog.newInstance(mAdapter.mList,position).show(requireActivity().supportFragmentManager)
         }
     }
 
-    private fun initViewPager() {
-        mBinding.viewPager.apply {
-            adapter = object : FragmentStateAdapter(this@HomeFragment) {
-                override fun getItemCount(): Int = mTabList.size
-                override fun createFragment(position: Int): Fragment =
-                    HomePageListFragment.newInstance(position, mTabList[position].roomTagId)
+    private fun initWebView() {
+        mWebView = WebViewCacheHolder.acquireHomeWebViewInternal(requireContext())
+        val layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT
+        )
+        mWebView.alpha = 0f
+        WebViewUtil.init(mWebView,this)
+        WebViewUtil.loadAssets(mWebView, "web-mobile/map.html")
+        mBinding.container.addView(mWebView, layoutParams)
+    }
 
-                override fun getItemId(position: Int): Long = position.toLong()
 
-                //懒加载
-                override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-                    super.onAttachedToRecyclerView(recyclerView)
-                    recyclerView.setItemViewCacheSize(0)
+
+    private fun cardMoveAnim(){
+        angleNumber += 1
+        if (angleNumber > 2){
+            angleNumber = 0
+        }
+        val valueAnimator = ValueAnimator.ofFloat(0.0f, 1.0f)
+        valueAnimator.duration = 1300
+        valueAnimator.interpolator = LinearInterpolator()
+        val roomLayoutParams = mBinding.flRoom.layoutParams as ConstraintLayout.LayoutParams
+        val rankLayoutParams = mBinding.flRank.layoutParams as ConstraintLayout.LayoutParams
+        mRoomCircleAngleLast = roomLayoutParams.circleAngle.toInt()
+        mRankCircleAngleLast = rankLayoutParams.circleAngle.toInt()
+        valueAnimator.addUpdateListener {
+            if (isAdded){
+                val animatedValue = (it.animatedValue as Float).toFloat()
+                var roomNextAngle  = mRoomAngleList[angleNumber]
+                roomLayoutParams.circleAngle =  mRoomCircleAngleLast + (roomNextAngle - mRoomCircleAngleLast) * animatedValue
+                mBinding.flRoom.layoutParams = roomLayoutParams
+
+                val rankNextAngle = mRankAngleList[angleNumber]
+                rankLayoutParams.circleAngle =  mRankCircleAngleLast - (mRankCircleAngleLast - rankNextAngle) * animatedValue
+                mBinding.flRank.layoutParams = rankLayoutParams
+            }
+        }
+        valueAnimator.addListener(object : Animator.AnimatorListener {
+            override fun onAnimationStart(p0: Animator) {
+            }
+
+            override fun onAnimationEnd(p0: Animator) {
+                if (isAdded){
+                    mBinding.center.postDelayed(animRunnable,5000)
                 }
             }
-        }
-        ViewPager2Delegate.install(mBinding.viewPager, mBinding.tabLayout)
+
+            override fun onAnimationCancel(p0: Animator) {
+            }
+
+            override fun onAnimationRepeat(p0: Animator) {
+            }
+        })
+        valueAnimator.start()
     }
 
-    private fun initRefresh() {
-        mBinding.refreshLayout.apply {
-            setEnableLoadMore(false)
-            setOnRefreshListener {
-                mViewModel.getHomeBanner()
-                mViewModel.getRoomTagList()
+    override fun onDestroy() {
+        super.onDestroy()
+        //注销注册
+        NIMClient.getService(ChatRoomServiceObserver::class.java)
+            .observeReceiveMessage(customMessageObservable, false)
+        mBinding.center.removeCallbacks(animRunnable)
+    }
+
+    override fun getName(): String = "sgg2077"
+
+    @JavascriptInterface
+    override fun loadsuc() {
+        runOnUi {
+            if (mWebView.alpha == 0f){
+                mWebView.visibility = View.VISIBLE
+                ViewCompat.animate(mWebView).alpha(1f).setDuration(666).start()
+                mViewModel.getHomeUserList()
+                isFirst = false
+                mBinding.flRank.alpha = 1f
+                mBinding.flRoom.alpha = 1f
+                cardMoveAnim()
             }
         }
-    }
-
-    private fun initBanner(data: MutableList<VideoBannerListBean>) {
-        mBinding.banner.apply {
-            addBannerLifecycleObserver(this@HomeFragment)
-            setAdapter(HomeBannerAdapter(requireContext(), data))
-            setLoopTime(5000)
-            indicator = RectangleIndicator(this@HomeFragment.context)
-            setIndicatorSelectedColorRes(com.kissspace.module_common.R.color.common_white)
-            setIndicatorNormalColorRes(com.kissspace.module_common.R.color.color_80FFFFFF)
-            setIndicatorWidth(12.dp.toInt(), 12.dp.toInt())
-            setIndicatorHeight(4.dp.toInt())
-            setIndicatorMargins(IndicatorConfig.Margins(0, 0, 0, 25.dp.toInt()))
-        }
-    }
-
-
-    override fun createDataObserver() {
-        super.createDataObserver()
-        collectData(mViewModel.tagList, onSuccess = {
-            mBinding.refreshLayout.finishRefresh()
-            addTab(it)
-        }, onEmpty = {
-            mBinding.refreshLayout.finishRefresh()
-        }, onError = {
-            mBinding.refreshLayout.finishRefresh()
-        })
-        collectData(mViewModel.getBannerEvent, onSuccess = {
-            initBanner(it)
-        })
-        FlowBus.observerEvent<Event.RefreshChangeAccountEvent>(this) {
-            mBinding.refreshLayout.autoRefresh()
-        }
-    }
-
-    private fun addTab(tabList: MutableList<RoomTagListBean>) {
-        if (areCollectionsDifferent(mTabList, tabList)) {
-            mTabList.clear()
-            mTabList.addAll(tabList.filter { it.state == "001" })
-            mBinding.tabLayout.removeAllViews()
-            mTabList.forEach {
-                val param =
-                    DslTabLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
-                param.setMargins(SizeUtils.dp2px(10f), 0, SizeUtils.dp2px(10f), 0)
-                val textView = TextView(context)
-                textView.text = it.roomTag
-                textView.setSingleLine()
-                textView.gravity = Gravity.BOTTOM
-                textView.layoutParams = param
-                mBinding.tabLayout.addView(textView)
-            }
-            val adapter = mBinding.viewPager.adapter as FragmentStateAdapter
-            adapter.notifyDataSetChanged()
-        }
-        val fragment = childFragmentManager.findFragmentByTag("f${mBinding.viewPager.currentItem}")
-        if (fragment != null) {
-            (fragment as HomePageListFragment).onRefresh()
-        }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        changeStatusBarTextColor()
-        mViewModel.isShowFirstRecharge.value =MMKVProvider.firstRecharge
-    }
-    private fun  changeStatusBarTextColor(){
-        immersiveStatusBar(!isExpanded)
     }
 }

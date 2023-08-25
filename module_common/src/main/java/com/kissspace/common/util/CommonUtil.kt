@@ -12,10 +12,12 @@ import android.os.Bundle
 import android.os.Process
 import android.text.TextUtils
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.GridLayoutManager
@@ -1062,3 +1064,8 @@ fun ViewPager2.setViewPagerTouchSlop() {
     val touchSlop = touchSlopField.get(recyclerView) as Int
     touchSlopField.set(recyclerView, touchSlop * 8)
 }
+
+fun alphaTo(view: View, alpha: Float) {
+    ViewCompat.animate(view).alpha(alpha).start()
+}
+

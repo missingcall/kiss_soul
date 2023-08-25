@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.hjq.bar.TitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:barStyle="transparent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:leftHorizontalPadding="16dp"
+        app:leftIcon="@mipmap/common_icon_back_white"
+        app:lineVisible="false"
+        app:title="官方认证"
+        app:titleSize="18sp"
+        app:titleStyle="bold" />
+
+
+    <ImageView
+        android:id="@+id/iv_real_name"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:src="@mipmap/mine_bg_real_name_authentication"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/iv_video"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:src="@mipmap/mine_bg_video_authentication"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/iv_car"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:src="@mipmap/mine_bg_car_authentication"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/iv_room"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:src="@mipmap/mine_bg_room_authentication"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/iv_school"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:src="@mipmap/mine_bg_school_authentication"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:scaleType="fitXY"/>
+
+    <ImageView
+        android:id="@+id/iv_career"
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:src="@mipmap/mine_bg_career_authentication"
+        android:layout_marginStart="13dp"
+        android:layout_marginEnd="13dp"
+        android:scaleType="fitXY"/>
+
+</LinearLayout>
