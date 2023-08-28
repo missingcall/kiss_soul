@@ -51,6 +51,12 @@ object CustomNotificationObserver {
 
     const val MESSAGE_BAN_USER = "058"
 
+    //星际庄园游戏结束
+    const val MESSAGE_INTERSTELLAR_GAME_END = "069"
+
+    //星际庄园游戏开始
+    const val MESSAGE_INTERSTELLAR_GAME_START = "070"
+
 
     fun initCustomNotificationObserver() {
         NIMClient.getService(MsgServiceObserve::class.java)
@@ -93,6 +99,25 @@ object CustomNotificationObserver {
                     }
                     MESSAGE_FAMILY_PASS ->{
                         FlowBus.post(Event.MsgFamilyPassEvent)
+                    }
+                    else -> {
+
+                    }
+                }
+            }, true)
+
+        NIMClient.getService(MsgServiceObserve::class.java)
+            .observeBroadcastMessage({ message -> // 处理自定义系统通知。
+                val json = JSONObject(message.content)
+                when (json.getString("type")) {
+                    Constants.IMMessageType.MSG_SYSTEM  ->{
+                        FlowBus.post(Event.MsgSystemEvent)
+                    }
+                    MESSAGE_INTERSTELLAR_GAME_END ->{
+                        FlowBus.post(Event.H5InterstellarEvent(json.getJSONObject("data").toString()))
+                    }
+                    MESSAGE_INTERSTELLAR_GAME_START ->{
+                        FlowBus.post(Event.H5InterstellarEvent(json.getJSONObject("data").toString()))
                     }
                     else -> {
 

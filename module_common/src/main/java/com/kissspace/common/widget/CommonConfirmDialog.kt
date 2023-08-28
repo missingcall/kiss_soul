@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.text.SpannableStringBuilder
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import com.kissspace.module_common.R
 
@@ -29,6 +30,7 @@ class CommonConfirmDialog(
     private var mSubTitle: TextView
     private var mPositive: TextView
     private var mNegative: TextView
+    private var mContent: TextView
 
 
     init {
@@ -37,24 +39,42 @@ class CommonConfirmDialog(
         mSubTitle = findViewById(R.id.tv_sub_title)
         mPositive = findViewById(R.id.tv_positive)
         mNegative = findViewById(R.id.tv_negative)
+        mContent = findViewById(R.id.tv_content)
         init()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        if (window != null){
+            val layoutParams = WindowManager.LayoutParams()
+            layoutParams.copyFrom(window!!.attributes)
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+            window!!.attributes = layoutParams
+        }
     }
 
     private fun init() {
         setCancelable(cancelable)
-        mTitle.text = title
-        titleSpannableString?.let {
-            mTitle.text = titleSpannableString
-        }
         mSubTitle.text = subTitle
-        mSubTitle.visibility = if (subTitle.isNotEmpty()) View.VISIBLE else View.GONE
+        if (subTitle.isNotEmpty()){
+            mSubTitle.visibility = View.VISIBLE
+            mTitle.text = title
+            titleSpannableString?.let {
+                mTitle.text = titleSpannableString
+            }
+        }else{
+            mSubTitle.visibility = View.INVISIBLE
+            mTitle.visibility = View.INVISIBLE
+            mContent.visibility = View.VISIBLE
+            mContent.text = title
+        }
 
-        negativeString?.let {
-            mNegative.text = it
-        }
-        positiveString?.let {
-            mPositive.text = it
-        }
+//        negativeString?.let {
+//            mNegative.text = it
+//        }
+//        positiveString?.let {
+//            mPositive.text = it
+//        }
         mNegative.setOnClickListener {
             dismiss()
             block(false)

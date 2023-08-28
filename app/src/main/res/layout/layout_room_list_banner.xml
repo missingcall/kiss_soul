@@ -9,10 +9,10 @@
             type="com.kissspace.common.model.RoomListBean" />
     </data>
 
-    <com.youth.banner.Banner
+    <com.kissspace.common.widget.RecyclerViewAtViewPager2
         android:id="@+id/banner"
         roomListBanner="@{m.banner}"
         android:layout_width="match_parent"
-        android:layout_height="90dp"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="80dp"
+        android:layout_marginBottom="10dp" />
 </layout>

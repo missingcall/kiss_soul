@@ -7,19 +7,21 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.LinearLayoutManager.HORIZONTAL
+import androidx.recyclerview.widget.RecyclerView
 import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.SizeUtils
+import com.drake.brv.utils.linear
+import com.drake.brv.utils.setup
 import com.kissspace.util.dp
 import com.kissspace.common.model.RoomListBannerBean
 import com.kissspace.common.model.RoomListBean
 import com.kissspace.common.util.format.Format
 import com.kissspace.common.util.handleSchema
+import com.kissspace.module_room.R
+import com.kissspace.room.widget.CountItem
 import com.kissspace.util.loadImage
 import com.kissspace.util.loadImageCircle
-import com.youth.banner.Banner
-import com.youth.banner.adapter.BannerImageAdapter
-import com.youth.banner.holder.BannerImageHolder
-import com.youth.banner.indicator.CircleIndicator
 
 object ViewBindingAdapter {
     @JvmStatic
@@ -59,37 +61,21 @@ object ViewBindingAdapter {
     @JvmStatic
     @BindingAdapter("roomListBanner", requireAll = false)
     fun roomListBanner(
-        banner: Banner<RoomListBannerBean, BannerImageAdapter<RoomListBannerBean>>,
+        banner: RecyclerView,
         data: MutableList<RoomListBannerBean>
     ) {
-        banner.apply {
-            setAdapter(object : BannerImageAdapter<RoomListBannerBean>(data) {
-                override fun onBindView(
-                    holder: BannerImageHolder?,
-                    data: RoomListBannerBean?,
-                    position: Int,
-                    size: Int
-                ) {
-                    (holder?.itemView as ImageView).loadImage(data?.url)
-                }
-            })
-            setOnBannerListener { data, _ ->
-                handleSchema(data.schema)
+        banner.linear(orientation = HORIZONTAL).setup {
+            addType<RoomListBannerBean> { com.kissspace.android.R.layout.app_item_party_banner_list }
+            onBind {
+                val model = getModel<RoomListBannerBean>()
+                val imageView = findView<ImageView>(com.kissspace.android.R.id.iv_banner)
+                imageView.setImageResource(com.kissspace.android.R.mipmap.app_party_top_room_rank_bg)
             }
-            indicator = CircleIndicator(banner.context)
-            setIndicatorSelectedColorRes(com.kissspace.module_common.R.color.common_white)
-            setIndicatorNormalColorRes(com.kissspace.module_common.R.color.color_80FFFFFF)
-            setIndicatorWidth(4.dp.toInt(), 4.dp.toInt())
-            setIndicatorHeight(4.dp.toInt())
-            outlineProvider = object : ViewOutlineProvider() {
-                override fun getOutline(view: View?, outline: Outline?) {
-                    outline?.setRoundRect(
-                        0, 0, view?.width!!, view.height, 10.dp
-                    )
-                }
+            onFastClick(R.id.root) {
+                val model = getModel<RoomListBannerBean>()
+                handleSchema(model.schema)
             }
-            clipToOutline = true
-        }
+        }.models = data
     }
 
     @JvmStatic
@@ -100,9 +86,9 @@ object ViewBindingAdapter {
         val margin = SizeUtils.dp2px(-3f)
         val size = SizeUtils.dp2px(21f)
         var userList =
-            room.wheatPositionList.filter { it.onMicroPhoneNumber != 0 && it.wheatPositionId.isNotEmpty() }
-        if (userList.isNotEmpty() && userList.size > 6) {
-            userList = userList.subList(0, 6)
+            room.wheatPositionList.filter { it.wheatPositionId.isNotEmpty() }
+        if (userList.isNotEmpty() && userList.size > 4) {
+            userList = userList.subList(0, 4)
         }
         userList.forEachIndexed { index, model ->
             val imageView = ImageView(layout.context)

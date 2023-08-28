@@ -4,10 +4,12 @@ import android.os.Bundle
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.drake.brv.annotaion.DividerOrientation
 import com.drake.brv.utils.addModels
 import com.drake.brv.utils.bindingAdapter
-import com.drake.brv.utils.linear
+import com.drake.brv.utils.divider
 import com.drake.brv.utils.mutable
 import com.drake.brv.utils.setup
 import com.kissspace.android.R
@@ -20,7 +22,6 @@ import com.kissspace.common.model.RoomListBean
 import com.kissspace.common.util.getMutable
 import com.kissspace.common.util.jumpRoom
 import com.kissspace.network.result.collectData
-import com.kissspace.room.manager.RoomServiceManager
 
 /**
  *
@@ -68,7 +69,14 @@ class PartyPageListFragment : BaseFragment(R.layout.fragment_party_page_list) {
 
 
     private fun initRecyclerView() {
-        mBinding.recyclerView.linear().setup {
+        val gridLayoutManager = GridLayoutManager(context, 2)
+        gridLayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+            override fun getSpanSize(position: Int): Int {
+                val viewType = mBinding.recyclerView.adapter?.getItemViewType(position)
+                return if (viewType == R.layout.layout_party_page_list_item) 1 else 2
+            }
+        }
+        mBinding.recyclerView.setup {
             addType<RoomListBean> {
                 if (this.banner.isNotEmpty()) {
                     R.layout.layout_room_list_banner
@@ -85,6 +93,7 @@ class PartyPageListFragment : BaseFragment(R.layout.fragment_party_page_list) {
                 }
             }
         }.models = mutableListOf()
+        mBinding.recyclerView.layoutManager = gridLayoutManager
     }
 
     fun onRefresh() {
