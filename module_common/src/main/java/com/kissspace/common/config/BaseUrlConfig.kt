@@ -21,7 +21,7 @@ val isPreServer: Boolean
 //val isReleaseServer: Boolean
 ////    get() = MMKVProvider.baseUrl == BaseUrlConfig.BASEURL_RELEASE
 
-val isReleaseServer = true
+val isReleaseServer = false
 /**
  *
  * @Author: nicko
@@ -34,7 +34,7 @@ object BaseUrlConfig {
     /**
      * 测试环境
      */
-    const val BASEURL_TEST = "https://test.wzlsdzswyxgs.com"
+    const val BASEURL_TEST = "http://121.41.169.40:8201"
 
     /**
      *  预发环境

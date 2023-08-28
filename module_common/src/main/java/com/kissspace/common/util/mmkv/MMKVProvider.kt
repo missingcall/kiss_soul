@@ -25,7 +25,7 @@ import kotlin.reflect.KProperty
 object MMKVProvider : MMKVOwner {
 
     //baseUrl
-    var baseUrl by mmkvString(default = BaseUrlConfig.BASEURL_RELEASE)
+    var baseUrl by mmkvString(default = BaseUrlConfig.BASEURL_TEST)
 
     //登录信息
     var loginResult by mmkvGson<LoginResultBean>()

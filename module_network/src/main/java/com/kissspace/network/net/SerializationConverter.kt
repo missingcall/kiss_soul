@@ -55,7 +55,11 @@ class SerializationConverter : NetConverter {
                         }
 
                     } else {
-                        throw ResponseException(response, srvMsg, tag = srvCode)
+                        if (srvCode == "53129"){
+                            throw ResponseException(response, bodyString, tag = srvCode)
+                        }else{
+                            throw ResponseException(response, srvMsg, tag = srvCode)
+                        }
                     }
                 } catch (e: SerializationException) { //解析失败 抛出异常
                     throw ConvertException(response, e.message, tag = srvCode)

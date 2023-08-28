@@ -40,4 +40,5 @@ data class RoomInfoBean(
     var wheatPositionList: MutableList<MicUserModel> = mutableListOf(),
     var backgroundDynamicImage: String = "",
     var backgroundStaticImage: String = "",
+    val largeScreenMessageResponse: RoomScreenMessageModel? = null
 ) : Parcelable

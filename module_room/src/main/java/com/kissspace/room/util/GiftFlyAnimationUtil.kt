@@ -84,7 +84,7 @@ object GiftFlyAnimationUtil {
         imageView.loadImageCircle(url)
 
         val giftWrapper = FrameLayout(context)
-        val giftWrapperParam = FrameLayout.LayoutParams(60.dp.toInt(), 60.dp.toInt())
+        val giftWrapperParam = FrameLayout.LayoutParams(42.dp.toInt(), 42.dp.toInt())
         wrapper.addView(giftWrapper, giftWrapperParam)
         giftWrapper.addView(imageView, imageViewParam)
 

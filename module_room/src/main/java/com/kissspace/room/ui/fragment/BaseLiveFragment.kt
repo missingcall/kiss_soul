@@ -55,6 +55,7 @@ import com.kissspace.room.adapter.RoomChatRecyclerAdapter
 import com.kissspace.room.config.RoomSettingClickType
 import com.kissspace.room.http.RoomApi
 import com.kissspace.room.interfaces.RoomActionCallBack
+import com.kissspace.room.interfaces.RoomBroadCastCallBack
 import com.kissspace.room.manager.RoomServiceManager
 import com.kissspace.room.ui.activity.BaseLiveActivity
 import com.kissspace.room.ui.activity.LiveAudioActivity
@@ -62,6 +63,8 @@ import com.kissspace.room.widget.InviteUserUpMicDialog
 import com.kissspace.room.widget.MicActionDialog
 import com.kissspace.room.widget.RoomActionBarView
 import com.kissspace.room.widget.RoomBlackListDialog
+import com.kissspace.room.widget.RoomBroadcastDialog
+import com.kissspace.room.widget.RoomBroadcastView
 import com.kissspace.room.widget.RoomInfoDialog
 import com.kissspace.room.widget.RoomMicrophoneLayout
 import com.kissspace.room.widget.RoomMusicDialog
@@ -243,6 +246,8 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
         registerMessageObserver()
         //初始化actionBar
         initActionBar()
+        //初始化广播
+        initBroadCast()
         //初始化麦克风recyclerView
         getMicrophoneLayout().initRecyclerView(getRoomInfo().wheatPositionList, onMicrophoneClick)
         //初始话聊天列表
@@ -251,6 +256,17 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
         initMicActionEvents()
         //初始化一些请求
         initData()
+    }
+
+    private fun initBroadCast() {
+        getBroadcastView().setCallBack(object : RoomBroadCastCallBack {
+            override fun showBroadCast(costCoin:Int,start:Boolean) {
+                RoomBroadcastDialog.newInstance(costCoin,start).show(childFragmentManager)
+            }
+        })
+        if (getRoomInfo()?.largeScreenMessageResponse != null){
+            getBroadcastView().initData(getRoomInfo()!!.largeScreenMessageResponse)
+        }
     }
 
     private fun initData() {
@@ -1030,6 +1046,14 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
                 changeTreeState(data.treeType)
             }
 
+            Constants.IMMessageType.MSG_TYPE_ROOM_NEW_BROADCAST_MESSAGE -> {
+                val data = parseCustomMessage<RoomScreenMessageModel>(attachment.data)
+                getBroadcastView().initData(data)
+            }
+            Constants.IMMessageType.MSG_TYPE_ROOM_NEW_BROADCAST_END -> {
+                getBroadcastView().initData(null)
+            }
+
         }
     }
 
@@ -1373,6 +1397,8 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
     abstract fun getActivityBannerView(): BannerViewPager<Any>
 
     abstract fun getActionBarView(): RoomActionBarView
+
+    abstract fun getBroadcastView(): RoomBroadcastView
 
     //显示新消息按钮
     abstract fun showNewMessageButton(isShow: Boolean)

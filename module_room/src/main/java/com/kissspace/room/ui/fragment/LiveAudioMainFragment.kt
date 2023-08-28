@@ -253,7 +253,10 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
                 dialog.show(childFragmentManager)
             }
         }
-
+        mBinding.ivBannerClose.safeClick {
+            mBinding.bannerActivity.visibility = View.GONE
+            mBinding.ivBannerClose.visibility = View.GONE
+        }
     }
 
     private fun initEventObserver() {
@@ -395,8 +398,12 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
     override fun playGiftFlyAnimation(message: GiftMessage) {
         val source = getRoomInfo().wheatPositionList.find { t -> t.wheatPositionId == message.sourceUser.userId }
         val startView: View? = if (source != null) {
-            val recyclerView = mBinding.layoutMicrophone.getRecyclerView()
-            getMicrophoneItemView(recyclerView, source.onMicroPhoneNumber)
+            if (source.onMicroPhoneNumber == 0) {
+                mBinding.layoutMicrophone.getCenterMicroPhone()
+            } else {
+                val recyclerView = mBinding.layoutMicrophone.getRecyclerView()
+                getMicrophoneItemView(recyclerView, source.onMicroPhoneNumber)
+            }
         } else {
             mBinding.ivGift
         }
@@ -405,7 +412,11 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
             if (model != null) {
                 val recyclerView = mBinding.layoutMicrophone.getRecyclerView()
                 val targetView = if (model != null) {
-                    getMicrophoneItemView(recyclerView, model.onMicroPhoneNumber)
+                    if (model.onMicroPhoneNumber == 0) {
+                        mBinding.layoutMicrophone.getCenterMicroPhone()
+                    } else {
+                        getMicrophoneItemView(recyclerView, model.onMicroPhoneNumber)
+                    }
                 } else {
                     mBinding.giftFlyEnd
                 }
@@ -510,6 +521,8 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
 
 
     override fun getUserInfo() = (requireParentFragment() as LiveAudioFragment).mUserInfo
+
+    override fun getBroadcastView(): RoomBroadcastView = mBinding.roomBdv
 
     override fun onResume() {
         super.onResume()

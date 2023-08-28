@@ -9,12 +9,14 @@ import androidx.startup.AppInitializer
 import com.drake.brv.utils.BRV
 import com.github.gzuliyujiang.oaid.DeviceIdentifier
 import com.kissspace.common.base.CustomNotificationObserver
+import com.kissspace.common.config.Constants
 import com.kissspace.common.flowbus.Event
 import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.util.*
 import com.kissspace.common.util.init.LibraryDelayInitSecond
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.room.service.RoomNotificationService
+import com.kissspace.util.application
 
 
 class App : Application() {
@@ -29,6 +31,7 @@ class App : Application() {
             AppInitializer.getInstance(this).initializeComponent(LibraryDelayInitSecond::class.java)
             CustomNotificationObserver.initCustomNotificationObserver()
         }
+        copyAssetsToStorage(application, Constants.ASSERT_ANIM_FILE)
         if (MMKVProvider.isAgreeProtocol) {
             DeviceIdentifier.register(this)
             CustomNotificationObserver.initCustomNotificationObserver()

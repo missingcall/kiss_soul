@@ -48,9 +48,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@id/prediction_view"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@id/prediction_view">
+            app:layout_constraintTop_toBottomOf="@id/layout_action_bar"
+            app:layout_constraintStart_toStartOf="parent">
 
 
             <ImageView
@@ -98,11 +97,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="12dp"
             android:clickable="true"
             android:focusable="true"
             android:visibility="invisible"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cl_integral" />
+
+
+        <com.kissspace.room.widget.RoomBroadcastView
+            android:id="@+id/room_bdv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="220dp"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layout_action_bar" />
 
         <com.angcyo.tablayout.DslTabLayout
@@ -110,9 +119,9 @@
             android:layout_width="wrap_content"
             android:layout_height="25dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="7dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/flt_mic"
+            app:layout_constraintTop_toBottomOf="@id/room_bdv"
             app:tab_deselect_color="@color/color_80FFFFFF"
             app:tab_draw_indicator="true"
             app:tab_indicator_drawable="@drawable/room_chat_tab_indicator"
@@ -149,12 +158,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="92dp"
             android:layout_marginBottom="12dp"
             android:overScrollMode="never"
             app:layout_constraintBottom_toTopOf="@id/layout_navigation_bar"
-            app:layout_constraintEnd_toStartOf="@id/banner_activity"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tab_chat" />
 
@@ -267,7 +275,7 @@
                 android:id="@+id/iv_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="-5dp"
+                android:layout_marginEnd="3dp"
                 android:src="@mipmap/room_icon_message"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/iv_more"
@@ -290,13 +298,22 @@
             android:layout_width="70dp"
             android:layout_height="65dp"
             android:layout_marginEnd="12dp"
-            android:layout_marginBottom="25dp"
+            android:layout_marginBottom="15dp"
             android:visibility="gone"
             app:bvp_indicator_checked_color="@color/white"
             app:bvp_indicator_normal_color="#1AFFFFFF"
             app:bvp_indicator_visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/layout_navigation_bar"
             app:layout_constraintEnd_toEndOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_banner_close"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:src="@mipmap/room_icon_action_banner_close"
+            app:layout_constraintTop_toTopOf="@id/banner_activity"
+            app:layout_constraintEnd_toEndOf="@id/banner_activity"
+            />
 
         <ImageView
             android:id="@+id/iv_water_game"

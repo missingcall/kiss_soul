@@ -203,5 +203,6 @@ object RoomApi {
     //房间黑名单列表
     const val API_ROOM_BLACK_LIST = "/djsoul-chatroom/chatRoom/chatRoomBlackList"
 
-
+    //发送全服广播
+    const val API_SEND_BROADCAST_MESSAGE = "/djsoul-chatroom/largeScreenInteractionMessage/send"
 }

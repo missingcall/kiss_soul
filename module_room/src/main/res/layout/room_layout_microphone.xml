@@ -1,18 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_microphone_default"
+        <variable
+            name="m"
+            type="com.kissspace.common.model.MicUserModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:clipChildren="false"
-        android:overScrollMode="never"
-        android:visibility="visible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/con_center"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="66dp">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/svga_sound"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
+                app:lottie_autoPlay="false"
+                app:lottie_fileName="talking.json"
+                app:lottie_loop="false" />
+
+            <ImageView
+                android:id="@+id/iv_user_avatar"
+                loadRoomMicAvatar="@{m}"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/iv_user_anim"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+                />
+
+            <com.kissspace.common.widget.HeadWearView
+                headPagUrl="@{m.headWearSvga}"
+                headStaticUrl="@{m.headWearIcon}"
+                android:layout_width="146dp"
+                android:layout_height="146dp"
+                app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_user_avatar" />
+
+            <com.kissspace.common.widget.EasyPagView
+                android:id="@+id/pag_emoji"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:clearAfterStop="true"
+                app:layout_constraintBottom_toBottomOf="@id/iv_user_avatar"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_user_avatar"
+                app:loop_count="1" />
+
+            <LinearLayout
+                android:id="@+id/llt_income_amount"
+                micIncomeVisibility="@{m.isShowIncome}"
+                android:layout_width="wrap_content"
+                android:layout_height="13dp"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:minWidth="40dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                app:bl_corners_radius="6.5dp"
+                app:bl_solid_color="@color/common_white"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintTop_toBottomOf="@id/iv_user_avatar">
+
+                <TextView
+                    android:text='@{""+m.wheatPositionIdCharmValue}'
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/color_FC8527"
+                    android:drawableStart="@mipmap/room_bg_microphone_love"
+                    android:includeFontPadding="false"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llt_pk_amount"
+                micPKValueVisibility="@{m.showPkValue}"
+                android:layout_width="wrap_content"
+                android:layout_height="13dp"
+                android:layout_marginTop="-10dp"
+                android:gravity="center"
+                android:minWidth="40dp"
+                android:paddingStart="3dp"
+                android:paddingEnd="3dp"
+                app:bl_corners_radius="6.5dp"
+                app:bl_solid_color="@color/common_white"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintTop_toBottomOf="@id/iv_user_avatar">
+
+                <TextView
+                    micIncomeValue="@{m.pkValue}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="2dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/color_F91C5D"
+                    android:textSize="9sp"
+                    app:drawableStartCompat="@mipmap/room_icon_pk_value" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="11dp"
+                android:layout_marginTop="6dp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="@id/iv_user_avatar"
+                app:layout_constraintStart_toStartOf="@id/iv_user_avatar"
+                app:layout_constraintTop_toBottomOf="@+id/iv_user_avatar">
+
+                <ImageView
+                    android:id="@+id/tv_host"
+                    micIndexImage="@{m}"
+                    android:layout_width="22dp"
+                    android:layout_height="11dp" />
+
+                <TextView
+                    android:id="@+id/tv_host_name"
+                    micUserName="@{m.wheatPositionIdName}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:ellipsize="end"
+                    android:maxWidth="40dp"
+                    android:maxLines="1"
+                    android:textColor="@color/common_white"
+                    android:textSize="9sp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_microphone_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:overScrollMode="never"
+            android:visibility="visible"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

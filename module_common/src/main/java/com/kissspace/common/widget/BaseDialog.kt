@@ -15,7 +15,7 @@ import com.kissspace.module_common.R
  * @Date 2023/2/7 10:46.
  * @Describe
  */
-abstract class BaseDialog<VB : ViewDataBinding>(context: Context) :
+abstract class BaseDialog<VB : ViewDataBinding>(context: Context,private val isMatchParent:Boolean = false) :
     Dialog(context, R.style.Theme_CustomDialog) {
     lateinit var mBinding: VB
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,11 @@ abstract class BaseDialog<VB : ViewDataBinding>(context: Context) :
         super.onStart()
         this.window?.apply {
             val attr = attributes
-            attr.width = context.resources.displayMetrics.widthPixels - SizeUtils.dp2px(64f)
+            if (isMatchParent){
+                attr.width = context.resources.displayMetrics.widthPixels
+            }else{
+                attr.width = context.resources.displayMetrics.widthPixels - SizeUtils.dp2px(64f)
+            }
             attr.height = ViewGroup.LayoutParams.WRAP_CONTENT
             attributes = attr
         }

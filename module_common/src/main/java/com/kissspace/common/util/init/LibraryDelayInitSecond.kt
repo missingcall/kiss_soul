@@ -1,10 +1,12 @@
 package com.kissspace.common.util.init
 
 import android.content.Context
+import android.util.Log
 import androidx.startup.Initializer
 import com.didi.drouter.api.DRouter
 import com.github.gzuliyujiang.oaid.DeviceIdentifier
 import com.ishumei.smantifraud.SmAntiFraud
+import com.kissspace.common.config.Constants
 import com.tencent.bugly.crashreport.CrashReport
 import com.kissspace.common.config.ConstantsKey
 import com.kissspace.common.config.isReleaseServer
