@@ -13,6 +13,7 @@ import com.kissspace.common.router.jump
 import com.kissspace.login.viewmodel.LoginViewModel
 import com.kissspace.module_login.R
 import com.kissspace.module_login.databinding.LoginActivityPhoneCodeLoginBinding
+import com.kissspace.util.addAfterTextChanged
 
 /**
  *
@@ -33,6 +34,10 @@ class PhoneCodeLoginActivity : BaseActivity(R.layout.login_activity_phone_code_l
         }
         mBinding.editPhoneNumber.setSeparator(" ")
         mBinding.editPhoneNumber.setPattern(intArrayOf(3, 4, 4))
+        mBinding.editPhoneNumber.addAfterTextChanged {
+            mViewModel.phoneIconState.set(it?.isNotEmpty())
+            mViewModel.getCodeBtnState.set(it?.length == 13)
+        }
         mBinding.textSubmit.safeClick {
             if (mViewModel.getCodeBtnState.get()!!) {
                 val phoneNumber = mBinding.editPhoneNumber.text.toString().trim()

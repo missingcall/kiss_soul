@@ -58,8 +58,9 @@
         <attr name="contentText" format="string" />
         <attr name="limitTextColor" format="color" />
         <attr name="limitTextSize" format="dimension" />
+        <attr name="tipTextColor" format="color" />
         <attr name="onContentTextChanged" format="string" />
-        <attr name="limitBackGround" format="color|reference" />
+        <attr name="limitBackground" format="color|reference" />
     </declare-styleable>
 
 
@@ -163,5 +164,7 @@
         <attr name="startAngleX" format="float" />
         <attr name="startAngleY" format="float" />
     </declare-styleable>
-
+    <declare-styleable name="PreviewImageView">
+        <attr name="image_padding" format="dimension" />
+    </declare-styleable>
 </resources>

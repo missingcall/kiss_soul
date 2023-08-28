@@ -13,8 +13,7 @@
         android:id="@+id/llt_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@mipmap/common_page_background">
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/title_bar"
@@ -25,22 +24,11 @@
                 android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:src="@mipmap/message_icon_title"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/tv_unread_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:textColor="@color/color_313133"
-                android:textSize="12sp"
-                android:visibility="gone"
-                app:layout_constraintBaseline_toBaselineOf="@id/tv_title"
-                app:layout_constraintStart_toEndOf="@id/tv_title" />
 
             <ImageView
                 android:id="@+id/iv_clear_message"
@@ -91,21 +79,28 @@
                 android:layout_width="77dp"
                 android:layout_height="36dp"
                 android:layout_marginEnd="16dp"
+                android:background="@mipmap/message_icon_open_notification"
                 android:gravity="center"
                 android:text="@string/message_open_notification"
                 android:textColor="@color/color_FFFD62"
                 android:textSize="13sp"
-                android:background="@mipmap/message_icon_open_notification"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/page_refresh_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"

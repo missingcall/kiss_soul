@@ -3,10 +3,13 @@ package com.kissspace.message.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import androidx.databinding.DataBindingUtil.getBinding
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.blankj.utilcode.util.DeviceUtils.getModel
 import com.didi.drouter.api.DRouter
 import com.drake.brv.BindingAdapter
 import com.drake.brv.utils.*
@@ -16,7 +19,6 @@ import com.netease.nimlib.sdk.msg.MsgService
 import com.netease.nimlib.sdk.msg.MsgServiceObserve
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.BroadcastMessage
-import com.netease.nimlib.sdk.msg.model.CustomNotification
 import com.kissspace.common.base.BaseFragment
 import com.kissspace.common.config.Constants
 import com.kissspace.common.router.jump
@@ -25,8 +27,6 @@ import com.kissspace.common.ext.setMarginStatusBar
 import com.kissspace.common.flowbus.Event
 import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.model.ChatListModel
-import com.kissspace.common.model.LoveWallResponse
-import com.kissspace.common.model.SystemMessageModel
 import com.kissspace.common.provider.IRoomProvider
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.util.getH5Url
@@ -35,11 +35,16 @@ import com.kissspace.common.util.jumpRoom
 import com.kissspace.common.util.customToast
 import com.kissspace.common.widget.CommonConfirmDialog
 import com.kissspace.message.viewmodel.MessageViewModel
+import com.kissspace.network.result.collectData
+import com.kissspace.common.model.ItemMessageMenu
+import com.kissspace.message.widget.ChatDialog
+import com.uc.crashsdk.export.LogType.addType
+import kotlinx.coroutines.launch
 import com.kissspace.module_message.R
 import com.kissspace.module_message.databinding.FragmentMessageV2Binding
-import com.kissspace.network.result.collectData
-import com.kissspace.common.http.getUserInfo
-import com.kissspace.message.widget.ChatDialog
+import com.kissspace.module_message.databinding.MessageItemMenuBinding
+import com.kissspace.util.logE
+import com.kissspace.util.swapWithHead
 
 /**
  *
@@ -51,45 +56,74 @@ import com.kissspace.message.widget.ChatDialog
 class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
     private val mBinding by viewBinding<FragmentMessageV2Binding>()
     private val mViewModel by viewModels<MessageViewModel>()
-    private lateinit var mBannerAdapter: BindingAdapter
-    private lateinit var mBossRankAdapter: BindingAdapter
-    private lateinit var mSystemMessageAdapter: BindingAdapter
     private lateinit var mRecentContactAdapter: BindingAdapter
-
+    private var menuList:MutableList<ItemMessageMenu> =ArrayList()
     /**
-
      * 系统广播监听
      */
     private val broadcastObserver = Observer<BroadcastMessage> {
         mViewModel.requestSystemMessage()
     }
 
-
     @SuppressLint("UnsafeOptInUsageError")
     override fun initView(savedInstanceState: Bundle?) {
         mBinding.vm = mViewModel
         viewLifecycleOwner.lifecycle.addObserver(mViewModel)
         initTitleBar()
+        initTopItemList()
         initRecyclerView()
         initRefreshLayout()
         registerObserver()
+        //只请求一次
         mViewModel.queryRecentMessage()
+    }
+
+    private fun initTopItemList() {
+        //关闭 RecyclerView 的item刷新动画
+        mBinding.rvList.itemAnimator = null
+        menuList= mViewModel.getMessageMenu()
+        mBinding.rvList.grid(4).setup {
+            addType<ItemMessageMenu> { R.layout.message_item_menu }
+            onBind {
+                val model = getModel<ItemMessageMenu>()
+                val viewBinding = getBinding<MessageItemMenuBinding>()
+                viewBinding.tvText.text=model.name
+                viewBinding.ivTop.setImageResource(model.resourceId)
+            }
+            onClick(R.id.cl_root){
+                when(modelPosition){
+                    0->{
+                        val url =getH5Url(Constants.H5.dynamicInteractivityType,true)+"&interactionType=001"
+                        jump(RouterPath.PATH_WEBVIEW, "url" to url, "showTitle" to false, "showTitleBarMargin" to true)
+                    }
+                    1->{
+                        jump(RouterPath.PATH_SYSTEM_MESSAGE)
+                    }
+                    2->{
+                        val url =getH5Url(Constants.H5.dynamicInteractivityType,true)+"&interactionType=002"
+                        jump(RouterPath.PATH_WEBVIEW, "url" to url, "showTitle" to false, "showTitleBarMargin" to true)
+                    }
+                    3->{
+                        jump(RouterPath.PATH_MESSAGE_TASK)
+                    }
+                }
+
+            }
+        }.models = menuList
+
     }
 
     override fun onResume() {
         super.onResume()
-        requestRankPermission()
         initData()
     }
 
     private fun initTitleBar() {
         if (!isFromDialog()) {
             mBinding.titleBar.setMarginStatusBar()
-//            mBinding.lltRoot.setBackgroundResource(R.drawable.message_bg_normal)
         } else {
-//            mBinding.lltRoot.setBackgroundResource(R.drawable.message_bg_corner)
+            mBinding.lltRoot.setBackgroundResource(R.drawable.message_bg_corner)
         }
-
         mBinding.ivClearMessage.safeClick {
             CommonConfirmDialog(
                 requireContext(), "忽略未读", "消息气泡会删除掉，但仍然保留消息"
@@ -100,12 +134,6 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
                         it.unReadCount = 0
                         it.notifyChange()
                     }
-                    (mSystemMessageAdapter.mutable as MutableList<SystemMessageModel>).forEach {
-                        it.unReadCount = 0
-                        it.notifyChange()
-                    }
-                    mBinding.tvUnreadCount.visibility = View.GONE
-                    mViewModel.unReadSystemMessage()
                 }
             }.show()
         }
@@ -114,26 +142,6 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
 
     private fun initRecyclerView() {
         mBinding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        mBannerAdapter = BindingAdapter().apply {
-            addType<LoveWallResponse> { R.layout.message_layout_banner }
-            mutable = arrayListOf()
-        }
-        mBossRankAdapter = BindingAdapter().apply {
-            addType<String> { R.layout.message_boss_rank }
-            mutable = arrayListOf()
-            onClick(R.id.root_boss) {
-                val url = getModel<String>()
-                jump(RouterPath.PATH_WEBVIEW, "url" to url, "showTitle" to true)
-            }
-        }
-        mSystemMessageAdapter = BindingAdapter().apply {
-            addType<SystemMessageModel> { R.layout.message_chat_list_item_system }
-            mutable = arrayListOf()
-            onClick(R.id.root_system_message) {
-                jump(RouterPath.PATH_SYSTEM_MESSAGE)
-            }
-
-        }
         mRecentContactAdapter = BindingAdapter().apply {
             addType<ChatListModel> { R.layout.message_chat_list_item }
             onClick(R.id.root_chat) {
@@ -181,16 +189,8 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             mutable = arrayListOf()
         }
 
-        val adapter = if (isFromDialog()) {
-            ConcatAdapter(mSystemMessageAdapter, mRecentContactAdapter)
-        } else {
-            ConcatAdapter(
-                mBannerAdapter,
-                mBossRankAdapter,
-                mSystemMessageAdapter,
-                mRecentContactAdapter
-            )
-        }
+        val adapter =
+            ConcatAdapter( mRecentContactAdapter)
 
         mBinding.recyclerView.adapter = adapter
 
@@ -214,8 +214,11 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
     private fun initData() {
         mViewModel.requestBannerData()
         mViewModel.requestSystemMessage()
+        mViewModel.requestDynamicMessageCount()
+        menuList[0].unReadCount=MMKVProvider.systemMessageUnReadCount
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun createDataObserver() {
         super.createDataObserver()
         collectData(mViewModel.getRecentMsgListEvent, onSuccess = {
@@ -231,30 +234,25 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             FlowBus.post(Event.RefreshUnReadMsgCount)
         })
 
-        collectData(mViewModel.bannerEvent, onSuccess = {
-            mBannerAdapter.mutable.clear()
-            if (it.giveGiftRecordList.isNotEmpty()) {
-                mBannerAdapter.addModels(mutableListOf(it))
-            } else {
-                mBannerAdapter.notifyDataSetChanged()
-            }
+        collectData(mViewModel.dynamicMessageCountEvent, onSuccess = {
+            menuList[0].unReadCount=it.likeMessage
+            menuList[2].unReadCount=it.interactiveMessages
+            mBinding.rvList.adapter?.notifyItemChanged(0)
+            mBinding.rvList.adapter?.notifyItemChanged(2)
         })
-
         collectData(mViewModel.systemMessageEvent, onSuccess = {
             if (it.records.isNotEmpty()) {
                 val data = it.records[0]
                 data.unReadCount = it.total - MMKVProvider.systemMessageLastReadCount
                 MMKVProvider.systemMessageUnReadCount = data.unReadCount
-                mSystemMessageAdapter.mutable.clear()
-                mSystemMessageAdapter.addModels(mutableListOf(data))
-            } else {
-                mSystemMessageAdapter.mutable.clear()
-                mSystemMessageAdapter.notifyDataSetChanged()
+                menuList[1].unReadCount=MMKVProvider.systemMessageUnReadCount
+                mBinding.rvList.adapter?.notifyItemChanged(1)
             }
             FlowBus.post(Event.RefreshUnReadMsgCount)
         })
 
         collectData(mViewModel.updateRecentEvent, onSuccess = {
+            //从历史消息里面获取
             val history = mRecentContactAdapter.mutable as MutableList<ChatListModel>
             it.forEach { model ->
                 var existModel: ChatListModel? = null
@@ -268,19 +266,18 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
                 if (existModel == null) {
                     mRecentContactAdapter.addModels(mutableListOf(model), index = 0)
                 } else {
+                    //还是老的昵称和头像
                     existModel?.nickname = model.nickname
+                    //显示的昵称
+                    logE("model.nickname"+model.nickname)
                     existModel?.avatar = model.avatar
                     existModel?.content = model.content
                     existModel?.unReadCount = model.unReadCount
                     existModel?.date = model.date
                     existModel?.followRoomId = model.followRoomId
-                    if (postion == 0) {
-                        existModel?.notifyChange()
-                    } else {
-                        history.removeAt(postion)
-                        mRecentContactAdapter.notifyItemRemoved(postion)
-                        mRecentContactAdapter.addModels(mutableListOf(existModel), index = 0)
-                    }
+                    //交换位置
+                    mRecentContactAdapter._data= swapWithHead( mRecentContactAdapter.models?.toMutableList(),postion)
+                    mRecentContactAdapter.notifyDataSetChanged()
                 }
             }
         })
@@ -299,30 +296,14 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         FlowBus.observerEvent<Event.MsgSystemEvent>(this) {
             mViewModel.requestSystemMessage()
         }
+
+        FlowBus.observerEvent<Event.MsgRefreshDynamicNoticeEvent>(this) {
+            mViewModel.requestDynamicMessageCount()
+        }
     }
 
     private fun isFromDialog() = parentFragment != null && parentFragment is ChatDialog
 
-    /**
-     * 查询是否拥有大佬榜查看权限
-     */
-    private fun requestRankPermission() {
-        getUserInfo(onSuccess = {
-            if (it.userRightList.contains(Constants.UserPermission.PERMISSION_CHECK_RICH_RANK) || it.userRightList.contains(
-                    Constants.UserPermission.PERMISSION_CHECK_GIFT_RANK
-                ) || it.userRightList.contains(Constants.UserPermission.PERMISSION_CHECK_POINTS_RANK)
-            ) {
-                mBossRankAdapter.mutable.clear()
-                var rights =
-                    it.userRightList.joinToString(separator = ",", prefix = "[", postfix = "]")
-                val url = "${getH5Url(Constants.H5.rankBossUrl, true)}&rankType=${rights}"
-                mBossRankAdapter.addModels(mutableListOf(url))
-            } else {
-                mBossRankAdapter.mutable.clear()
-                mBossRankAdapter.notifyDataSetChanged()
-            }
-        })
-    }
 
 
     override fun onDestroy() {
@@ -332,6 +313,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             .observeBroadcastMessage(broadcastObserver, false)
 
     }
+
 
 
 }

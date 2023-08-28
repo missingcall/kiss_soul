@@ -2,7 +2,6 @@ package com.kissspace.mine.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.TextView
 import androidx.activity.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -16,13 +15,13 @@ import com.kissspace.common.http.uploadPicture
 import com.kissspace.common.model.ReportTypeListModel
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.util.openPictureSelector
-import com.kissspace.util.orZero
+import com.kissspace.common.widget.DeleteImageView
+import com.kissspace.common.widget.PreviewImageView
 import com.kissspace.mine.viewmodel.ReportViewModel
-import com.kissspace.mine.widget.DeleteImageView
-import com.kissspace.mine.widget.PreviewImageView
 import com.kissspace.module_mine.R
 import com.kissspace.module_mine.databinding.MineActivityReportBinding
 import com.kissspace.util.loadImage
+import com.kissspace.util.orZero
 import java.io.File
 
 /**
@@ -67,7 +66,7 @@ class ReportActivity : BaseActivity(R.layout.mine_activity_report) {
         userId=intent.getStringExtra("userId")
         roomId=intent.getStringExtra("roomId")
         roomOwnerId=intent.getStringExtra("roomOwnerId")
-        if(reportType==Constants.ReportType.ROOM.type){
+        if(reportType== Constants.ReportType.ROOM.type){
             mBinding.titleBar.setTitleIcon(R.mipmap.mine_report_room_title_bg)
         }else if(reportType==Constants.ReportType.USER.type){
             mBinding.titleBar.setTitleIcon(R.mipmap.mine_report_user_title_bg)
@@ -93,7 +92,7 @@ class ReportActivity : BaseActivity(R.layout.mine_activity_report) {
             }
         }
 
-        mBinding.mPreviewImageView.setDatas(
+        mBinding.mPreviewImageView.setPictureList(
             filePathList,
             object : PreviewImageView.OnLoadPhotoListener {
                 override fun onPhotoLoading(
@@ -106,13 +105,17 @@ class ReportActivity : BaseActivity(R.layout.mine_activity_report) {
             },
             9
         )
-        mBinding.mPreviewImageView.setOnAddPhotoClickListener(View.OnClickListener {
-            openPictureSelector(mViewModel.selectMaxImageCount - mBinding.mPreviewImageView.datas.size.orZero()) {
+        mBinding.mPreviewImageView.setOnAddPhotoClickListener {
+            openPictureSelector(
+                this,
+                mViewModel.selectMaxImageCount - mBinding.mPreviewImageView.currentFileList.size.orZero()
+            ) {
                 filePathList.addAll(it.orEmpty())
                 mBinding.mPreviewImageView.addData(it.orEmpty())
-                mViewModel.selectImageCount.value =  mBinding.mPreviewImageView.selectedCount.orZero()
+                mViewModel.selectImageCount.value =
+                    mBinding.mPreviewImageView.selectedCount.orZero()
             }
-        })
+        }
 
         mBinding.mPreviewImageView.onDeleteListener = object : PreviewImageView.OnDeleteListener {
             override fun onDelete(url: String?) {

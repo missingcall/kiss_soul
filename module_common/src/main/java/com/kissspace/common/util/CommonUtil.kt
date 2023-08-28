@@ -300,15 +300,11 @@ inline fun parseUserExtension(data: String?): UserExtensionModel? {
     return if (data.isNullOrEmpty()) null else GsonUtils.fromJson(data, type)
 }
 
-
-/**
- * url转drawable
- */
-
 fun openPictureSelector(
+    context: Context,
     max: Int = 1, isCrop: Boolean = false, block: (List<String>?) -> Unit
 ) {
-    PictureSelector.create(topActivity).openGallery(SelectMimeType.TYPE_IMAGE).apply {
+    PictureSelector.create(context).openGallery(SelectMimeType.TYPE_IMAGE).apply {
         isDisplayCamera(false)
         setMaxSelectNum(max)
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT)
@@ -344,11 +340,13 @@ fun openPictureSelector(
             }
 
             override fun onCancel() {
-
             }
         })
     }
 }
+/**
+ * url转drawable
+ */
 
 fun openCamera(isCrop: Boolean = false, block: (String?) -> Unit) {
     checkCameraPermission {
@@ -488,11 +486,11 @@ fun loginOut(logoutRoom: Boolean = true) {
 }
 
 private fun signOut() {
-    NIMClient.getService(AuthService::class.java).logout()
-    //清除MMKV
-    clearMMKV()
-    //切换创建账号不跳转登录页
-    jump(RouterPath.PATH_LOGIN)
+//    NIMClient.getService(AuthService::class.java).logout()
+//    //清除MMKV
+//    clearMMKV()
+//    //切换创建账号不跳转登录页
+//    jump(RouterPath.PATH_LOGIN)
 }
 
 

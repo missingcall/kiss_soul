@@ -9,29 +9,28 @@ import com.didi.drouter.annotation.Router
 import com.hjq.bar.OnTitleBarListener
 import com.hjq.bar.TitleBar
 import com.kissspace.common.base.BaseActivity
-import com.kissspace.common.router.parseIntent
 import com.kissspace.common.ext.safeClick
 import com.kissspace.common.http.uploadPicture
 import com.kissspace.common.router.RouterPath
+import com.kissspace.common.router.parseIntent
 import com.kissspace.common.util.openPictureSelector
-import com.kissspace.util.orZero
+import com.kissspace.common.widget.DeleteImageView
+import com.kissspace.common.widget.PreviewImageView
 import com.kissspace.mine.viewmodel.FeedBackViewModel
-import com.kissspace.mine.widget.DeleteImageView
-import com.kissspace.mine.widget.PreviewImageView
 import com.kissspace.module_mine.R
 import com.kissspace.module_mine.databinding.MineActivtiyAddFeedbackBinding
 import com.kissspace.util.hideKeyboard
 import com.kissspace.util.isClickThisArea
 import com.kissspace.util.loadImage
 import java.io.File
-
+import com.kissspace.util.orZero
 /**
  * @Author gaohangbo
  * @Date 2023/1/7 14:27.
  * @Describe
  */
 @Router(path = RouterPath.PATH_ADD_FEEDBACK)
-class FeedBackAddActivity : com.kissspace.common.base.BaseActivity(R.layout.mine_activtiy_add_feedback) {
+class FeedBackAddActivity : BaseActivity(R.layout.mine_activtiy_add_feedback) {
     private val mBinding by viewBinding<MineActivtiyAddFeedbackBinding>()
     private val mViewModel by viewModels<FeedBackViewModel>()
 
@@ -57,7 +56,7 @@ class FeedBackAddActivity : com.kissspace.common.base.BaseActivity(R.layout.mine
 
         mBinding.m = mViewModel
         mViewModel.selectImageCount.value = filePathList.size
-        mBinding.mPreviewImageView.setDatas(
+        mBinding.mPreviewImageView.setPictureList(
             filePathList,
             object : PreviewImageView.OnLoadPhotoListener {
                 override fun onPhotoLoading(
@@ -98,12 +97,13 @@ class FeedBackAddActivity : com.kissspace.common.base.BaseActivity(R.layout.mine
                 ) {
                     ToastUtils.showShort("操作成功")
                     finish()
+
                 }
             }
         }
 
         mBinding.mPreviewImageView.setOnAddPhotoClickListener {
-            openPictureSelector(mViewModel.selectMaxImageCount - mBinding.mPreviewImageView.datas.size.orZero()) {
+            openPictureSelector(this,mViewModel.selectMaxImageCount - mBinding.mPreviewImageView.currentFileList.size.orZero()) {
                 filePathList.addAll(it.orEmpty())
                 mBinding.mPreviewImageView.addData(it.orEmpty())
                 mViewModel.selectImageCount.value = mBinding.mPreviewImageView.selectedCount.orZero()

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="m"
+            type="com.kissspace.common.model.ItemMessageMenu" />
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/cl_root"
+    android:layout_width="48dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginLeft="23dp"
+    android:layout_marginRight="23dp"
+    android:clipChildren="false"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+        android:id="@+id/tv_message_count"
+        messageUnReadCount="@{m.unReadCount}"
+        android:layout_width="wrap_content"
+        android:layout_height="15dp"
+        android:gravity="center"
+        android:minWidth="15dp"
+        android:paddingStart="4dp"
+        android:paddingEnd="4dp"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        tools:text="10"
+        android:background="@drawable/common_bg_red_dot1"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/iv_top" />
+
+    <ImageView
+        android:id="@+id/iv_top"
+        android:layout_width="37dp"
+        android:layout_height="37dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="收到的赞"
+        android:layout_marginTop="1dp"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_top" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

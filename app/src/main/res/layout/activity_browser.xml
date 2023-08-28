@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/view_status_bar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp" />
+
     <com.hjq.bar.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
@@ -12,11 +17,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
         android:visibility="gone"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
         app:barStyle="transparent"
         app:titleStyle="bold"
-        app:titleColor="@color/color_FFFD62"
+        app:titleColor="@color/common_white"
         app:titleSize="18sp" />
 
     <FrameLayout

@@ -14,10 +14,7 @@ import android.widget.EditText
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.blankj.utilcode.util.ConvertUtils.dp2px
-import com.noober.background.drawable.DrawableCreator
 import com.kissspace.module_common.R
-import com.kissspace.util.logE
-import com.kissspace.util.sp
 
 
 class LimitNumEditText @JvmOverloads constructor(
@@ -55,7 +52,7 @@ class LimitNumEditText @JvmOverloads constructor(
             }
             field = value
         }
-    var limitBackGround: Drawable? = null
+    var limitBackground: Drawable? = null
 
     // 标记显示已输入字数颜色值
     private var signInputHaveNumColor: String? = null
@@ -140,14 +137,14 @@ class LimitNumEditText @JvmOverloads constructor(
     }
 
     // 设置标记控件文字颜色
-    fun setTextViewColor(color: String?): LimitNumEditText {
-        try {
-            if (textView != null) textView?.setTextColor(Color.parseColor(color))
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return this
-    }
+//    fun setTextViewColor(color: String?): LimitNumEditText {
+//        try {
+//            if (textView != null) textView?.setTextColor(Color.parseColor(color))
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
+//        return this
+//    }
 
     // 设置输入类型
     fun setInputType(type: Int): LimitNumEditText {
@@ -218,10 +215,11 @@ class LimitNumEditText @JvmOverloads constructor(
                 R.styleable.LimitNumEditText_maxWordsNum,
                 Int.MAX_VALUE
             )
-            limitBackGround = typedArray.getDrawable(R.styleable.LimitNumEditText_limitBackGround)
+            limitBackground = typedArray.getDrawable(R.styleable.LimitNumEditText_limitBackground)
 
             val hintText = typedArray.getString(R.styleable.LimitNumEditText_hintText)
             val hintTextColor = typedArray.getColor(R.styleable.LimitNumEditText_hintTextColor,resources.getColor(R.color.color_949499))
+            val tipTextColor = typedArray.getColor(R.styleable.LimitNumEditText_tipTextColor,resources.getColor(R.color.color_C4C1D7))
             val limitNumTextColor = typedArray.getColor(
                 R.styleable.LimitNumEditText_limitTextColor,
                 resources.getColor(R.color.color_A8A8B3)
@@ -235,10 +233,10 @@ class LimitNumEditText @JvmOverloads constructor(
             ).toFloat()
             typedArray.recycle()
 
-            if (limitBackGround == null) {
+            if (limitBackground == null) {
                 setBackgroundResource(R.drawable.common_edittextdrawable)
             } else {
-                background = limitBackGround
+                background = limitBackground
             }
             val editParams =
                 LayoutParams(
@@ -247,7 +245,6 @@ class LimitNumEditText @JvmOverloads constructor(
                 )
             editText = EditText(context)
             editText?.background=null
-            editText?.id= R.id.limitNumEditTextId
             // layoutParams.setMargins(10, 10, 10, 10);
             editText?.layoutParams = editParams
 
@@ -305,23 +302,22 @@ class LimitNumEditText @JvmOverloads constructor(
                 }
             })
             this.addView(editText, editParams)
-            setEditTextHintColor(R.color.color_CCC7CC)
             setEditTextMaxWordsNum(maxWordsNum)
             setEditTextHint(hintText)
-            val layoutParams =
+            val layoutParams1 =
                 LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
-                layoutParams.addRule(ALIGN_PARENT_RIGHT, TRUE)
-                layoutParams.addRule(ALIGN_PARENT_BOTTOM, TRUE)
+            layoutParams1.addRule(ALIGN_PARENT_RIGHT, TRUE)
+            layoutParams1.addRule(ALIGN_PARENT_BOTTOM, TRUE)
 
             textView = TextView(context)
             textView?.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12f)
-            textView?.setTextColor(resources.getColor(R.color.color_C4C1D7))
-            textView?.layoutParams = layoutParams
+            textView?.setTextColor(tipTextColor)
+            textView?.layoutParams = layoutParams1
 
-            addView(textView, layoutParams)
+            addView(textView, layoutParams1)
             textView?.setPadding(0, dp2px(12f), dp2px(12f), dp2px(12f));
             textView?.gravity = Gravity.BOTTOM or Gravity.END
             updateSignTv()

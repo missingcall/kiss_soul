@@ -6,4 +6,7 @@ object MessageApi {
 
     //系统消息
     const val API_SYSTEM_MESSAGE = "/djsoul-user/systemMessage/pageQuery"
+
+    //系统消息数量
+    const val API_SYSTEM_MESSAGE_COUNT = "/djsoul-user/dynamics/queryNumberOfUserLikesAndCommentsMessagesByUserId"
 }

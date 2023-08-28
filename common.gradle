@@ -197,6 +197,7 @@ project.ext {
                         extension.implementation extension.project(path: ':module_setting')
                         extension.implementation extension.project(path: ':module_webview')
                         extension.implementation extension.project(path: ':module_pay')
+                        extension.implementation extension.project(path: ':module_dynamic')
                     }
                     break
                 case "module_common":
@@ -261,6 +262,7 @@ project.ext {
                     extension.api 'io.github.tencent:vap:2.0.28'
                     extension.api 'org.apmem.tools:layouts:1.10@aar'
                     extension.api 'com.nex3z:flow-layout:1.2.4'
+                    extension.api 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
                     extension.compileOnly fileTree(dir: "../app/libs", include: ["*.aar"])
                     break
                 case "module_network":
@@ -294,6 +296,9 @@ project.ext {
                     extension.implementation "com.squareup.okio:okio:3.0.0"
                     extension.api "io.coil-kt:coil:2.3.0"
                     extension.api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+                    break
+                case "module_dynamic":
+                    extension.implementation extension.project(path: ':module_webview')
                     break
             }
     }

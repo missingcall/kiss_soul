@@ -137,4 +137,11 @@ sealed class Event {
     //切换账号刷新数据
     object RefreshChangeAccountEvent : Event()
 
+
+    //刷新动态通知(点赞和互动消息)
+    object MsgRefreshDynamicNoticeEvent : Event()
+
+
+    //星际庄园游戏
+    data class H5InterstellarEvent(var content:String) : Event()
 }

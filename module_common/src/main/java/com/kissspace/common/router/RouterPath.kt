@@ -252,4 +252,12 @@ object RouterPath {
     //官方认证
     const val PATH_MINE_AUTH = PATH_BASE + "mine_auth"
 
+
+    //发布动态
+    const val PATH_DYNAMIC_SEND_FRIEND = "djs://pages/dynamic_send_friend"
+
+
+
+    //任务消息
+    const val PATH_MESSAGE_TASK = PATH_BASE + "message_task"
 }

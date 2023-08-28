@@ -15,12 +15,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
-import coil.load
 import com.blankj.utilcode.util.GsonUtils
 import com.didi.drouter.annotation.Router
+import com.kissspace.dynamic.ui.fragment.DynamicFragment
 import com.kissspace.util.finishAllActivities
 import com.kissspace.util.toast
-import com.kissspace.login.widget.InvitationDialog
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.StatusCode
@@ -28,14 +27,12 @@ import com.netease.nimlib.sdk.auth.AuthServiceObserver
 import com.netease.nimlib.sdk.msg.MsgService
 import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.assist.helper.ScopeHelper
-import com.petterp.floatingx.listener.control.IFxControl
 import com.kissspace.android.R
 import com.kissspace.android.databinding.ActivityMainBinding
 import com.kissspace.android.ui.fragment.HomeFragment
 import com.kissspace.android.ui.fragment.PartyFragment
 import com.kissspace.android.viewmodel.MainViewModel
 import com.kissspace.android.widget.UpgradeDialog
-import com.kissspace.android.widget.bottombar.BottomTabBean
 import com.kissspace.common.config.AppConfigKey
 import com.kissspace.common.config.Constants
 import com.kissspace.common.router.jump
@@ -52,7 +49,6 @@ import com.kissspace.mine.ui.fragment.MineFragment
 import com.kissspace.network.result.collectData
 import com.kissspace.common.http.getUserInfo
 import com.kissspace.common.model.config.RoomGameConfig
-import com.kissspace.common.model.config.WaterConfig
 import com.kissspace.room.manager.RoomServiceManager
 import com.kissspace.util.YYYY_MM_DD
 import com.kissspace.util.apkAbsolutePath
@@ -64,7 +60,6 @@ import com.kissspace.util.logE
 import com.kissspace.util.millis2String
 import com.kissspace.util.orZero
 import com.petterp.floatingx.listener.control.IFxScopeControl
-import com.tencent.mmkv.MMKV
 import java.io.File
 import java.util.*
 
@@ -175,7 +170,8 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
     }
 
     private fun initViewPager() {
-        val fragments = arrayOf(HomeFragment(),PartyFragment(),PartyFragment(), MessageFragment(), MineFragment())
+        val fragments = arrayOf(HomeFragment(),
+            DynamicFragment(),PartyFragment(), MessageFragment(), MineFragment())
         mBinding.viewPager.apply {
             offscreenPageLimit = fragments.size
             isUserInputEnabled = false

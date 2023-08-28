@@ -98,7 +98,7 @@ class LoginEditProfileActivity : BaseActivity(R.layout.login_activity_edit_profi
                             path?.let { upload(path) }
                         }
                     } else {
-                        openPictureSelector(isCrop = true) {
+                        openPictureSelector(this,isCrop = true) {
                             it?.let { upload(it[0]) }
                         }
                     }

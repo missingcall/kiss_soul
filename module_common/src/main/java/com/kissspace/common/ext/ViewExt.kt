@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import cc.shinichi.library.ImagePreview
 import com.angcyo.tablayout.DslTabLayout
 import com.angcyo.tablayout.delegate2.ViewPager2Delegate
 import com.drake.brv.utils.bindingAdapter
@@ -20,6 +21,7 @@ import com.hjq.bar.OnTitleBarListener
 import com.hjq.bar.TitleBar
 import com.kissspace.util.getDrawable
 import com.kissspace.util.statusBarHeight
+import com.qmuiteam.qmui.widget.QMUIRadiusImageView2
 
 object ViewClickDelay {
     var lastClickTime: Long = 0
@@ -140,6 +142,26 @@ fun EditText.showSoftInput() {
 internal fun View.isSystemInsetsAnimationSupport(): Boolean {
     val windowInsetsController = ViewCompat.getWindowInsetsController(this)
     return !(windowInsetsController == null || windowInsetsController.systemBarsBehavior == 0)
+}
+
+fun previewPicture(
+    activity: Activity,
+    modelPosition: Int,
+    target: QMUIRadiusImageView2?,
+    imageList: MutableList<String>
+) {
+    ImagePreview.instance
+        .setContext(activity)
+        .setIndex(modelPosition)
+        .setImageList(imageList)
+        .setTransitionView(target)
+        .setTransitionShareElementName("shared_element_container")
+        .setEnableUpDragClose(true)
+        .setEnableDragClose(true)
+        .setEnableDragCloseIgnoreScale(true)
+        .setShowDownButton(false)
+        .setShowIndicator(false)
+        .start()
 }
 
 

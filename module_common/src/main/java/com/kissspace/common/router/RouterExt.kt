@@ -83,15 +83,7 @@ class ParseIntent<V : Any>(
         return if (extra?.get(property.name) == null) {
             defaultValue as V
         } else {
-            if (clazz == ArrayList::class) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    extra?.getParcelableArrayList(property.name, clazz) as V
-                } else {
-                    extra?.getParcelableArrayList<Parcelable>(property.name) as V
-                }
-            } else {
-                extra?.get(property.name) as V
-            }
+            extra?.get(property.name) as V
         }
 
     }

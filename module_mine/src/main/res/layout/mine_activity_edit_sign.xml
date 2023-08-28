@@ -53,7 +53,7 @@
         android:textColor="@color/white"
         android:textColorHint="@color/color_CCC7CC"
         android:textSize="15sp"
-        app:limitBackGround="@color/color_1A000000"
+        app:limitBackground="@color/color_1A000000"
         app:layout_constraintTop_toBottomOf="@id/tv_sub_title"
         app:maxWordsNum="50" />
 

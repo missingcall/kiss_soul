@@ -549,6 +549,22 @@ object Constants {
 
         //许愿池地址
         const val wishPoolUrl = "/h5api/water/#/pages/game/wishPool"
+
+
+        //动态地址
+        const val dynamicUrl = "/#/pages/dynamic/index"
+
+        //动态主页
+        const val dynamicIndex = "/#/pages/dynamic/list"
+
+        //动态详情
+        const val dynamicDetail = "/#/pages/dynamic/detail"
+
+        //互动消息
+        const val dynamicInteractiveMessages = "/#/pages/intMsgs/index"
+
+        //互动类型
+        const val dynamicInteractivityType = "/#/pages/intMsgs/common"
     }
 
     class MusicPlayMode {
