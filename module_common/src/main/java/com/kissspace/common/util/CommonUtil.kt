@@ -486,11 +486,11 @@ fun loginOut(logoutRoom: Boolean = true) {
 }
 
 private fun signOut() {
-//    NIMClient.getService(AuthService::class.java).logout()
-//    //清除MMKV
-//    clearMMKV()
-//    //切换创建账号不跳转登录页
-//    jump(RouterPath.PATH_LOGIN)
+    NIMClient.getService(AuthService::class.java).logout()
+    //清除MMKV
+    clearMMKV()
+    //切换创建账号不跳转登录页
+    jump(RouterPath.PATH_LOGIN)
 }
 
 
