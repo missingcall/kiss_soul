@@ -5,6 +5,7 @@ import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.scopeNetLife
 import androidx.lifecycle.viewModelScope
+import com.blankj.utilcode.util.ArrayUtils.add
 import com.blankj.utilcode.util.LogUtils
 import com.blankj.utilcode.util.TimeUtils
 import com.drake.net.Get
@@ -24,12 +25,15 @@ import com.kissspace.common.config.Constants
 import com.kissspace.common.flowbus.Event
 import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.model.ChatListModel
+import com.kissspace.common.model.DynamicMessageNotice
+import com.kissspace.common.model.ItemMessageMenu
 import com.kissspace.common.model.LoveWallResponse
 import com.kissspace.common.model.SystemMessageResponse
 import com.kissspace.common.util.getFriendlyTimeSpanByNow
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.common.util.parseUserExtension
 import com.kissspace.message.http.MessageApi
+import com.kissspace.module_message.R
 import com.kissspace.network.net.Method
 import com.kissspace.network.net.request
 import com.kissspace.network.result.ResultState
@@ -63,11 +67,24 @@ class MessageViewModel : BaseViewModel(), DefaultLifecycleObserver {
     val systemMessageEvent = _systemMessageEvent.asSharedFlow()
 
 
+    private val _dynamicMessageCountEvent = MutableSharedFlow<ResultState<DynamicMessageNotice>>()
+    val dynamicMessageCountEvent = _dynamicMessageCountEvent.asSharedFlow()
+
     private val recentContactObserver = Observer<List<RecentContact>> {
         if (it != null && it.isNotEmpty()) {
             parseData(it, true)
             FlowBus.post(Event.RefreshUnReadMsgCount)
             updateUnReadCount()
+        }
+    }
+
+    fun getMessageMenu():MutableList<ItemMessageMenu>{
+         val messageList : MutableList<ItemMessageMenu> = ArrayList()
+        return messageList.apply {
+            add(ItemMessageMenu("收到的赞", R.mipmap.message_menu_icon1))
+            add(ItemMessageMenu("系统通知",R.mipmap.message_menu_icon2))
+            add(ItemMessageMenu("互动消息",R.mipmap.message_menu_icon3))
+            add(ItemMessageMenu("任务消息",R.mipmap.message_menu_icon4))
         }
     }
 
@@ -125,6 +142,16 @@ class MessageViewModel : BaseViewModel(), DefaultLifecycleObserver {
                     }
                 }
             })
+    }
+
+    fun requestDynamicMessageCount() {
+        val param = mutableMapOf<String, Any?>()
+        request(
+            MessageApi.API_SYSTEM_MESSAGE_COUNT,
+            Method.GET,
+            param,
+            state = _dynamicMessageCountEvent
+        )
     }
 
     private fun parseData(list: List<RecentContact>, isUpdate: Boolean) {
