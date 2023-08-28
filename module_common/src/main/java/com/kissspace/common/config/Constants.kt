@@ -552,19 +552,19 @@ object Constants {
 
 
         //动态地址
-        const val dynamicUrl = "/#/pages/dynamic/index"
+        const val dynamicUrl = "/h5api/water/#/pages/dynamic/index"
 
         //动态主页
-        const val dynamicIndex = "/#/pages/dynamic/list"
+        const val dynamicIndex = "/h5api/water/#/pages/dynamic/list"
 
         //动态详情
-        const val dynamicDetail = "/#/pages/dynamic/detail"
+        const val dynamicDetail = "/h5api/water/#/pages/dynamic/detail"
 
         //互动消息
-        const val dynamicInteractiveMessages = "/#/pages/intMsgs/index"
+        const val dynamicInteractiveMessages = "/h5api/water/#/pages/intMsgs/index"
 
         //互动类型
-        const val dynamicInteractivityType = "/#/pages/intMsgs/common"
+        const val dynamicInteractivityType = "/h5api/water/#/pages/intMsgs/common"
     }
 
     class MusicPlayMode {

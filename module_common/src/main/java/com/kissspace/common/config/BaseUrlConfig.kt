@@ -44,16 +44,16 @@ object BaseUrlConfig {
     /**
      * 生产环境
      */
-    const val BASEURL_RELEASE = "https://prod.wzlsdzswyxgs.com"
+    const val BASEURL_RELEASE = "http://121.41.169.40:8201"
 
 
     /**
      * 获取H5域名
      */
     fun getH5BaseUrl() = when {
-        isReleaseServer -> "https://h5api.wzlsdzswyxgs.com"
+        isReleaseServer -> "https://test.wzlsdzswyxgs.com"
         isPreServer -> "https://prodapi.wzlsdzswyxgs.com"
-        isTestServer -> "https://test_water.qusheng.fun"
-        else -> "https://h5api.qushengfun.com"
+        isTestServer -> "https://test.wzlsdzswyxgs.com"
+        else -> "https://test.wzlsdzswyxgs.com"
     }
 }
