@@ -346,21 +346,21 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
         normalItem.add(
             SettingItem(
                 type = RoomSettingClickType.TYPE_GAME1,
-                icon = R.mipmap.room_icon_new_game1,
+                icon = R.mipmap.room_icon_game1,
                 name = "飞行棋",
             )
         )
         normalItem.add(
             SettingItem(
                 type = RoomSettingClickType.TYPE_GAME2,
-                icon = R.mipmap.room_icon_new_game2,
+                icon = R.mipmap.room_icon_game2,
                 name = "台球",
             )
         )
         normalItem.add(
             SettingItem(
                 type = RoomSettingClickType.TYPE_GAME3,
-                icon = R.mipmap.room_icon_new_game3,
+                icon = R.mipmap.room_icon_game3,
                 name = "你画我猜",
             )
         )

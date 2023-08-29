@@ -26,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{m.content}"
-            android:textColor="@color/color_6C74FB"
+            android:textColor="#00FFE4"
             android:textSize="14sp" />
     </LinearLayout>
 </layout>
