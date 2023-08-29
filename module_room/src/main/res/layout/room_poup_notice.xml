@@ -5,22 +5,16 @@
     android:orientation="vertical"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/iv_arrow"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@mipmap/room_icon_popup_arrow" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginStart="28dp"
         android:layout_marginEnd="28dp"
-        app:bl_corners_radius="12dp"
         android:layout_marginTop="0dp"
         android:paddingBottom="20dp"
-        app:bl_solid_color="@color/color_2B2244">
+        android:background="@mipmap/room_bg_notice_popup"
+        >
 
         <TextView
             android:id="@+id/tv_notice_title"

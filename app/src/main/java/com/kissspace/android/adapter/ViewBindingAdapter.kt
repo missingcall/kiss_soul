@@ -69,7 +69,7 @@ object ViewBindingAdapter {
             onBind {
                 val model = getModel<RoomListBannerBean>()
                 val imageView = findView<ImageView>(com.kissspace.android.R.id.iv_banner)
-                imageView.setImageResource(com.kissspace.android.R.mipmap.app_party_top_room_rank_bg)
+                imageView.loadImage(model.url)
             }
             onFastClick(R.id.root) {
                 val model = getModel<RoomListBannerBean>()

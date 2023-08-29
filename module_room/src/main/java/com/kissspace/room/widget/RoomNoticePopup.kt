@@ -33,10 +33,4 @@ class RoomNoticePopup(context: Context, private val content: String) : BasePopup
         width = ScreenUtils.getScreenWidth()
         mBinding.tvContent.text = content
     }
-
-    override fun onPopupLayout(popupRect: Rect, anchorRect: Rect) {
-        super.onPopupLayout(popupRect, anchorRect)
-        //让箭头居anchor中间显示
-        mBinding.ivArrow.translationX = anchorRect.left.toFloat()+13.dp.toInt()
-    }
 }

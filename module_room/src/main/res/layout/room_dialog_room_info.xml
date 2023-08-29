@@ -16,11 +16,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginEnd="24dp"
             android:paddingBottom="20dp"
-            app:bl_corners_radius="12dp"
-            app:bl_solid_color="@color/color_2B2244">
+            android:background="@mipmap/room_bg_dialog_room_info">
 
             <TextView
                 android:id="@+id/tv_title"
