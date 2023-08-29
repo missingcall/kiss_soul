@@ -66,16 +66,14 @@ class MyWalletExchangeActivity : BaseActivity(R.layout.mine_activity_wallet_exch
         when (walletType) {
             Constants.WalletType.EARNS.type -> {
                 mViewModel.exchangeType.value = Constants.WalletType.EARNS.type
-                mViewModel.exchangeTypeTitleBg.value =
-                    resources.getDrawable(R.mipmap.mine_wallet_exchange_earns_text)
+                mViewModel.exchangeTypeTitle.value = "收益兑换"
                 mBinding.tvDetail.visibility = View.GONE
                 //exchangeRate = 0.9375
             }
 
             Constants.WalletType.DIAMOND.type -> {
                 mViewModel.exchangeType.value = Constants.WalletType.DIAMOND.type
-                mViewModel.exchangeTypeTitleBg.value =
-                    resources.getDrawable(R.mipmap.mine_wallet_exchange_diamond)
+                mViewModel.exchangeTypeTitle.value ="钻石兑换"
                 mBinding.tvDetail.visibility = View.VISIBLE
                 // exchangeRate = 1.0
             }

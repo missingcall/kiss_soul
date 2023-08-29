@@ -14,11 +14,11 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:rightIcon="@mipmap/mine_icon_task_center_store"
             app:lineVisible="false"
             app:barStyle="transparent"
-            app:titleIcon="@mipmap/mine_icon_task_center_title" />
+            app:title="任务中心"/>
 
         <com.kissspace.common.widget.tablayout.CustomTabLayout
             android:id="@+id/custom_tab_layout"

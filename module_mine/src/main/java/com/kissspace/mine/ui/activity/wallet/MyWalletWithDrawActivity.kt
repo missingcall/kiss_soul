@@ -72,7 +72,7 @@ class MyWalletWithDrawActivity : BaseActivity(R.layout.mine_activity_wallet_with
             Constants.WalletType.EARNS.type -> {
                 mViewModel.withDrawImage.value = R.mipmap.mine_wallet_earns_withdraw
                 mViewModel.withDrawType.value = Constants.WalletType.EARNS.type
-                mViewModel.withDrawTypeTitleBg.value = resources.getDrawable(R.mipmap.mine_wallet_withdraw_earns_text)
+                mViewModel.withDrawTypeTitle.value = "收益提现"
 
                 mViewModel.withDrawTextHint.value =
                     resources.getString(R.string.mine_wallet_withdraw_earns_hint)
@@ -82,7 +82,7 @@ class MyWalletWithDrawActivity : BaseActivity(R.layout.mine_activity_wallet_with
             Constants.WalletType.DIAMOND.type -> {
                 mViewModel.withDrawImage.value = R.mipmap.mine_wallet_diamond_withdraw
                 mViewModel.withDrawType.value = Constants.WalletType.DIAMOND.type
-                mViewModel.withDrawTypeTitleBg.value = resources.getDrawable(R.mipmap.mine_wallet_withdraw_diamond_text)
+                mViewModel.withDrawTypeTitle.value = "钻石提现"
                 mViewModel.withDrawTextHint.value =
                     resources.getString(R.string.mine_wallet_withdraw_diamond_hint)
                         .replaceFirst("%s", MMKVProvider.wechatPublicAccount)

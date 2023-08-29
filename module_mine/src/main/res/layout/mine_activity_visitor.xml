@@ -12,11 +12,9 @@
         app:barStyle="transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
-        app:titleIcon="@mipmap/mine_icon_title_visitor"
-        app:titleSize="18sp"
-        app:titleStyle="bold" />
+        app:title="谁看过我" />
 
     <com.drake.brv.PageRefreshLayout
         android:id="@+id/page_refresh_layout"

@@ -14,12 +14,9 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:titleIcon="@mipmap/setting_icon_indentity"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleColor="@color/white"
-            app:titleSize="18sp"
-            app:titleStyle="bold" />
+            app:title="身份认证" />
 
         <ImageView
             android:id="@+id/iv_identity"

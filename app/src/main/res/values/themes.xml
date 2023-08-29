@@ -9,6 +9,6 @@
 
     <style name="Theme.Splash" parent="@style/QMUI.Compat.NoActionBar">
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
-        <item name="android:windowBackground">@mipmap/login_bg_splash</item>
+        <item name="android:windowBackground">@mipmap/common_page_background</item>
     </style>
 </resources>

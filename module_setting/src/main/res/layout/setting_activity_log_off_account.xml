@@ -18,12 +18,9 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleIcon="@mipmap/common_icon_title_logoff"
-            app:titleColor="@color/color_313133"
-            app:titleSize="18sp"
-            app:titleStyle="bold" />
+            app:title="注销账号" />
 
         <TextView
             android:layout_width="wrap_content"

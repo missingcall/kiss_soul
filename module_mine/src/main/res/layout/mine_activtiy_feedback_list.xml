@@ -19,11 +19,9 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleIcon="@mipmap/mine_icon_title_feedback_record"
-            app:titleSize="18sp"
-            app:titleStyle="bold" />
+            app:title="反馈记录"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_feedback"

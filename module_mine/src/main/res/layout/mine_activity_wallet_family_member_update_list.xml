@@ -21,13 +21,13 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
             app:rightTitle="钻石转账明细"
             app:rightTitleSize="13sp"
             app:rightTitleColor="@color/color_FFFD62"
             app:barStyle="transparent"
-            app:titleIcon="@mipmap/mine_wallet_transfer_member_text" />
+            app:title="转账用户" />
 
         <com.kissspace.common.widget.CommonSearchView
             android:id="@+id/commonSearchView"

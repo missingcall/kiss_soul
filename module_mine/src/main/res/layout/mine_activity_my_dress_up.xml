@@ -12,12 +12,9 @@
         app:barStyle="transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
-        app:titleIcon="@mipmap/mine_icon_title_my_dress_up"
-        app:titleColor="@color/color_313133"
-        app:titleSize="18sp"
-        app:titleStyle="bold" />
+        app:title="我的装扮" />
 
     <com.angcyo.tablayout.DslTabLayout
         android:id="@+id/tab_layout"

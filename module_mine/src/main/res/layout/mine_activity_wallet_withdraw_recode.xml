@@ -12,10 +12,10 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
             app:barStyle="transparent"
-            app:titleIcon="@mipmap/mine_icon_wallet_withdraw_record_text"
+            app:title="提现记录"
             />
 
         <com.drake.brv.PageRefreshLayout

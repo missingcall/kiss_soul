@@ -75,7 +75,7 @@ class WalletViewModel : BaseViewModel() {
     //兑换类型
     val exchangeType = MutableLiveData<String>()
 
-    val exchangeTypeTitleBg = MutableLiveData<Drawable>()
+    val exchangeTypeTitle = MutableLiveData<String>()
 
     //实际兑换的金额
     val exchangeRmb = MutableLiveData<Double>()
@@ -107,7 +107,7 @@ class WalletViewModel : BaseViewModel() {
 
     var withDrawType = MutableLiveData<String>()
 
-    var withDrawTypeTitleBg = MutableLiveData<Drawable>()
+    var withDrawTypeTitle = MutableLiveData<String>()
 
     //提现余额
     var withDrawBalance = MutableLiveData<Double>()

@@ -21,12 +21,9 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleColor="@color/color_313133"
-            app:titleIcon="@mipmap/mine_icon_title_feedback"
-            app:titleSize="18sp"
-            app:titleStyle="bold" />
+            app:title="意见反馈"/>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

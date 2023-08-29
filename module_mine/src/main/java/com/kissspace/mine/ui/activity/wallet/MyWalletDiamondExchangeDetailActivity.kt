@@ -39,7 +39,7 @@ class MyWalletDiamondExchangeDetailActivity : BaseActivity(R.layout.mine_activit
 //            }
             Constants.WalletType.DIAMOND.type -> {
                 mViewModel.exchangeType.value = Constants.WalletType.DIAMOND.type
-                mViewModel.exchangeTypeTitleBg.value = resources.getDrawable(R.mipmap.mine_wallet_diamond_transfer_detail_text)
+//                mViewModel.exchangeTypeTitle.value = resources.getDrawable(R.mipmap.mine_wallet_diamond_transfer_detail_text)
             }
 
             else -> {

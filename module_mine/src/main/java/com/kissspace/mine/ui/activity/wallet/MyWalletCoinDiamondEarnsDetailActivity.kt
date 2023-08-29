@@ -41,7 +41,7 @@ class MyWalletCoinDiamondEarnsDetailActivity : BaseActivity(R.layout.mine_wallet
             Constants.WalletType.EARNS.type ->{
 //                listTitle.add("获取")
 //                listTitle.add("消耗")
-                mBinding.titleBar.titleIcon= resources.getDrawable(R.mipmap.mine_icon_wallet_earns_text)
+                mBinding.titleBar.title = "收益明细"
                 val test1 = CustomTabLayoutBean(
                     "获取",
                     0,
@@ -58,7 +58,7 @@ class MyWalletCoinDiamondEarnsDetailActivity : BaseActivity(R.layout.mine_wallet
                 mBinding.customTabLayout.addTabItem(test2)
             }
             Constants.WalletType.COIN.type -> {
-                mBinding.titleBar.titleIcon= resources.getDrawable(R.mipmap.mine_icon_wallet_coin_text)
+                mBinding.titleBar.title = "金币明细"
                 val test1 = CustomTabLayoutBean(
                     "获取",
                     0,
@@ -76,7 +76,7 @@ class MyWalletCoinDiamondEarnsDetailActivity : BaseActivity(R.layout.mine_wallet
                 mBinding.customTabLayout.addTabItem(test2)
             }
             Constants.WalletType.DIAMOND.type -> {
-                mBinding.titleBar.titleIcon= resources.getDrawable(R.mipmap.mine_icon_wallet_family_text)
+                mBinding.titleBar.title = "家族收益明细"
                 val test1 = CustomTabLayoutBean(
                     "房间周结收益",
                     0,

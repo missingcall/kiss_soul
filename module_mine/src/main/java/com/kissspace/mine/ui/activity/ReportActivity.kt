@@ -67,9 +67,9 @@ class ReportActivity : BaseActivity(R.layout.mine_activity_report) {
         roomId=intent.getStringExtra("roomId")
         roomOwnerId=intent.getStringExtra("roomOwnerId")
         if(reportType== Constants.ReportType.ROOM.type){
-            mBinding.titleBar.setTitleIcon(R.mipmap.mine_report_room_title_bg)
+            mBinding.titleBar.title = "举报房间"
         }else if(reportType==Constants.ReportType.USER.type){
-            mBinding.titleBar.setTitleIcon(R.mipmap.mine_report_user_title_bg)
+            mBinding.titleBar.title = "举报用户"
         }
 
         mViewModel.queryReportInformantType {

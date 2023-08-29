@@ -11,11 +11,11 @@
         android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:rightIcon="@mipmap/message_icon_love_wall_help"
         app:lineVisible="false"
         app:barStyle="transparent"
-        app:titleIcon="@mipmap/message_icon_love_wall_title" />
+        app:title="真爱墙" />
 
 
     <com.kissspace.common.widget.tablayout.CustomTabLayout

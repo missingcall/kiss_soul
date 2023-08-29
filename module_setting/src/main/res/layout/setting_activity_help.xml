@@ -13,12 +13,9 @@
         app:barStyle="transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
-        app:titleColor="@color/color_313133"
-        app:titleIcon="@mipmap/setting_icon_title"
-        app:titleSize="18sp"
-        app:titleStyle="bold" />
+        app:title="系统设置" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/layout_personal_information"

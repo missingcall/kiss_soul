@@ -280,11 +280,7 @@ object RoomBindingAdapter {
             if (model.lockWheat) {
                 imageView.loadImage(R.mipmap.room_icon_microphone_lock)
             } else {
-                if (model.onMicroPhoneNumber == 8) {
-                    imageView.loadImage(R.mipmap.room_icon_microphone_boss)
-                } else {
-                    imageView.loadImage(R.mipmap.room_icon_microphone_normal)
-                }
+                imageView.loadImage(R.mipmap.room_icon_microphone_normal)
             }
         } else {
             imageView.loadImageCircle(model.wheatPositionIdHeadPortrait)
@@ -328,7 +324,7 @@ object RoomBindingAdapter {
             5 -> if (bean.userRole == Constants.ROOM_USER_TYPE_ANCHOR) R.mipmap.room_icon_mic_index_owner else R.mipmap.room_icon_mic_index_5
             6 -> if (bean.userRole == Constants.ROOM_USER_TYPE_ANCHOR) R.mipmap.room_icon_mic_index_owner else R.mipmap.room_icon_mic_index_6
             7 -> if (bean.userRole == Constants.ROOM_USER_TYPE_ANCHOR) R.mipmap.room_icon_mic_index_owner else R.mipmap.room_icon_mic_index_7
-            else -> R.mipmap.room_icon_mic_index_boss
+            else -> R.mipmap.room_icon_mic_index_8
         }
         imageView.setImageResource(resource)
     }

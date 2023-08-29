@@ -18,14 +18,11 @@
         app:barStyle="transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
         app:rightTitle="我的装扮"
         app:rightTitleColor="@color/color_FFFD62"
-        app:titleIcon="@mipmap/mine_icon_title_store"
-        app:titleColor="@color/color_313133"
-        app:titleSize="18sp"
-        app:titleStyle="bold" />
+        app:title="装扮商城" />
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

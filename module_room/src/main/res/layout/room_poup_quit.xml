@@ -16,9 +16,9 @@
         android:gravity="center_vertical">
 
         <ImageView
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="13dp"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="20dp"
             android:src="@mipmap/room_icon_scale" />
 
         <TextView
@@ -36,12 +36,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginTop="6dp">
+        android:layout_marginTop="16dp">
 
         <ImageView
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:layout_marginStart="13dp"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginStart="20dp"
             android:src="@mipmap/room_icon_quit" />
 
         <TextView

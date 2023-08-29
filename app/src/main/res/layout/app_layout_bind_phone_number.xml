@@ -20,9 +20,9 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleIcon="@mipmap/app_icon_title_bind_phone" />
+            app:title="手机号码绑定" />
 
         <LinearLayout
             android:id="@+id/ll_root"

@@ -3,6 +3,7 @@ package com.kissspace.common.widget
 import android.app.Dialog
 import android.content.Context
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.TextView
 import com.kissspace.common.ext.safeClick
 import com.kissspace.module_common.R
@@ -44,11 +45,11 @@ class VerifyNameDialog(context: Context,  private  var callBack: (() -> Unit?)? 
 
     override fun onStart() {
         super.onStart()
-        this.window?.apply {
-            val attr = attributes
-            attr.width = screenWidth - 64.dp.toInt()
-            attr.height = ViewGroup.LayoutParams.WRAP_CONTENT
-            attributes = attr
+        if (window != null){
+            val layoutParams = WindowManager.LayoutParams()
+            layoutParams.copyFrom(window!!.attributes)
+            layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT
+            window!!.attributes = layoutParams
         }
     }
 }

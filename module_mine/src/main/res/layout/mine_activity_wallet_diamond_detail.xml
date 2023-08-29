@@ -12,11 +12,11 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
             app:rightTitleColor="@color/color_636366"
             app:barStyle="transparent"
-            app:titleIcon="@mipmap/mine_wallet_diamond_transfer_detail_text" />
+            app:title="钻石兑换明细" />
 
         <com.drake.brv.PageRefreshLayout
             android:id="@+id/page_refresh_layout"

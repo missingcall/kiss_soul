@@ -78,11 +78,11 @@ class GameActivity : BaseActivity(R.layout.room_activity_game) ,RoomGameListener
 
     override fun initView(savedInstanceState: Bundle?) {
         val titleIcon = when(gameId){
-            ConstantsKey.GAME_ID_BILLIARD->R.mipmap.room_icon_game_title_billiard
-            ConstantsKey.GAME_ID_FLIGHT_CHESS->R.mipmap.room_icon_game_title_flight_chess
-            else->R.mipmap.room_icon_game_title_draw_guess
+            ConstantsKey.GAME_ID_BILLIARD-> "台球"
+            ConstantsKey.GAME_ID_FLIGHT_CHESS-> "飞行棋"
+            else->"你画我猜"
         }
-        mBinding.titleBar.setTitleIcon(titleIcon)
+        mBinding.titleBar.title = titleIcon
         onBackPressedDispatcher.addCallback(onBackCallBack)
         mBinding.titleBar.setTitleBarListener(onLeftClick = {
             handleBack()
