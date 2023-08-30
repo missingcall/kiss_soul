@@ -484,7 +484,7 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
                 PermissionX.init(this).permissions(Manifest.permission.RECORD_AUDIO)
                     .onExplainRequestReason { scope, deniedList ->
                         val message =
-                            "为了您能正常体验【房间语音聊天】功能，kiss空间需向你申请麦克风权限"
+                            "为了您能正常体验【房间语音聊天】功能，2098社交需向你申请麦克风权限"
                         scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
                     }.explainReasonBeforeRequest()
 

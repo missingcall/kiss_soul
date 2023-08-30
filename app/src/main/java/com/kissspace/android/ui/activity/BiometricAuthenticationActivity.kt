@@ -105,7 +105,7 @@ class BiometricAuthenticationActivity :
             PermissionX.init(this).permissions(Manifest.permission.CAMERA)
                 .onExplainRequestReason { scope, deniedList ->
                     val message =
-                        "为了您能正常使用【人脸识别】功能，kiss空间需向你申请相机权限"
+                        "为了您能正常使用【人脸识别】功能，2098社交需向你申请相机权限"
                     scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
                 }
                 .explainReasonBeforeRequest()

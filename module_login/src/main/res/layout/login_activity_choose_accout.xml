@@ -64,7 +64,7 @@
         android:layout_width="match_parent"
         android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:text="进入kiss空间"
+        android:text="进入2098社交"
         android:background="@mipmap/common_button_bg"
         android:gravity="center"
         android:layout_marginStart="20dp"

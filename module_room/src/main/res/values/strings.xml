@@ -130,7 +130,7 @@
     <string name="room_video_un_mute">麦克风开启，点击关闭</string>
     <string name="room_setting_manager">管理权限</string>
     <string name="room_can_not_livestream_again">当前正在直播，不能重复开播！</string>
-    <string name="room_message_notice">欢迎来到直播间！kiss空间严禁未成年人直播或打赏。直播间内严禁出现违法违规、低俗色情、人身伤害等内容。如主播在直播过程中以不当方式诱导打赏、请谨慎判断。请大家注意财产安全，谨防网络诈骗。实际下载应用，请以明示信息为准。</string>
+    <string name="room_message_notice">欢迎来到直播间！2098社交严禁未成年人直播或打赏。直播间内严禁出现违法违规、低俗色情、人身伤害等内容。如主播在直播过程中以不当方式诱导打赏、请谨慎判断。请大家注意财产安全，谨防网络诈骗。实际下载应用，请以明示信息为准。</string>
     <string name="room_pk_title">房间PK</string>
     <string name="room_pk_type">PK选择</string>
     <string name="room_start_pk">发起PK</string>

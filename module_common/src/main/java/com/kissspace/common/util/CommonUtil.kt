@@ -376,7 +376,7 @@ private fun checkCameraPermission(callBack: () -> Unit) {
     PermissionX.init(topActivity as AppCompatActivity).permissions(Manifest.permission.CAMERA)
         .onExplainRequestReason { scope, deniedList ->
             val message =
-                "为了您能正常体验【拍照】功能，kiss空间需向你申请摄像头权限"
+                "为了您能正常体验【拍照】功能，2098社交需向你申请摄像头权限"
             scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
         }
         .explainReasonBeforeRequest()
@@ -397,7 +397,7 @@ private fun checkStoragePermission(callBack: () -> Unit) {
     )
         .onExplainRequestReason { scope, deniedList ->
             val message =
-                "为了您能正常体验【上传图片】功能，kiss空间需向你申请访问存储权限"
+                "为了您能正常体验【上传图片】功能，2098社交需向你申请访问存储权限"
             scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
         }
         .explainReasonBeforeRequest()
