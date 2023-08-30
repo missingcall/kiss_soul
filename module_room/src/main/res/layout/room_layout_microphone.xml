@@ -20,7 +20,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="66dp">
+            android:layout_marginTop="49dp">
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/svga_sound"
