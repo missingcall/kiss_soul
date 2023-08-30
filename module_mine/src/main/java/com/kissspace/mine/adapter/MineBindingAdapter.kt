@@ -21,9 +21,6 @@ import com.kissspace.common.model.PersonCar
 import com.kissspace.common.model.GoodsListBean
 import com.kissspace.common.model.UserInfoBean
 import com.kissspace.common.model.UserProfileBean
-import com.kissspace.common.model.family.FamilyDetailInfoModel
-import com.kissspace.common.model.family.FamilyMemberRecord
-import com.kissspace.common.model.immessage.RoomChatMessageModel
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.util.resToColor
 import com.kissspace.common.widget.UserLevelIconView
@@ -178,7 +175,6 @@ object MineBindingAdapter {
     @BindingAdapter("mineLevelCount", requireAll = false)
     fun mineLevelCount(textView: UserLevelIconView, count: Int) {
         textView.setLeveCount(count)
-        textView.visibility = View.VISIBLE
     }
 
     @JvmStatic

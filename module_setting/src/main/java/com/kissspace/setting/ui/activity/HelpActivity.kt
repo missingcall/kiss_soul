@@ -29,7 +29,7 @@ import com.kissspace.util.toast
  *
  */
 @Router(path = RouterPath.PATH_HELP)
-class HelpActivity : com.kissspace.common.base.BaseActivity(R.layout.setting_activity_help) {
+class HelpActivity : BaseActivity(R.layout.setting_activity_help) {
     private val mBinding by viewBinding<SettingActivityHelpBinding>()
     private val mViewModel by viewModels<HelpViewModel>()
     override fun initView(savedInstanceState: Bundle?) {

@@ -15,8 +15,6 @@ import com.kissspace.common.util.isMainProcess
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.module_common.BuildConfig
 import com.kissspace.util.application
-import com.kissspace.util.isAppDebug
-import com.kissspace.util.logE
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

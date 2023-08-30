@@ -34,8 +34,11 @@ import com.kissspace.webview.init.WebViewCacheHolder
 import com.kissspace.webview.jsbridge.BridgeWebView
 import com.kissspace.webview.jsbridge.CommonJsBridge
 import com.kissspace.webview.jsbridge.JSName
+import com.tencent.smtt.export.external.interfaces.WebResourceError
+import com.tencent.smtt.export.external.interfaces.WebResourceRequest
 import com.tencent.smtt.sdk.WebChromeClient
 import com.tencent.smtt.sdk.WebView
+import com.tencent.smtt.sdk.WebViewClient
 
 
 @Router(uri = RouterPath.PATH_WEBVIEW)
@@ -100,12 +103,28 @@ class BrowserActivity : BaseActivity(R.layout.activity_browser) {
         // 使用localStorage则必须打开
         webSettings?.domStorageEnabled = true
         webSettings?.setGeolocationEnabled(true)
+        mWebView.webViewClient= object : WebViewClient() {
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                logE("onPageFinished: ")
+            }
+
+            override fun onReceivedError(
+                view: WebView?,
+                request: WebResourceRequest?,
+                error: WebResourceError?
+            ) {
+                super.onReceivedError(view, request, error)
+                logE("onReceivedError: request= " + error.toString() + "onReceivedError: error= " + error.toString())
+            }
+        }
+
         mWebView.webChromeClient = object : WebChromeClient() {
             override fun onReceivedTitle(p0: WebView?, title: String?) {
                 super.onReceivedTitle(p0, title)
                 logE("onReceivedTitle$title")
                 if (!isFinishing) {
-                    if(title!="jubar-h5"){
+                    if(title!="djcool"){
                         mBinding.titleBar.title = title
                     }
                 }
@@ -174,7 +193,6 @@ class BrowserActivity : BaseActivity(R.layout.activity_browser) {
                         )
                     }
                 }
-
                 JSName.JSNAME_jumpDynamicDetail -> {
                     jump(
                         RouterPath.PATH_WEBVIEW,
