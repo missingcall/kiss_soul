@@ -210,7 +210,6 @@ project.ext {
                     extension.api "com.google.android.material:material:1.6.1"
                     extension.api "com.netease.nimlib:basesdk:8.9.112"
                     extension.api "com.netease.nimlib:chatroom:8.9.112"
-                    extension.api "com.guolindev.permissionx:permissionx:1.6.1"
                     extension.api "com.github.DylanCaiCoding:MMKV-KTX:1.2.13"
                     extension.api "io.github.youth5201314:banner:2.2.2"
                     extension.api "com.github.liangjingkanji:BRV:1.4.1"
@@ -296,6 +295,7 @@ project.ext {
                     extension.implementation "com.squareup.okio:okio:3.0.0"
                     extension.api "io.coil-kt:coil:2.3.0"
                     extension.api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
+                    extension.api "com.guolindev.permissionx:permissionx:1.6.1"
                     break
                 case "module_dynamic":
                     extension.implementation extension.project(path: ':module_webview')

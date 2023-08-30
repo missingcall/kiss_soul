@@ -50,6 +50,7 @@ import com.kissspace.util.hasNotificationPermission
 import com.kissspace.util.ifNullOrEmpty
 import com.kissspace.util.loadImage
 import com.kissspace.util.logE
+import com.kissspace.util.requestNotificationPermission
 import com.kissspace.util.toast
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -83,11 +84,6 @@ class LiveAudioFragment : BaseFragment(R.layout.room_fragment_audio),
     var mUserInfo: UserInfoBean? = null
     private var roomInfoBean: RoomInfoBean? = null
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { _ ->
-
-    }
 
     companion object {
         fun newInstance(
@@ -115,8 +111,8 @@ class LiveAudioFragment : BaseFragment(R.layout.room_fragment_audio),
             roomInfoBean = fromJson(roomInfo)
         }
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(this, true)
-        if (!hasNotificationPermission(requireContext()) && Build.VERSION.SDK_INT >= 33) {
-            requestPermissionLauncher.launch("android.permission.POST_NOTIFICATIONS")
+        if (!hasNotificationPermission(requireContext())) {
+            activity?.let { requestNotificationPermission(it) }
         }
     }
 

@@ -9,6 +9,7 @@ import android.view.ViewGroup.MarginLayoutParams
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.blankj.utilcode.util.ToastUtils
 import com.hjq.bar.TitleBar
 import com.netease.nimlib.sdk.NIMClient
 import com.noober.background.BackgroundLibrary
@@ -83,5 +84,8 @@ abstract class BaseActivity(layoutId: Int) : AppCompatActivity(layoutId) {
     open fun handleBackPressed() {
         finish()
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        ToastUtils.cancel()
+    }
 }

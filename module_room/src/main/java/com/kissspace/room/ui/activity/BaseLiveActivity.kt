@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.FragmentActivity
 import com.blankj.utilcode.util.LogUtils
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
@@ -22,8 +23,10 @@ import com.kissspace.common.model.immessage.ChangeBackgroundMessage
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.common.util.parseCustomMessage
 import com.kissspace.room.manager.RoomServiceManager
+import com.kissspace.util.activity
 import com.kissspace.util.hasNotificationPermission
 import com.kissspace.util.immersiveStatusBar
+import com.kissspace.util.requestNotificationPermission
 import com.kissspace.util.toast
 import org.json.JSONObject
 
@@ -37,23 +40,13 @@ import org.json.JSONObject
  */
 abstract class BaseLiveActivity(layoutId: Int) : com.kissspace.common.base.BaseActivity(layoutId),
     Observer<List<ChatRoomMessage>> {
-    private val REQUEST_NOTIFICATIONS = 1
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { granted ->
-        if (granted) {
-
-        } else {
-
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(this, true)
-        if (!hasNotificationPermission(this) && Build.VERSION.SDK_INT >= 33) {
-            requestPermissionLauncher.launch("android.permission.POST_NOTIFICATIONS")
+        if (!hasNotificationPermission(this)) {
+            requestNotificationPermission(this)
         }
     }
 

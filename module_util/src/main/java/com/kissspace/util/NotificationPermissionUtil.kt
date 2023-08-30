@@ -1,27 +1,27 @@
 package com.kissspace.util
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.provider.Settings
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationManagerCompat
+import androidx.fragment.app.FragmentActivity
+import com.permissionx.guolindev.PermissionX
 
 fun hasNotificationPermission(context: Context): Boolean =
     NotificationManagerCompat.from(context).areNotificationsEnabled()
 
-fun requestNotificationPermission() {
-    val requestPermissionLauncher =
-        (topActivity as AppCompatActivity).registerForActivityResult(
-            ActivityResultContracts.RequestPermission()
-        ) { granted ->
-            if (granted) {
-            } else {
-            }
-        }
+fun requestNotificationPermission(context: FragmentActivity, block: ((Boolean) -> Unit)?=null) {
     if (Build.VERSION.SDK_INT >= 33) {
-        requestPermissionLauncher.launch("android.permission.POST_NOTIFICATIONS")
+        PermissionX.init(context).permissions(Manifest.permission.POST_NOTIFICATIONS)
+            .request { allGranted, _, _ ->
+                if (allGranted) {
+                    block?.invoke(true)
+                } else {
+                    block?.invoke(false)
+                }
+            }
     } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val intent = Intent()
         intent.action = Settings.ACTION_APP_NOTIFICATION_SETTINGS

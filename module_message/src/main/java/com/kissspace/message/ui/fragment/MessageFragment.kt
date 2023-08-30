@@ -3,13 +3,11 @@ package com.kissspace.message.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
-import androidx.databinding.DataBindingUtil.getBinding
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.blankj.utilcode.util.DeviceUtils.getModel
+import com.blankj.utilcode.util.TimeUtils
 import com.didi.drouter.api.DRouter
 import com.drake.brv.BindingAdapter
 import com.drake.brv.utils.*
@@ -43,6 +41,7 @@ import kotlinx.coroutines.launch
 import com.kissspace.module_message.R
 import com.kissspace.module_message.databinding.FragmentMessageV2Binding
 import com.kissspace.module_message.databinding.MessageItemMenuBinding
+import com.kissspace.util.hasNotificationPermission
 import com.kissspace.util.logE
 import com.kissspace.util.swapWithHead
 
@@ -74,8 +73,14 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         initRecyclerView()
         initRefreshLayout()
         registerObserver()
-        //只请求一次
-        mViewModel.queryRecentMessage()
+
+        if(context?.let { hasNotificationPermission(it) } != true){
+            if(!TimeUtils.isToday(MMKVProvider.lastShowNotificationPermission)){
+                mBinding.layoutNotification.visibility= View.VISIBLE
+            }
+        }else{
+            mBinding.layoutNotification.visibility= View.GONE
+        }
     }
 
     private fun initTopItemList() {
@@ -116,6 +121,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
     override fun onResume() {
         super.onResume()
         initData()
+        mViewModel.queryRecentMessage()
     }
 
     private fun initTitleBar() {
@@ -227,7 +233,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             } else {
                 mBinding.pageRefreshLayout.finishLoadMore()
             }
-            mRecentContactAdapter.addModels(it)
+            mRecentContactAdapter.models=it
             FlowBus.post(Event.RefreshUnReadMsgCount)
         }, onEmpty = {
             mBinding.pageRefreshLayout.finishLoadMoreWithNoMoreData()

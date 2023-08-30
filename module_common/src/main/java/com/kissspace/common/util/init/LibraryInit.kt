@@ -40,6 +40,9 @@ import com.kissspace.util.application
 import com.kissspace.util.doOnActivityLifecycle
 import com.kissspace.util.getNimSdkPath
 import com.kissspace.util.isNotEmpty
+import com.netease.nimlib.sdk.NotificationFoldStyle
+import com.netease.nimlib.sdk.StatusBarNotificationConfig
+import com.netease.nimlib.sdk.StatusBarNotificationFilter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -106,8 +109,9 @@ class LibraryInit : Initializer<Unit> {
     }
 
     private fun initYidun(context: Context) {
-        HTProtect.init(context,ConstantsKey.NETEASE_RISK_MANAGEMENT,
-            { p0, p1 -> },null)
+        HTProtect.init(context, ConstantsKey.NETEASE_RISK_MANAGEMENT,
+            { p0, p1 -> }, null
+        )
     }
 
 
@@ -137,6 +141,16 @@ class LibraryInit : Initializer<Unit> {
         options.preloadAttach = true
         options.disableAwake = true
         options.sdkStorageRootPath = getNimSdkPath(context)
+        val config = StatusBarNotificationConfig()
+// 点击通知需要跳转到的界面
+//        config.notificationEntrance = WelcomeActivity::class.java
+// 通知铃声的uri字符串
+        config.notificationFoldStyle = NotificationFoldStyle.ALL
+        config.downTimeEnableNotification = true
+// 是否APP ICON显示未读数红点(Android O有效)
+        config.notificationFilter =
+            StatusBarNotificationFilter { StatusBarNotificationFilter.FilterPolicy.PERMIT }
+        options.statusBarNotificationConfig = config
         return options
     }
 
@@ -193,10 +207,18 @@ class LibraryInit : Initializer<Unit> {
 
     private fun initBuglySdk(context: Context) {
         if (com.kissspace.module_common.BuildConfig.DEBUG && !isReleaseServer) {
-            CrashReport.initCrashReport(context, "3d1f5ff003", com.kissspace.module_common.BuildConfig.DEBUG)
+            CrashReport.initCrashReport(
+                context,
+                "3d1f5ff003",
+                com.kissspace.module_common.BuildConfig.DEBUG
+            )
             CrashReport.setUserId(MMKVProvider.userId)
         } else {
-            CrashReport.initCrashReport(context, "cd01fd0ecc", com.kissspace.module_common.BuildConfig.DEBUG)
+            CrashReport.initCrashReport(
+                context,
+                "cd01fd0ecc",
+                com.kissspace.module_common.BuildConfig.DEBUG
+            )
             CrashReport.setUserId(MMKVProvider.userId)
         }
     }

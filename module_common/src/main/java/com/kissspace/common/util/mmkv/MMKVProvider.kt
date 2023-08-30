@@ -143,6 +143,9 @@ object MMKVProvider : MMKVOwner {
     var userHour by mmkvInt(default = 0)
     var userHourDate by mmkvString(default = "")
 
+    //上次显示打开消息的权限时间
+    var lastShowNotificationPermission by mmkvLong(0)
+
 }
 
 /**
