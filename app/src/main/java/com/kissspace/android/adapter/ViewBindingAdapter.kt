@@ -1,8 +1,6 @@
 package com.kissspace.android.adapter
 
-import android.graphics.Outline
 import android.view.View
-import android.view.ViewOutlineProvider
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -13,13 +11,11 @@ import com.blankj.utilcode.util.ResourceUtils
 import com.blankj.utilcode.util.SizeUtils
 import com.drake.brv.utils.linear
 import com.drake.brv.utils.setup
-import com.kissspace.util.dp
 import com.kissspace.common.model.RoomListBannerBean
 import com.kissspace.common.model.RoomListBean
 import com.kissspace.common.util.format.Format
 import com.kissspace.common.util.handleSchema
 import com.kissspace.module_room.R
-import com.kissspace.room.widget.CountItem
 import com.kissspace.util.loadImage
 import com.kissspace.util.loadImageCircle
 

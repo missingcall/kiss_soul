@@ -7,8 +7,8 @@ project.ext {
     compileSdk = 33
     minSdk = 21
     targetSdk = 33
-    versionCode = 1025
-    versionName = "1.0.25"
+    versionCode = 1130
+    versionName = "1.1.30"
 
     setAppDefaultConfig = { extension ->
         extension.apply plugin: 'com.android.application'

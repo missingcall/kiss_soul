@@ -20,11 +20,11 @@ import com.kissspace.common.config.Constants
 import com.kissspace.common.router.jump
 import com.kissspace.common.router.parseIntent
 import com.kissspace.common.ext.safeClick
-import com.kissspace.common.http.checkUserPermission
 import com.kissspace.common.model.CommonGiftInfo
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.common.util.copyClip
+import com.kissspace.common.util.getH5Url
 import com.kissspace.common.util.jumpRoom
 import com.kissspace.mine.viewmodel.UserProfileViewModel
 import com.kissspace.module_mine.R
@@ -39,6 +39,7 @@ import com.youth.banner.adapter.BannerImageAdapter
 import com.youth.banner.config.IndicatorConfig
 import com.youth.banner.holder.BannerImageHolder
 import com.youth.banner.indicator.RectangleIndicator
+import java.net.URLEncoder
 
 
 /**
@@ -88,6 +89,21 @@ class UserProfileActivity : BaseActivity(R.layout.mine_activity_mine_profile) {
         mBinding.ivFollowRoom.safeClick {
             jumpRoom(crId = mViewModel.userInfo.get()!!.followRoomId)
         }
+
+        mBinding.tvDynamic.safeClick {
+            var isSelf=false
+            if(mViewModel.userInfo.get()?.userId==MMKVProvider.userId){
+                isSelf=true
+            }
+            val nickname=mViewModel.userInfo.get()?.nickname.orEmpty()
+            jump(
+                RouterPath.PATH_WEBVIEW,
+                "url" to getH5Url(Constants.H5.dynamicIndex +"?userId=${userId}&isSelf=${isSelf}&nickName=${URLEncoder.encode(nickname,"UTF-8")}"),
+                "showTitle" to true,
+                "showTitleBarMargin" to true
+            )
+        }
+
     }
 
     private fun initTitleBar() {

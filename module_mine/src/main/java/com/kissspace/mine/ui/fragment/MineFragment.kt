@@ -112,7 +112,7 @@ class MineFragment : BaseFragment(R.layout.fragment_mine) {
         }
 
         mBinding.layoutTaskCenter.safeClick {
-            jump(RouterPath.PATH_TASK_CENTER_LIST)
+           jump(RouterPath.PATH_TASK_CENTER_LIST)
         }
 
         mBinding.fltAvatar.safeClick {
@@ -158,6 +158,11 @@ class MineFragment : BaseFragment(R.layout.fragment_mine) {
             jump(
                 RouterPath.PATH_WEBVIEW,
                 "url" to getH5Url(Constants.H5.centerActionUrl, needToken = true),
+                "showTitle" to true
+            )
+            jump(
+                RouterPath.PATH_WEBVIEW,
+                "url" to "https://test.wzlsdzswyxgs.com/h5api/water/#/pages/funfair/index",
                 "showTitle" to true
             )
         }
