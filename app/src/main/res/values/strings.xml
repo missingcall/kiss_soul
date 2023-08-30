@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">kiss空间</string>
+    <string name="app_name">2098社交</string>
     <string name="search_hint">搜索昵称/ID/房间名</string>
     <string name="input_room_password">输入房间密码</string>
     <string name="input_room_password_tips">请输入房间密码</string>

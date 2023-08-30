@@ -20,7 +20,7 @@
         android:textColor="@color/color_313133"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:text="登录应用的kiss空间账号与当前kiss空间账号不一致"
+        android:text="登录应用的2098社交账号与当前2098社交账号不一致"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

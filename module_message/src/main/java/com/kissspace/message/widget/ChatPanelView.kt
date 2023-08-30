@@ -118,7 +118,7 @@ class ChatPanelView : FrameLayout, IAudioRecordCallback {
                 PermissionX.init(fragmeent).permissions(Manifest.permission.RECORD_AUDIO)
                     .onExplainRequestReason { scope, deniedList ->
                         val message =
-                            "为了您能正常体验【发送语音消息】功能，kiss空间需向你申请麦克风权限"
+                            "为了您能正常体验【发送语音消息】功能，2098社交需向你申请麦克风权限"
                         scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
                     }
                     .explainReasonBeforeRequest()

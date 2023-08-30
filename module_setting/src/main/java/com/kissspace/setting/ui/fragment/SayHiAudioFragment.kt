@@ -85,7 +85,7 @@ class SayHiAudioFragment : BaseFragment(R.layout.setting_fragment_say_hi_audio),
                 PermissionX.init(this).permissions(Manifest.permission.RECORD_AUDIO)
                     .onExplainRequestReason { scope, deniedList ->
                         val message =
-                            "为了您能正常体验【录制语音打招呼】功能，kiss空间需向你申请麦克风权限"
+                            "为了您能正常体验【录制语音打招呼】功能，2098社交需向你申请麦克风权限"
                         scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
                     }
                     .explainReasonBeforeRequest()
