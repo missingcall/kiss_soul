@@ -10,53 +10,56 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@mipmap/common_page_background">
+        android:layout_height="match_parent">
+
+
+        <com.kissspace.common.widget.AssertAnimView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:url="bg_login_with_one_key.mp4" />
+
 
         <ImageView
             android:id="@+id/iv_logo"
-            android:layout_width="90dp"
-            android:layout_height="90dp"
-            android:layout_marginTop="210dp"
-            android:src="@mipmap/common_app_logo"
+            android:layout_width="202dp"
+            android:layout_height="284dp"
+            android:layout_marginTop="80dp"
+            android:src="@mipmap/login_icon_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
+        <ImageView
             android:id="@+id/tv_login"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="37dp"
-            android:layout_marginRight="32dp"
-            android:background="@mipmap/common_button_bg"
-            android:gravity="center"
-            android:text="@string/login_login"
-            android:textColor="@color/color_FFFD62"
-            android:textSize="17sp"
+            android:layout_width="227dp"
+            android:layout_height="47dp"
+            android:background="@mipmap/login_bg_button"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+            app:layout_constraintBottom_toTopOf="@id/ll_agree"
+            android:layout_marginBottom="78dp"/>
 
         <TextView
             android:id="@+id/tv_login_password"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginLeft="32dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="32dp"
-            android:background="@mipmap/common_button_bg"
-            android:gravity="center"
-            android:text="@string/login_login_password"
-            android:textColor="@color/color_FFFD62"
-            android:textSize="17sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_login" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="密码登录"
+            android:textSize="13sp"
+            android:textColor="@color/white80"
+            android:drawablePadding="1dp"
+            android:drawableEnd="@mipmap/login_icon_pwd_enter"
+            app:layout_constraintTop_toBottomOf="@id/tv_login"
+            app:layout_constraintStart_toStartOf="@id/tv_login"
+            app:layout_constraintEnd_toEndOf="@id/tv_login"
+            android:layout_marginTop="20dp"/>
 
 
         <LinearLayout
+            android:id="@+id/ll_agree"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"

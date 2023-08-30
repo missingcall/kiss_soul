@@ -160,7 +160,7 @@ object Constants {
     const val SAND_ALI_PAY = "sandPay"
     const val SAND_WECHAT_PAY = "sandWechatPay"
 
-    val ASSERT_ANIM_FILE = arrayOf("common_gift_box.mp4","common_home_background.mp4"
+    val ASSERT_ANIM_FILE = arrayOf("bg_login_with_one_key.mp4","common_gift_box.mp4","common_home_background.mp4"
         ,"home_anim_explore.mp4","home_anim_mine.mp4","home_anim_msg.mp4","home_anim_trends.mp4"
     ,"home_card_dynamic.mp4","home_tab_line.mp4","home_tab_party.mp4","mine_auth_guide.mp4")
 
