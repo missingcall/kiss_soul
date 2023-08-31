@@ -14,9 +14,10 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleIcon="@mipmap/mine_family_apply_info_text" />
+            app:title="申请列表"
+            />
 
         <com.drake.brv.PageRefreshLayout
             android:id="@+id/page_refresh_layout"

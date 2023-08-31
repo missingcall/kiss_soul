@@ -19,14 +19,14 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
             app:rightHorizontalPadding="22dp"
             app:rightTitle="保存"
             app:rightTitleColor="@color/color_FFFD62"
             app:rightTitleSize="14sp"
             app:barStyle="transparent"
-            app:titleIcon="@mipmap/mine_icon_family_modify_text"
+            app:title="修改家族资料"
             android:focusable="true"
             android:focusableInTouchMode="true"/>
 

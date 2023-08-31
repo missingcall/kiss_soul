@@ -16,10 +16,10 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:barStyle="transparent"
             app:lineVisible="false"
-            app:titleIcon="@mipmap/mine_icon_wallet_total_value" />
+            app:title="成员收益总价值" />
 
         <com.kissspace.common.widget.CommonSearchView
             android:id="@+id/commonSearchView"

@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:leftIcon="@mipmap/common_icon_back_black"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:title="环境切换" />
 
     <androidx.recyclerview.widget.RecyclerView

@@ -12,7 +12,7 @@
         android:layout_height="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_black"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
         app:title="设置"
         app:titleColor="@color/color_313133"

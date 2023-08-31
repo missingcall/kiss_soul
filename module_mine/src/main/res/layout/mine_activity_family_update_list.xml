@@ -14,10 +14,10 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
             app:rightTitleColor="@color/color_FFFD62"
-            app:titleIcon="@mipmap/mine_family_member" />
+            android:text="家族成员" />
 
         <com.kissspace.common.widget.CommonSearchView
             android:id="@+id/commonSearchView"
