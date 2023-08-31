@@ -45,7 +45,7 @@ fun ActivityResultLauncher<Void>.launch(options: ActivityOptionsCompat? = null) 
 inline fun <reified T> ActivityResultLauncher<Array<T>>.launch(vararg input: T) = launch(arrayOf(*input))
 
 inline fun <reified T : Activity> ActivityResultLauncher<Intent>.launch(vararg pairs: Pair<String, *>) =
-  launch(topActivity.intentOf<T>(*pairs))
+  launch(topActivity?.intentOf<T>(*pairs))
 
 fun ActivityResultLauncher<IntentSenderRequest>.launch(
   intentSender: IntentSender,

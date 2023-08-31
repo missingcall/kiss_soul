@@ -206,6 +206,12 @@ object RoomServiceManager {
             NIMClient.getService(ChatRoomServiceObserver::class.java)
                 .observeReceiveMessage(observer, true)
             checkNimStatus()
+            val intent = Intent(topActivity, RoomNotificationService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                topActivity?.startForegroundService(intent)
+            } else {
+                topActivity?.startService(intent)
+            }
         }
     }
 
@@ -258,12 +264,7 @@ object RoomServiceManager {
             crId, user, roomConfig
         ) { errorCode, _ ->
             if (errorCode == 0) {
-                val intent = Intent(topActivity, RoomNotificationService::class.java)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    topActivity.startForegroundService(intent)
-                } else {
-                    topActivity.startService(intent)
-                }
+
             }
         }
     }
@@ -581,7 +582,7 @@ object RoomServiceManager {
 
 
     private fun stopForegroundNotificationService() {
-        topActivity.stopService(Intent(topActivity, RoomNotificationService::class.java))
+        topActivity?.stopService(Intent(topActivity, RoomNotificationService::class.java))
     }
 
 

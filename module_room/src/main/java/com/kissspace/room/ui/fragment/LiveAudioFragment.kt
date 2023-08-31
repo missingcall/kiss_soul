@@ -24,6 +24,8 @@ import com.tencent.qgame.animplayer.util.ScaleType
 import com.kissspace.util.append
 import com.kissspace.util.dp
 import com.kissspace.common.ext.safeClick
+import com.kissspace.common.flowbus.Event
+import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.http.getAppConfigByKey
 import com.kissspace.common.model.RoomInfoBean
 import com.kissspace.common.model.UserInfoBean
@@ -37,13 +39,10 @@ import com.kissspace.common.util.hideLoading
 import com.kissspace.common.util.jumpRoom
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.common.util.parseCustomMessage
-import com.kissspace.common.util.showLoading
 import com.kissspace.common.widget.CommonConfirmDialog
 import com.kissspace.util.resToColor
 import com.kissspace.module_room.R
-import com.kissspace.module_room.databinding.RoomActivityAudioBinding
 import com.kissspace.module_room.databinding.RoomFragmentAudioBinding
-import com.kissspace.module_room.databinding.RoomFragmentAudioMainBinding
 import com.kissspace.network.result.collectData
 import com.kissspace.room.manager.RoomServiceManager
 import com.kissspace.room.viewmodel.LiveViewModel
@@ -117,8 +116,12 @@ class LiveAudioFragment : BaseFragment(R.layout.room_fragment_audio),
             roomInfoBean = fromJson(roomInfo)
         }
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(this, true)
-        if (!hasNotificationPermission(requireContext()) && Build.VERSION.SDK_INT >= 33) {
-            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+        if (!hasNotificationPermission(requireContext())&& Build.VERSION.SDK_INT >= 33) {
+            requestNotificationPermission(fragment = this){ success->
+                if(success){
+                    FlowBus.post(Event.NotificationEventOpen)
+                }
+            }
         }
     }
 

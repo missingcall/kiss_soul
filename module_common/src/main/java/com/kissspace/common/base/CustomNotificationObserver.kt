@@ -67,17 +67,19 @@ object CustomNotificationObserver {
                     MESSAGE_BAN_USER -> {
                         val data = fromJson<BanUserMessage>(json.getJSONObject("data").toString())
                         if (data.userId == MMKVProvider.userId) {
-                            CommonConfirmDialog(
-                                topActivity.context,
-                                title = "提示",
-                                subTitle = data.reason + "解封时间：" + data.frozenDeadline,
-                                isShowNegative = false,
-                                cancelable = false
-                            ) {
-                                if (this) {
-                                    loginOut()
-                                }
-                            }.show()
+                            topActivity?.let {
+                                CommonConfirmDialog(
+                                    it.context,
+                                    title = "提示",
+                                    subTitle = data.reason + "解封时间：" + data.frozenDeadline,
+                                    isShowNegative = false,
+                                    cancelable = false
+                                ) {
+                                    if (this) {
+                                        loginOut()
+                                    }
+                                }.show()
+                            }
                         }
                     }
                     MESSAGE_TRANSFER_COIN -> {

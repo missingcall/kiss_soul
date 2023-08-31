@@ -27,9 +27,9 @@ import androidx.core.app.ActivityCompat
 import com.kissspace.util.topActivity
 
 fun ActivityResultCaller.registerForRequestMultiplePermissionsResult(
-    onAllGranted: () -> Unit,
-    onDenied: AppSettingsScope.(List<String>) -> Unit,
-    onShowRequestRationale: PermissionsScope.(List<String>) -> Unit
+  onAllGranted: () -> Unit,
+  onDenied: AppSettingsScope.(List<String>) -> Unit,
+  onShowRequestRationale: PermissionsScope.(List<String>) -> Unit
 ): ActivityResultLauncher<Array<String>> {
   var permissionsLauncher: ActivityResultLauncher<Array<String>>? = null
   val deniedList = mutableListOf<String>()
@@ -41,7 +41,10 @@ fun ActivityResultCaller.registerForRequestMultiplePermissionsResult(
       deniedList.clear()
       deniedList.addAll(result.asIterable().filter { !it.value }.map { it.key })
       val explainableList = deniedList.filter {
-        ActivityCompat.shouldShowRequestPermissionRationale(topActivity, it)
+        topActivity?.let { activity ->
+          ActivityCompat.shouldShowRequestPermissionRationale(activity, it)
+        } == true
+
       }
       if (explainableList.isNotEmpty()) {
         onShowRequestRationale(PermissionsScope {
