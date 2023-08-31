@@ -1,5 +1,6 @@
 package com.kissspace.room.ui.fragment
 
+import android.Manifest
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
@@ -84,6 +85,11 @@ class LiveAudioFragment : BaseFragment(R.layout.room_fragment_audio),
     var mUserInfo: UserInfoBean? = null
     private var roomInfoBean: RoomInfoBean? = null
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { _ ->
+
+    }
 
     companion object {
         fun newInstance(
@@ -111,8 +117,8 @@ class LiveAudioFragment : BaseFragment(R.layout.room_fragment_audio),
             roomInfoBean = fromJson(roomInfo)
         }
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(this, true)
-        if (!hasNotificationPermission(requireContext())) {
-            activity?.let { requestNotificationPermission(it) }
+        if (!hasNotificationPermission(requireContext()) && Build.VERSION.SDK_INT >= 33) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 

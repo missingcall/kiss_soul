@@ -43,6 +43,7 @@ import com.kissspace.module_message.databinding.FragmentMessageV2Binding
 import com.kissspace.module_message.databinding.MessageItemMenuBinding
 import com.kissspace.util.hasNotificationPermission
 import com.kissspace.util.logE
+import com.kissspace.util.requestNotificationPermission
 import com.kissspace.util.swapWithHead
 
 /**
@@ -80,6 +81,20 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             }
         }else{
             mBinding.layoutNotification.visibility= View.GONE
+        }
+        mBinding.ivClose.safeClick {
+            MMKVProvider.lastShowNotificationPermission = System.currentTimeMillis()
+            mBinding.layoutNotification.visibility= View.GONE
+        }
+
+        mBinding.tvOpenNotification.safeClick{
+            activity?.let {
+                requestNotificationPermission(it){ isOpenNotification->
+                    if(isOpenNotification){
+                        mBinding.layoutNotification.visibility= View.GONE
+                    }
+                }
+            }
         }
     }
 

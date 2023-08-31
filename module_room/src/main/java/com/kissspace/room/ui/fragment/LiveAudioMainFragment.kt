@@ -291,8 +291,11 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
         mBinding.ivWaterGame.visibility =
             if (MMKVProvider.isShowGame) View.VISIBLE else View.GONE
         val type = object : TypeToken<List<RoomGameConfig>>() {}.type
-        val games = GsonUtils.fromJson<List<RoomGameConfig>>(MMKVProvider.gameConfig, type)
-        val waterUrl = games.find { it.game_name == "神奇浇水" }?.game_url
+        val games:List<RoomGameConfig>? = GsonUtils.fromJson<List<RoomGameConfig>>(MMKVProvider.gameConfig, type)
+        val waterUrl = games?.find { it.game_name == "神奇浇水" }?.game_url
+        if(waterUrl==null){
+            mBinding.ivWaterGame.visibility = View.GONE
+        }
         mBinding.ivWaterGame.safeClick {
             waterUrl?.let {
                 val url = "${

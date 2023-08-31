@@ -1,5 +1,6 @@
 package com.kissspace.room.ui.activity
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -26,7 +27,7 @@ import com.kissspace.room.manager.RoomServiceManager
 import com.kissspace.util.activity
 import com.kissspace.util.hasNotificationPermission
 import com.kissspace.util.immersiveStatusBar
-import com.kissspace.util.requestNotificationPermission
+
 import com.kissspace.util.toast
 import org.json.JSONObject
 
@@ -41,12 +42,21 @@ import org.json.JSONObject
 abstract class BaseLiveActivity(layoutId: Int) : com.kissspace.common.base.BaseActivity(layoutId),
     Observer<List<ChatRoomMessage>> {
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { granted ->
+        if (granted) {
+
+        } else {
+
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         NIMClient.getService(ChatRoomServiceObserver::class.java).observeReceiveMessage(this, true)
-        if (!hasNotificationPermission(this)) {
-            requestNotificationPermission(this)
+        if (!hasNotificationPermission(this) && Build.VERSION.SDK_INT >= 33) {
+            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
         }
     }
 

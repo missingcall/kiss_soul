@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Parcelize
 data class RoomGameConfig(
-    val game_name: String,
-    val game_icon: String,
-    val game_url: String
+    val game_name: String?=null,
+    val game_icon: String?=null,
+    val game_url: String?=null
 ) : Parcelable

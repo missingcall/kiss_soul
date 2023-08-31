@@ -176,7 +176,7 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
 
                     RoomSettingClickType.TYPE_GAME -> {
                         logE("gameUrl===")
-                        model.gameUrl?.let {
+                        model.gameUrl.let {
                             val url = "${
                                 getH5Url(it, true)
                             }&chatRoomId=${roomInfo.crId}"
@@ -373,10 +373,10 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
                     SettingItem(
                         type = RoomSettingClickType.TYPE_GAME,
                         icon = 0,
-                        iconPath = it.game_icon,
-                        name = it.game_name,
+                        iconPath = it.game_icon.orEmpty(),
+                        name = it.game_name.orEmpty(),
                         isSub = !MMKVProvider.isShowGame,
-                        gameUrl = it.game_url
+                        gameUrl = it.game_url.orEmpty()
                     )
                 )
             }

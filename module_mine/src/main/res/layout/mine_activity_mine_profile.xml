@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
         <variable
             name="vm"
             type="com.kissspace.mine.viewmodel.UserProfileViewModel" />
@@ -44,7 +43,7 @@
                         android:textColor="@color/color_FFEB71"
                         android:background="@mipmap/mine_icon_user_dynamic"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toTopOf="@id/lever1"
+                        app:layout_constraintBottom_toTopOf="@+id/lever1"
                         android:layout_marginRight="20dp"
                         />
 
@@ -73,6 +72,7 @@
                         android:layout_marginBottom="40dp"/>
 
 
+
                     <TextView
                         android:id="@+id/tv_nickname"
                         android:layout_width="wrap_content"
@@ -81,8 +81,8 @@
                         android:text="@{vm.userInfo.nickname}"
                         android:textColor="@color/white"
                         android:textSize="20sp"
-                        app:layout_constraintBottom_toTopOf="@id/lever1"
-                        app:layout_constraintStart_toStartOf="@id/lever1" />
+                        app:layout_constraintBottom_toTopOf="@+id/lever1"
+                        app:layout_constraintStart_toStartOf="@+id/lever1" />
 
                     <ImageView
                         sexImage="@{vm.userInfo.sex}"
@@ -98,7 +98,6 @@
                     android:id="@+id/layout_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="-20dp"
                     android:paddingBottom="16dp"
                     app:bl_corners_topRadius="16dp"
                     app:bl_solid_color="@color/black"

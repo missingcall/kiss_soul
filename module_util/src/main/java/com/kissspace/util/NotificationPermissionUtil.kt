@@ -27,7 +27,7 @@ fun requestNotificationPermission(context: FragmentActivity, block: ((Boolean) -
         intent.action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
         intent.putExtra(Settings.EXTRA_APP_PACKAGE, topActivity.packageName)
         topActivity.startActivity(intent)
-    } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+    } else {
         val intent = Intent()
         intent.action = "android.settings.APP_NOTIFICATION_SETTINGS"
         intent.putExtra("app_package", topActivity.packageName)
