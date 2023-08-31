@@ -9,7 +9,9 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import com.blankj.utilcode.util.GsonUtils
 import com.kissspace.room.manager.RoomServiceManager
+import com.kissspace.room.ui.activity.LiveAudioActivity
 import com.kissspace.room.ui.fragment.LiveAudioFragment
 
 /**
@@ -22,11 +24,11 @@ import com.kissspace.room.ui.fragment.LiveAudioFragment
 
 class RoomNotificationService : Service() {
     companion object {
-        const val FOREGROUND_NOTIFICATION_CHANNEL_ID = "foreground_channel_id"
-        const val FOREGROUND_NOTIFICATION_CHANNEL_NAME = "前台服务通知"
-        const val FOREGROUND_NOTIFICATION_CHANNEL_IMPORTANCE = NotificationManagerCompat.IMPORTANCE_LOW
-        const val FOREGROUND_NOTIFICATION_PENDING_INTENT_REQUEST_CODE = 0x10
-        const val FOREGROUND_NOTIFICATION_ID = 0xc000
+        val FOREGROUND_NOTIFICATION_CHANNEL_ID = "foreground_channel_id"
+        val FOREGROUND_NOTIFICATION_CHANNEL_NAME = "前台服务通知"
+        val FOREGROUND_NOTIFICATION_CHANNEL_IMPORTANCE = NotificationManagerCompat.IMPORTANCE_LOW
+        val FOREGROUND_NOTIFICATION_PENDING_INTENT_REQUEST_CODE = 0x10
+        val FOREGROUND_NOTIFICATION_ID = 0xc000
     }
 
     private lateinit var mNotificationManager: NotificationManager
@@ -60,9 +62,10 @@ class RoomNotificationService : Service() {
                 setShowBadge(false) // 是否在桌面显示角标
             }
             mNotificationManager.createNotificationChannel(channel)
+
         }
         val notification = NotificationCompat.Builder(this, FOREGROUND_NOTIFICATION_CHANNEL_ID)
-            .setSubText("正在房间中")
+            .setContentTitle("正在房间中")
             .setSmallIcon(com.kissspace.module_common.R.mipmap.common_app_logo) // 小图标
             .setPriority(NotificationCompat.PRIORITY_DEFAULT) // 7.0 设置优先级
             .build()
@@ -85,8 +88,8 @@ class RoomNotificationService : Service() {
     }
 
     private fun parseIntent(): Intent {
-        val intent = Intent(this, LiveAudioFragment::class.java)
-        intent.putExtra("roomInfo", RoomServiceManager.roomInfo)
+        val intent = Intent(this, LiveAudioActivity::class.java)
+        intent.putExtra("roomInfo", GsonUtils.toJson(RoomServiceManager.roomInfo))
         intent.putExtra("needRefresh", true)
         return intent
     }

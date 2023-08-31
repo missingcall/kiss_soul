@@ -60,7 +60,6 @@ class UserProfileActivity : BaseActivity(R.layout.mine_activity_mine_profile) {
         initTitleBar()
         initGiftRecyclerView()
         initEvent()
-
     }
 
 
@@ -69,9 +68,6 @@ class UserProfileActivity : BaseActivity(R.layout.mine_activity_mine_profile) {
         mViewModel.requestUserInfo(userId)
     }
 
-    override fun onPause() {
-        super.onPause()
-    }
 
     private fun initEvent() {
         mBinding.tvChat.safeClick {

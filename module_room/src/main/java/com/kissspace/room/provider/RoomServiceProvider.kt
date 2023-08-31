@@ -182,7 +182,7 @@ class RoomServiceProvider : IRoomProvider {
             "roomInfo" to GsonUtils.toJson(roomInfoBean).orEmpty()
         )
         if (topActivity is BaseLiveActivity) {
-            topActivity.finish()
+            (topActivity as BaseLiveActivity).finish()
         }
     }
 

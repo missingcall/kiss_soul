@@ -144,4 +144,7 @@ sealed class Event {
 
     //星际庄园游戏
     data class H5InterstellarEvent(var content:String) : Event()
+
+    //通知权限是否开启
+    object NotificationEventOpen  : Event()
 }

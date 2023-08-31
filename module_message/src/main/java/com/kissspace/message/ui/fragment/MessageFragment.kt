@@ -57,7 +57,8 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
     private val mBinding by viewBinding<FragmentMessageV2Binding>()
     private val mViewModel by viewModels<MessageViewModel>()
     private lateinit var mRecentContactAdapter: BindingAdapter
-    private var menuList:MutableList<ItemMessageMenu> =ArrayList()
+    private var menuList: MutableList<ItemMessageMenu> = ArrayList()
+
     /**
      * 系统广播监听
      */
@@ -75,55 +76,73 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         initRefreshLayout()
         registerObserver()
 
-        if(context?.let { hasNotificationPermission(it) } != true){
-            if(!TimeUtils.isToday(MMKVProvider.lastShowNotificationPermission)){
-                mBinding.layoutNotification.visibility= View.VISIBLE
+        if (context?.let { hasNotificationPermission(it) } != true) {
+            if (!TimeUtils.isToday(MMKVProvider.lastShowNotificationPermission)) {
+                mBinding.layoutNotification.visibility = View.VISIBLE
             }
-        }else{
-            mBinding.layoutNotification.visibility= View.GONE
+        } else {
+            mBinding.layoutNotification.visibility = View.GONE
         }
         mBinding.ivClose.safeClick {
             MMKVProvider.lastShowNotificationPermission = System.currentTimeMillis()
-            mBinding.layoutNotification.visibility= View.GONE
+            mBinding.layoutNotification.visibility = View.GONE
         }
 
-        mBinding.tvOpenNotification.safeClick{
-            activity?.let {
-                requestNotificationPermission(it){ isOpenNotification->
-                    if(isOpenNotification){
-                        mBinding.layoutNotification.visibility= View.GONE
-                    }
+        mBinding.tvOpenNotification.safeClick {
+            requestNotificationPermission(fragment = this) { isOpenNotification ->
+                if (isOpenNotification) {
+                    mBinding.layoutNotification.visibility = View.GONE
                 }
             }
+
         }
     }
 
     private fun initTopItemList() {
         //关闭 RecyclerView 的item刷新动画
         mBinding.rvList.itemAnimator = null
-        menuList= mViewModel.getMessageMenu()
+        menuList = mViewModel.getMessageMenu()
         mBinding.rvList.grid(4).setup {
             addType<ItemMessageMenu> { R.layout.message_item_menu }
             onBind {
                 val model = getModel<ItemMessageMenu>()
                 val viewBinding = getBinding<MessageItemMenuBinding>()
-                viewBinding.tvText.text=model.name
+                viewBinding.tvText.text = model.name
                 viewBinding.ivTop.setImageResource(model.resourceId)
             }
-            onClick(R.id.cl_root){
-                when(modelPosition){
-                    0->{
-                        val url =getH5Url(Constants.H5.dynamicInteractivityType,true)+"&interactionType=001"
-                        jump(RouterPath.PATH_WEBVIEW, "url" to url, "showTitle" to false, "showTitleBarMargin" to true)
+            onClick(R.id.cl_root) {
+                when (modelPosition) {
+                    0 -> {
+                        val url = getH5Url(
+                            Constants.H5.dynamicInteractivityType,
+                            true
+                        ) + "&interactionType=001"
+                        jump(
+                            RouterPath.PATH_WEBVIEW,
+                            "url" to url,
+                            "showTitle" to false,
+                            "showTitleBarMargin" to true
+                        )
                     }
-                    1->{
+
+                    1 -> {
                         jump(RouterPath.PATH_SYSTEM_MESSAGE)
                     }
-                    2->{
-                        val url =getH5Url(Constants.H5.dynamicInteractivityType,true)+"&interactionType=002"
-                        jump(RouterPath.PATH_WEBVIEW, "url" to url, "showTitle" to false, "showTitleBarMargin" to true)
+
+                    2 -> {
+                        val url = getH5Url(
+                            Constants.H5.dynamicInteractivityType,
+                            true
+                        ) + "&interactionType=002"
+                        jump(
+                            RouterPath.PATH_WEBVIEW,
+                            "url" to url,
+                            "showTitle" to false,
+                            "showTitleBarMargin" to true
+                        )
                     }
-                    3->{
+
+                    3 -> {
                         jump(RouterPath.PATH_MESSAGE_TASK)
                     }
                 }
@@ -211,7 +230,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         }
 
         val adapter =
-            ConcatAdapter( mRecentContactAdapter)
+            ConcatAdapter(mRecentContactAdapter)
 
         mBinding.recyclerView.adapter = adapter
 
@@ -236,7 +255,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         mViewModel.requestBannerData()
         mViewModel.requestSystemMessage()
         mViewModel.requestDynamicMessageCount()
-        menuList[0].unReadCount=MMKVProvider.systemMessageUnReadCount
+        menuList[0].unReadCount = MMKVProvider.systemMessageUnReadCount
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -248,7 +267,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             } else {
                 mBinding.pageRefreshLayout.finishLoadMore()
             }
-            mRecentContactAdapter.models=it
+            mRecentContactAdapter.models = it
             FlowBus.post(Event.RefreshUnReadMsgCount)
         }, onEmpty = {
             mBinding.pageRefreshLayout.finishLoadMoreWithNoMoreData()
@@ -256,8 +275,8 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         })
 
         collectData(mViewModel.dynamicMessageCountEvent, onSuccess = {
-            menuList[0].unReadCount=it.likeMessage
-            menuList[2].unReadCount=it.interactiveMessages
+            menuList[0].unReadCount = it.likeMessage
+            menuList[2].unReadCount = it.interactiveMessages
             mBinding.rvList.adapter?.notifyItemChanged(0)
             mBinding.rvList.adapter?.notifyItemChanged(2)
         })
@@ -266,7 +285,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
                 val data = it.records[0]
                 data.unReadCount = it.total - MMKVProvider.systemMessageLastReadCount
                 MMKVProvider.systemMessageUnReadCount = data.unReadCount
-                menuList[1].unReadCount=MMKVProvider.systemMessageUnReadCount
+                menuList[1].unReadCount = MMKVProvider.systemMessageUnReadCount
                 mBinding.rvList.adapter?.notifyItemChanged(1)
             }
             FlowBus.post(Event.RefreshUnReadMsgCount)
@@ -290,14 +309,15 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
                     //还是老的昵称和头像
                     existModel?.nickname = model.nickname
                     //显示的昵称
-                    logE("model.nickname"+model.nickname)
+                    logE("model.nickname" + model.nickname)
                     existModel?.avatar = model.avatar
                     existModel?.content = model.content
                     existModel?.unReadCount = model.unReadCount
                     existModel?.date = model.date
                     existModel?.followRoomId = model.followRoomId
                     //交换位置
-                    mRecentContactAdapter._data= swapWithHead( mRecentContactAdapter.models?.toMutableList(),postion)
+                    mRecentContactAdapter._data =
+                        swapWithHead(mRecentContactAdapter.models?.toMutableList(), postion)
                     mRecentContactAdapter.notifyDataSetChanged()
                 }
             }
@@ -321,10 +341,13 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         FlowBus.observerEvent<Event.MsgRefreshDynamicNoticeEvent>(this) {
             mViewModel.requestDynamicMessageCount()
         }
+
+        FlowBus.observerEvent<Event.NotificationEventOpen>(this) {
+            mBinding.layoutNotification.visibility = View.GONE
+        }
     }
 
     private fun isFromDialog() = parentFragment != null && parentFragment is ChatDialog
-
 
 
     override fun onDestroy() {
@@ -334,7 +357,6 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             .observeBroadcastMessage(broadcastObserver, false)
 
     }
-
 
 
 }

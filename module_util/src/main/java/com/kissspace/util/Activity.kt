@@ -14,20 +14,19 @@ import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
 import androidx.core.app.ActivityCompat
 import androidx.core.os.bundleOf
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
 import java.util.*
 
 val activityCache = LinkedList<Activity>()
 
-fun startActivity(intent: Intent) = topActivity.startActivity(intent)
+fun startActivity(intent: Intent) = topActivity?.startActivity(intent)
 
 inline fun <reified T : Activity> startActivity(
     vararg pairs: Pair<String, Any?>,
     crossinline block: Intent.() -> Unit = {}
 ) =
-    topActivity.startActivity<T>(pairs = pairs, block = block)
+    topActivity?.startActivity<T>(pairs = pairs, block = block)
 
 inline fun <reified T : Activity> Context.startActivity(
     vararg pairs: Pair<String, Any?>,
@@ -42,7 +41,7 @@ fun Activity.finishWithResult(vararg pairs: Pair<String, *>) {
 
 val activityList: List<Activity> get() = activityCache.toList()
 
-val topActivity: Activity get() = activityCache.last()
+val topActivity: Activity? get() = activityCache.last()
 
 inline fun <reified T : Activity> isActivityExistsInStack(): Boolean =
     isActivityExistsInStack(T::class.java)
@@ -79,14 +78,14 @@ fun finishAllActivities(): Boolean =
 inline fun <reified T : Activity> finishAllActivitiesExcept(): Boolean =
     finishAllActivitiesExcept(T::class.java)
 
-fun <T : Activity> finishAllActivitiesExcept(clazz: Class<T>): Boolean =
+fun <T : Activity> finishAllActivitiesExcept(clazz: Class<T>?): Boolean =
     activityCache.removeAll {
-        if (it.javaClass.name != clazz.name) it.finish()
-        it.javaClass.name != clazz.name
+        if (it.javaClass.name != clazz?.name) it.finish()
+        it.javaClass.name != clazz?.name
     }
 
 fun finishAllActivitiesExceptNewest(): Boolean =
-    finishAllActivitiesExcept(topActivity.javaClass)
+    finishAllActivitiesExcept(topActivity?.javaClass)
 
 fun ComponentActivity.pressBackTwiceToExitApp(
     toastText: String,
