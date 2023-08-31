@@ -18,6 +18,7 @@ import com.kissspace.common.util.handleSchema
 import com.kissspace.module_room.R
 import com.kissspace.util.loadImage
 import com.kissspace.util.loadImageCircle
+import com.kissspace.util.logE
 
 object ViewBindingAdapter {
     @JvmStatic
@@ -65,7 +66,7 @@ object ViewBindingAdapter {
             onBind {
                 val model = getModel<RoomListBannerBean>()
                 val imageView = findView<ImageView>(com.kissspace.android.R.id.iv_banner)
-                imageView.loadImage(model.url)
+                imageView.loadImage(model.url,com.kissspace.android.R.mipmap.app_party_banner_rank_bg,8f,8f,8f,8f)
             }
             onFastClick(R.id.root) {
                 val model = getModel<RoomListBannerBean>()
