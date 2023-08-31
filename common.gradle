@@ -295,7 +295,7 @@ project.ext {
                     extension.implementation "com.squareup.okio:okio:3.0.0"
                     extension.api "io.coil-kt:coil:2.3.0"
                     extension.api "org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1"
-                    extension.api "com.guolindev.permissionx:permissionx:1.6.1"
+                    extension.api "com.guolindev.permissionx:permissionx:1.7.1"
                     break
                 case "module_dynamic":
                     extension.implementation extension.project(path: ':module_webview')

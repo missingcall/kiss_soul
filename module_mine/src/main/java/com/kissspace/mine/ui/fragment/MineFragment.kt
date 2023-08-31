@@ -160,11 +160,6 @@ class MineFragment : BaseFragment(R.layout.fragment_mine) {
                 "url" to getH5Url(Constants.H5.centerActionUrl, needToken = true),
                 "showTitle" to true
             )
-            jump(
-                RouterPath.PATH_WEBVIEW,
-                "url" to "https://test.wzlsdzswyxgs.com/h5api/water/#/pages/funfair/index",
-                "showTitle" to true
-            )
         }
 
         mBinding.layoutRoom.safeClick {
