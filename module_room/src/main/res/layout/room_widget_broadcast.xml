@@ -17,6 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="10dp"
         android:layout_marginStart="12dp"
+        android:src="@mipmap/room_bg_broadcast_defalut_avatar"
         />
 
     <TextView
