@@ -75,7 +75,7 @@ class SendSmsCodeActivity :
                 mBinding.tvConfirm.text = "注销"
                 mBinding.etPhoneNumber.isEnabled = false
                 mBinding.etPhoneNumber.setText(MMKVProvider.userPhone)
-                mBinding.titleBar.setTitleIcon(com.kissspace.module_common.R.mipmap.common_icon_title_logoff)
+                mBinding.titleBar.title = "注销账号"
             }
 
             BindPhone -> {
@@ -91,7 +91,7 @@ class SendSmsCodeActivity :
                     mBinding.llRoot.requestFocus()
                     finishCountDown()
                 }
-                mBinding.titleBar.setTitleIcon(R.mipmap.app_icon_title_bind_phone)
+                mBinding.titleBar.title = "手机号码绑定"
                 mBinding.tvConfirm.text = "确定"
             }
 
@@ -99,7 +99,7 @@ class SendSmsCodeActivity :
                 smsType = "14"
                 mBinding.etPhoneNumber.setText(MMKVProvider.userPhone)
                 mBinding.etPhoneNumber.isEnabled = false
-                mBinding.titleBar.setTitleIcon(R.mipmap.app_icon_title_transfer_coin)
+                mBinding.titleBar.title = "转账认证"
             }
 
             else -> {

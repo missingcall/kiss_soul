@@ -14,9 +14,9 @@
             android:layout_height="50dp"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
-            app:titleIcon="@mipmap/mine_family_earns_text"
+            app:title="家族收益明细"
             app:barStyle="transparent"
             />
 

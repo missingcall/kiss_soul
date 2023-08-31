@@ -15,10 +15,10 @@
             app:barStyle="transparent"
             app:layout_constraintTop_toTopOf="parent"
             app:leftHorizontalPadding="16dp"
-            app:leftIcon="@mipmap/common_icon_back_purple"
+            app:leftIcon="@mipmap/common_icon_back_white"
             app:lineVisible="false"
             app:titleColor="@color/white"
-            app:titleIcon="@mipmap/mine_icon_family_all_text"
+            app:title="家族牌照房流水"
             app:titleSize="18sp" />
 
         <com.kissspace.common.widget.tablayout.CustomTabLayout

@@ -33,7 +33,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:leftHorizontalPadding="16dp"
                     app:barStyle="transparent"
-                    app:leftIcon="@mipmap/common_icon_back_purple"
+                    app:leftIcon="@mipmap/common_icon_back_white"
                     app:lineVisible="false"
                     app:titleColor="@color/color_FFFD62"
                     app:titleSize="18sp" />

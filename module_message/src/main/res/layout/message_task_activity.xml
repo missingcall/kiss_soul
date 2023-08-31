@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
+
     <com.hjq.bar.TitleBar
         android:id="@+id/title_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        app:barStyle="transparent"
         app:layout_constraintTop_toTopOf="parent"
         app:leftHorizontalPadding="16dp"
-        app:leftIcon="@mipmap/common_icon_back_purple"
+        app:leftIcon="@mipmap/common_icon_back_white"
         app:lineVisible="false"
-        app:barStyle="transparent"
         app:title="任务消息"
-        app:titleColor="@color/common_white"/>
+        app:titleColor="@color/common_white" />
+
     <com.drake.statelayout.StateLayout
         android:id="@+id/state_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:empty_layout="@layout/common_view_empty"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:empty_layout="@layout/common_view_empty">
+        app:layout_constraintRight_toRightOf="parent">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
