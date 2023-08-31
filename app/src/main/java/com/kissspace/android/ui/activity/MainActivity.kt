@@ -38,6 +38,7 @@ import com.kissspace.common.config.Constants
 import com.kissspace.common.router.jump
 import com.kissspace.common.ext.safeClick
 import com.kissspace.common.flowbus.Event
+import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.flowbus.FlowBus.observerEvent
 import com.kissspace.common.http.getAppConfigByKey
 import com.kissspace.common.router.RouterPath
@@ -290,6 +291,11 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         //刷新未读消息数量
         observerEvent<Event.RefreshUnReadMsgCount>(this) {
             updateMessageCount()
+        }
+
+        observerEvent<Event.RefreshChangeAccountEvent>(this) {
+           initConfig()
+           initAppConfig()
         }
 
     }
