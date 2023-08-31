@@ -60,10 +60,10 @@ class RoomServiceProvider : IRoomProvider {
                         doJump(it.crId, stochastic, userId)
                     }
                 } else if (roomInfo != null && roomInfo.roomTagCategory == roomType && roomInfo.houseOwnerId == MMKVProvider.userId) {
-                    doJump(roomInfo.crId, stochastic, userId, roomInfo)
-//                    refreshRoom(crId = roomInfo!!.crId) {
-//                        doJump(it.crId, stochastic, userId, it)
-//                    }
+//                    doJump(roomInfo.crId, stochastic, userId, roomInfo)
+                    refreshRoom(crId = roomInfo!!.crId) {
+                        doJump(it.crId, stochastic, userId, it)
+                    }
                 } else {
                     showLoading()
                     RoomServiceManager.release()
@@ -77,10 +77,10 @@ class RoomServiceProvider : IRoomProvider {
                 //进别人房间
                 if (crId == roomInfo?.crId) {
                     //刷新房间，不用校验
-                    doJump(roomInfo!!.crId, stochastic, userId, roomInfo!!)
-//                    refreshRoom(crId!!) {
-//                        doJump(it.crId, stochastic, userId, it)
-//                    }
+//                    doJump(roomInfo!!.crId, stochastic, userId, roomInfo!!)
+                    refreshRoom(crId!!) {
+                        doJump(it.crId, stochastic, userId, it)
+                    }
                 } else {
                     RoomServiceManager.release()
                     checkRoom(crId!!, stochastic, userId)
