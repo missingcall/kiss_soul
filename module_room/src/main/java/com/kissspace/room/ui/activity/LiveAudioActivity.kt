@@ -93,7 +93,7 @@ class LiveAudioActivity : BaseActivity(R.layout.room_activity_audio) {
 
     private fun loadVideoAndChatRoom(viewGroup: ViewGroup) {
         var index = RoomServiceManager.roomList.indexOfFirst { it.crId == currentRoomId }
-        var roomId = when {
+        val roomId = when {
             mBinding.viewPager.currentItem > currentPosition -> {
                 index++
                 if (index >= RoomServiceManager.roomList.size - 1) {

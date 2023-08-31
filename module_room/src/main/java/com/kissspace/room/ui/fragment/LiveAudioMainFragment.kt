@@ -147,6 +147,7 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
 
 
     private fun initSoftInput() {
+        //弹出一个输入框的弹窗
         mBinding.layoutChat.onClick {
             InputTextDialogFragment.Builder().setConfirmCallback {
                 mViewModel.checkCanChat(getRoomInfo()!!.crId) {

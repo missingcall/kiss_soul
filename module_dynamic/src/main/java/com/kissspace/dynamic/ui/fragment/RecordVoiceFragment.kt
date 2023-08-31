@@ -145,7 +145,7 @@ class RecordVoiceFragment : BaseFragment(R.layout.dynamic_fragment_voice) {
                 PermissionX.init(this).permissions(Manifest.permission.RECORD_AUDIO)
                     .onExplainRequestReason { scope, deniedList ->
                         val message =
-                            "为了您能正常体验【录制语音打招呼】功能，独角soul需向你申请麦克风权限"
+                            "为了您能正常体验【录制语音打招呼】功能，2098社交需向你申请麦克风权限"
                         scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
                     }
                     .explainReasonBeforeRequest()
