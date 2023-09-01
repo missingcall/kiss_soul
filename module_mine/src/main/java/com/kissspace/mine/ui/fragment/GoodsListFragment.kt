@@ -80,15 +80,7 @@ class GoodsListFragment : BaseFragment(R.layout.mine_fragment_store_car) {
             customToast("购买成功")
             (requireActivity() as StoreActivity).requestUserInfo()
         }, onError = {
-            if (it.errCode == "50028") {
-                customToast("余额不足")
-                getSelectPayChannelList { list ->
-                    DRouter.build(IPayProvider::class.java).getService()
-                        .showPayDialogFragment(parentFragmentManager, list)
-                }
-            } else {
-                customToast(it.message)
-            }
+            customToast(it.message)
         })
     }
 

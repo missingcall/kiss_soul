@@ -24,7 +24,6 @@ import com.kissspace.module_mine.databinding.MineActivityStoreBinding
 import com.kissspace.common.http.getUserInfo
 import com.kissspace.util.formatDecimal
 import com.kissspace.util.immersiveStatusBar
-import com.kissspace.util.loadImage
 import com.kissspace.util.size
 import com.kissspace.util.sp
 import java.math.RoundingMode
@@ -37,7 +36,7 @@ import java.math.RoundingMode
  *
  */
 @Router(uri = RouterPath.PATH_STORE)
-class StoreActivity : com.kissspace.common.base.BaseActivity(R.layout.mine_activity_store) {
+class StoreActivity : BaseActivity(R.layout.mine_activity_store) {
     private val mBinding by viewBinding<MineActivityStoreBinding>()
     override fun initView(savedInstanceState: Bundle?) {
         immersiveStatusBar(false)
