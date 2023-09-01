@@ -23,6 +23,9 @@ class StoreViewModel : BaseViewModel() {
 
     fun getGoodsList(type: String) {
         val param = mutableMapOf<String, Any?>("commodityType" to type)
+        param["commodityType"] = type
+        //装扮商城
+        param["position"] = "001"
         request(MineApi.API_STORE_GOODS_LIST, Method.GET, param, state = _getGoodsListEvent)
     }
 
