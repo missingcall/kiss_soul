@@ -5,6 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.kissspace.login.widget.FixedTextureVideoView
+        android:id="@+id/video_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
     <ImageView
@@ -22,7 +26,7 @@
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="14sp"
-        android:visibility="gone"
+        android:text="跳过"
         app:bl_corners_radius="16dp"
         app:bl_solid_color="#40000000"
         app:layout_constraintEnd_toEndOf="parent"

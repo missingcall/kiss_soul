@@ -199,38 +199,38 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
     private fun getNormalItems(): MutableList<SettingItem> {
         val normalItem = mutableListOf<SettingItem>()
 
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_GET_INTEGRAL,
-                icon = R.mipmap.room_icon_setting_get_integral,
-                name = "积分领取"
-            )
-        )
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_PREDICTION,
-                icon = R.mipmap.room_icon_setting_prediction,
-                name = "积分预言",
-                isSub = roomInfo.userRole == Constants.ROOM_USER_TYPE_ANCHOR && !canBet
-            )
-        )
-
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_PK,
-                icon = R.mipmap.room_icon_setting_pk,
-                name = "PK",
-                isSub = true
-            )
-        )
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_PREDICTION,
-                icon = R.mipmap.room_icon_setting_prediction,
-                name = "积分预言",
-                isSub = true,
-            )
-        )
+//        normalItem.add(
+//            SettingItem(
+//                type = RoomSettingClickType.TYPE_GET_INTEGRAL,
+//                icon = R.mipmap.room_icon_setting_get_integral,
+//                name = "积分领取"
+//            )
+//        )
+//        normalItem.add(
+//            SettingItem(
+//                type = RoomSettingClickType.TYPE_PREDICTION,
+//                icon = R.mipmap.room_icon_setting_prediction,
+//                name = "积分预言",
+//                isSub = roomInfo.userRole == Constants.ROOM_USER_TYPE_ANCHOR && !canBet
+//            )
+//        )
+//
+//        normalItem.add(
+//            SettingItem(
+//                type = RoomSettingClickType.TYPE_PK,
+//                icon = R.mipmap.room_icon_setting_pk,
+//                name = "PK",
+//                isSub = true
+//            )
+//        )
+//        normalItem.add(
+//            SettingItem(
+//                type = RoomSettingClickType.TYPE_PREDICTION,
+//                icon = R.mipmap.room_icon_setting_prediction,
+//                name = "积分预言",
+//                isSub = true,
+//            )
+//        )
 
         normalItem.add(
             SettingItem(

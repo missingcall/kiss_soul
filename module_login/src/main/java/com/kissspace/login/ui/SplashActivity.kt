@@ -3,6 +3,7 @@ package com.kissspace.login.ui
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kissspace.common.base.BaseActivity
@@ -33,6 +34,11 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
     private var job: Job? = null
     private var adBean: AdBean? = null
     private var mPlayingPos = 0
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    }
     override fun initView(savedInstanceState: Bundle?) {
         //先判断是否后台重启
         if (!isTaskRoot) {
@@ -40,6 +46,27 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
             hideKeyboard()
             return
         }
+
+        mBinding.tvLeftTime.safeClick {
+            goLogin()
+        }
+
+        mBinding.videoView.postRunnable {
+            val uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.app_splash_video)
+            mBinding.videoView.setFixedSize(1200, 2500)
+            mBinding.videoView.setVideoURI(uri)
+            mBinding.videoView.start()
+        }
+        mBinding.videoView.setOnCompletionListener {
+            goNext()
+        }
+        mBinding.videoView.setOnErrorListener { _, _, _ ->
+            goNext()
+            true
+        }
+    }
+
+    private fun goNext(){
         if (MMKVProvider.isAgreeProtocol) {
             getAd()
         }else {
@@ -51,12 +78,9 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
         if (adBean == null) {
             goLogin()
         } else {
+            mBinding.videoView.visibility = View.GONE
             mBinding.ivAd.visibility = View.VISIBLE
             mBinding.ivAd.loadImage(adBean?.imgUrl)
-            mBinding.tvLeftTime.visibility = View.VISIBLE
-            mBinding.tvLeftTime.safeClick {
-                goLogin()
-            }
             job = countDown(
                 adBean?.displayTime?.toLong().orZero(),
                 scope = lifecycleScope,
@@ -92,5 +116,30 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
         removeRunnable(this)
         jump(RouterPath.PATH_LOGIN)
         finish()
+    }
+
+    override fun onDestroy() {
+        kotlin.runCatching {
+            mBinding.videoView.stopPlayback()
+        }
+        super.onDestroy()
+    }
+
+    override fun onPause() {
+        mPlayingPos = mBinding.videoView.currentPosition
+        mBinding.videoView.pause()
+        super.onPause()
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mPlayingPos > 0) {
+            mBinding.videoView.start()
+            mBinding.videoView.seekTo(mPlayingPos)
+            mPlayingPos = 0
+        } else {
+            mBinding.videoView.start()
+        }
     }
 }

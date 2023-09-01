@@ -225,17 +225,17 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
         }
 
         //点击右上角积分竞猜
-        mBinding.predictionView.safeClick {
-            RoomPredictionDialog.newInstance(
-                getRoomInfo()!!.crId, getRoomInfo()!!.userRole, getRoomInfo()!!.roomTagCategory
-            ).show(childFragmentManager)
-        }
+//        mBinding.predictionView.safeClick {
+//            RoomPredictionDialog.newInstance(
+//                getRoomInfo()!!.crId, getRoomInfo()!!.userRole, getRoomInfo()!!.roomTagCategory
+//            ).show(childFragmentManager)
+//        }
         //领取积分
-        mBinding.clIntegral.safeClick {
-            TaskRewardListDialogFragment().show(
-                childFragmentManager, "TaskRewardListDialogFragment"
-            )
-        }
+//        mBinding.clIntegral.safeClick {
+//            TaskRewardListDialogFragment().show(
+//                childFragmentManager, "TaskRewardListDialogFragment"
+//            )
+//        }
         //发送表情
         mBinding.ivEmoji.setOnClickListener {
             mViewModel.checkCanChat(getRoomInfo()!!.crId) {
@@ -506,21 +506,21 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
                 customToast("您已被禁麦")
             }
         })
-        //获取积分列表弹窗
-        collectData(mViewModel.taskRewardListEvent, onSuccess = {
-            it.filter { item1 -> item1.finishStatus == Constants.TaskStatus.TOBE_COLLECTED.type }
-                .let { list ->
-                    logE("tvIntegralCount$list.size")
-                    if (list.isNotEmpty()) {
-                        mBinding.tvIntegralCount.text = list.size.toString()
-                        mBinding.clIntegral.visibility = View.VISIBLE
-                    } else {
-                        //隐藏领取积分接口
-                        mBinding.clIntegral.visibility = View.GONE
-                    }
-                }
-
-        })
+//        //获取积分列表弹窗
+//        collectData(mViewModel.taskRewardListEvent, onSuccess = {
+//            it.filter { item1 -> item1.finishStatus == Constants.TaskStatus.TOBE_COLLECTED.type }
+//                .let { list ->
+//                    logE("tvIntegralCount$list.size")
+//                    if (list.isNotEmpty()) {
+//                        mBinding.tvIntegralCount.text = list.size.toString()
+//                        mBinding.clIntegral.visibility = View.VISIBLE
+//                    } else {
+//                        //隐藏领取积分接口
+//                        mBinding.clIntegral.visibility = View.GONE
+//                    }
+//                }
+//
+//        })
     }
 
 

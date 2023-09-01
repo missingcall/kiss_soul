@@ -100,7 +100,7 @@
             android:layout_marginStart="12dp"
             android:clickable="true"
             android:focusable="true"
-            android:visibility="invisible"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_integral" />
 

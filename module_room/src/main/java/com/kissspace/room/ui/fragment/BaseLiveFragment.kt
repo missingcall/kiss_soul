@@ -302,25 +302,25 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
      *  查询积分竞猜记录，将最近一条显示在右上角
      */
     private fun requestRecentPrediction() {
-        val param = mutableMapOf<String, Any?>("chatRoomId" to getRoomInfo().crId)
-        request<List<PredictionListBean>>(RoomApi.API_GET_PREDICTION_LIST,
-            Method.GET,
-            param,
-            onSuccess = {
-                val model = it.find { that -> that.state == "001" }
-                if (model != null) {
-                    val message = CreateBetMessage(
-                        model.integralGuessId,
-                        model.integralGuessTitle,
-                        model.validTime,
-                        model.leftBetAmount,
-                        model.rightBetAmount
-                    )
-                    showPredictionView(message)
-                } else {
-                    getPredictionView().visibility = View.INVISIBLE
-                }
-            })
+//        val param = mutableMapOf<String, Any?>("chatRoomId" to getRoomInfo().crId)
+//        request<List<PredictionListBean>>(RoomApi.API_GET_PREDICTION_LIST,
+//            Method.GET,
+//            param,
+//            onSuccess = {
+//                val model = it.find { that -> that.state == "001" }
+//                if (model != null) {
+//                    val message = CreateBetMessage(
+//                        model.integralGuessId,
+//                        model.integralGuessTitle,
+//                        model.validTime,
+//                        model.leftBetAmount,
+//                        model.rightBetAmount
+//                    )
+//                    showPredictionView(message)
+//                } else {
+//                    getPredictionView().visibility = View.INVISIBLE
+//                }
+//            })
     }
 
 
@@ -919,12 +919,12 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
                 }
             }
 
-            Constants.IMMessageType.MSG_PREDICTION_BET -> {//用户积分竞猜投注
-                val data = parseCustomMessage<PredictionBetMessage>(attachment.data)
-                getPredictionView().updateProgress(
-                    data.integralGuessId, data.leftBetAmount, data.rightBetAmount
-                )
-            }
+//            Constants.IMMessageType.MSG_PREDICTION_BET -> {//用户积分竞猜投注
+//                val data = parseCustomMessage<PredictionBetMessage>(attachment.data)
+//                getPredictionView().updateProgress(
+//                    data.integralGuessId, data.leftBetAmount, data.rightBetAmount
+//                )
+//            }
 
             Constants.IMMessageType.MSG_CHAT_WATER -> {//浇水消息
                 val data = parseCustomMessage<WaterMessage>(attachment.data)
@@ -1468,8 +1468,8 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
 
 
     private fun showPredictionView(message: CreateBetMessage) {
-        getPredictionView().visibility = View.VISIBLE
-        getPredictionView().initData(message, lifecycleScope)
+//        getPredictionView().visibility = View.VISIBLE
+//        getPredictionView().initData(message, lifecycleScope)
     }
 
     private fun switchIncome() {
