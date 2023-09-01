@@ -202,7 +202,7 @@ class MineFragment : BaseFragment(R.layout.fragment_mine) {
         try {
             if (player == null){
                 player = MediaPlayer()
-                val openFd = requireContext().assets.openFd("mine_jubar.mp3")
+                val openFd = requireContext().assets.openFd("mine_2098.mp3")
                 player?.let{
                     it.setDataSource(openFd.fileDescriptor,openFd.startOffset,openFd.length)
                     it.prepare()

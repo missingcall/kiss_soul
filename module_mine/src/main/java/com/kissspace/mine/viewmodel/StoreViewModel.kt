@@ -17,7 +17,7 @@ class StoreViewModel : BaseViewModel() {
     private val _getGoodsListEvent = MutableSharedFlow<ResultState<MutableList<GoodsListBean>>>()
     val getGoodsListEvent = _getGoodsListEvent.asSharedFlow()
 
-    private val _buyEvent = MutableSharedFlow<ResultState<Int?>>()
+    private val _buyEvent = MutableSharedFlow<ResultState<Boolean>>()
     val buyEvent = _buyEvent.asSharedFlow()
 
 

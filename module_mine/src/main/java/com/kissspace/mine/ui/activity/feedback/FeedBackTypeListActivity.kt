@@ -34,7 +34,7 @@ import com.kissspace.util.activity
  * @Describe
  */
 @Router(uri = RouterPath.PATH_FEEDBACK_TYPE_LIST)
-class FeedBackTypeListActivity : com.kissspace.common.base.BaseActivity(R.layout.mine_activtiy_feedback) {
+class FeedBackTypeListActivity : BaseActivity(R.layout.mine_activtiy_feedback) {
 
     private val mBinding by viewBinding<MineActivtiyFeedbackBinding>()
 
