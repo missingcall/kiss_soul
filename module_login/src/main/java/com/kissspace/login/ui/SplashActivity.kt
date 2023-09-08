@@ -37,7 +37,7 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
     override fun initView(savedInstanceState: Bundle?) {
         //先判断是否后台重启

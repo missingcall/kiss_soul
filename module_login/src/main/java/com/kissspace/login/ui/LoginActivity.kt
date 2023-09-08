@@ -52,7 +52,7 @@ class LoginActivity : BaseActivity(R.layout.login_activity_login),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        NetConfig.host = MMKVProvider.baseUrl
+        NetConfig.host = BaseUrlConfig.BASEURL_RELEASE
         finishAllActivitiesExceptNewest()
     }
 
@@ -76,12 +76,12 @@ class LoginActivity : BaseActivity(R.layout.login_activity_login),
                 customToast("请勾选同意后登录")
             }
         }
-        if (isAppDebug) {
-            mBinding.ivLogo.setOnLongClickListener {
-                jump(RouterPath.PATH_BASE_URL_SETTING)
-                true
-            }
-        }
+//        if (isAppDebug) {
+//            mBinding.ivLogo.setOnLongClickListener {
+//                jump(RouterPath.PATH_BASE_URL_SETTING)
+//                true
+//            }
+//        }
         dispatchPath()
     }
 

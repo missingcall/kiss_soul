@@ -14,6 +14,7 @@ import com.blankj.utilcode.util.GsonUtils;
 import com.github.gzuliyujiang.oaid.DeviceIdentifier;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.kissspace.common.config.BaseUrlConfig;
 import com.kissspace.common.config.Constants;
 import com.kissspace.common.http.interceptor.HeaderInterceptor;
 import com.kissspace.common.model.immessage.BaseAttachment;
@@ -121,7 +122,7 @@ public class QuickStartGameViewModel extends BaseGameViewModel {
 
         RequestBody body = RequestBody.create(req, MediaType.get("application/json; charset=utf-8"));
         Request request = new Request.Builder()
-                .url(MMKVProvider.INSTANCE.getBaseUrl()+"/djsoul-game/sudMGP/login")
+                .url(BaseUrlConfig.BASEURL_RELEASE+"/djsoul-game/sudMGP/login")
                 .post(body)
                 .addHeader("Authorization", MMKVProvider.INSTANCE.getLoginResult().getTokenHead() + MMKVProvider.INSTANCE.getLoginResult().getToken())
                 .addHeader("channel", appendChannel(activity))

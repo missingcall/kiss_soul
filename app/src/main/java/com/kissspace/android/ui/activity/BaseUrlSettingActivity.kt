@@ -12,9 +12,6 @@ import com.drake.brv.utils.setup
 import com.kissspace.android.R
 import com.kissspace.android.databinding.ActivitySettingBaseUrlBinding
 import com.kissspace.common.config.BaseUrlConfig
-import com.kissspace.common.config.isPreServer
-import com.kissspace.common.config.isReleaseServer
-import com.kissspace.common.config.isTestServer
 import com.kissspace.common.ext.safeClick
 import com.kissspace.common.ext.setTitleBarListener
 import com.kissspace.common.router.RouterPath
@@ -39,24 +36,24 @@ class BaseUrlSettingActivity : com.kissspace.common.base.BaseActivity(R.layout.a
     override fun initView(savedInstanceState: Bundle?) {
         setTitleBarListener(mBinding.titleBar)
         val urlList = mutableListOf<ServerListBean>()
-        urlList.add(
-            ServerListBean(
-                BaseUrlConfig.BASEURL_TEST,
-                isTestServer
-            )
-        )
-        urlList.add(
-            ServerListBean(
-                BaseUrlConfig.BASEURL_PRE,
-                isPreServer
-            )
-        )
-        urlList.add(
-            ServerListBean(
-                BaseUrlConfig.BASEURL_RELEASE,
-                isReleaseServer
-            )
-        )
+//        urlList.add(
+//            ServerListBean(
+//                BaseUrlConfig.BASEURL_TEST,
+//                isTestServer
+//            )
+//        )
+//        urlList.add(
+//            ServerListBean(
+//                BaseUrlConfig.BASEURL_PRE,
+//                isPreServer
+//            )
+//        )
+//        urlList.add(
+//            ServerListBean(
+//                BaseUrlConfig.BASEURL_RELEASE,
+//                isReleaseServer
+//            )
+//        )
         mBinding.recyclerView.linear().setup {
             addType<ServerListBean> { R.layout.app_layout_setting_url_item }
             onFastClick(R.id.root) {
@@ -78,9 +75,6 @@ class BaseUrlSettingActivity : com.kissspace.common.base.BaseActivity(R.layout.a
             if (checkedList.isNullOrEmpty()) {
                 customToast("请选择环境")
             } else {
-                val tempUrl = checkedList[0].url
-                MMKVProvider.baseUrl = tempUrl
-                logE("MMKVProvider.baseUrl"+MMKVProvider.baseUrl)
                 restartApp()
             }
         }

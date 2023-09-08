@@ -115,19 +115,19 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
 
     private fun initViewClick() {
         mBinding.view1.setOnClickListener {
-            mBinding.viewPager.currentItem = 0
+            mBinding.viewPager.setCurrentItem(0,false)
         }
         mBinding.view2.setOnClickListener {
-            mBinding.viewPager.currentItem = 1
+            mBinding.viewPager.setCurrentItem(1,false)
         }
         mBinding.view3.setOnClickListener {
-            mBinding.viewPager.currentItem = 3
+            mBinding.viewPager.setCurrentItem(3,false)
         }
         mBinding.view4.setOnClickListener {
-            mBinding.viewPager.currentItem = 4
+            mBinding.viewPager.setCurrentItem(4,false)
         }
         mBinding.ivParty.setOnClickListener {
-            mBinding.viewPager.currentItem = 2
+            mBinding.viewPager.setCurrentItem(2,false)
         }
     }
 

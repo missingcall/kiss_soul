@@ -24,9 +24,6 @@ import kotlin.reflect.KProperty
  */
 object MMKVProvider : MMKVOwner {
 
-    //baseUrl
-    var baseUrl by mmkvString(default = BaseUrlConfig.BASEURL_TEST)
-
     //登录信息
     var loginResult by mmkvGson<LoginResultBean>()
 
@@ -167,13 +164,11 @@ fun isLogin(): Boolean {
 
 fun clearMMKV() {
     val isAgreeProtocol = MMKVProvider.isAgreeProtocol
-    val baseUrl = MMKVProvider.baseUrl
     val isShowRoomGuide = MMKVProvider.isShowRoomGuide
     val adolescentList = MMKVProvider.adolescentList
     kv.clearMemoryCache()
     kv.clearAll()
     MMKVProvider.isAgreeProtocol = isAgreeProtocol
-    MMKVProvider.baseUrl = baseUrl
     MMKVProvider.isShowRoomGuide = isShowRoomGuide
     MMKVProvider.adolescentList = adolescentList
 }

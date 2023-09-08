@@ -29,7 +29,6 @@ import com.kissspace.common.model.immessage.BaseAttachment
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.util.*
 import com.kissspace.network.result.collectData
-import com.kissspace.util.resToColor
 import com.kissspace.util.runOnUi
 import com.kissspace.webview.init.WebViewCacheHolder
 import com.netease.nimlib.sdk.NIMClient
@@ -148,7 +147,8 @@ class HomeFragment : BaseFragment(R.layout.fragment_main_home) , WebViewUtil.JsC
         )
         mWebView.alpha = 0f
         WebViewUtil.init(mWebView,this)
-        WebViewUtil.loadAssets(mWebView, "web-mobile/map.html")
+        showLoading()
+        WebViewUtil.loadUrl(mWebView, "https://h5.zjtmwlkj.com/index/jubarindex/map.html")
         mBinding.container.addView(mWebView, layoutParams)
     }
 

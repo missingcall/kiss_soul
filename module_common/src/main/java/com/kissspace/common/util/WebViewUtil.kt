@@ -15,7 +15,7 @@ import android.webkit.WebViewClient
 object WebViewUtil {
 
 
-    fun init(paramWebView:WebView,paramJsCall: JsCall){
+    fun init(paramWebView: WebView, paramJsCall: JsCall) {
         val webSettings = paramWebView.settings
         paramWebView.requestFocusFromTouch()
         paramWebView.isHorizontalFadingEdgeEnabled = true
@@ -46,12 +46,19 @@ object WebViewUtil {
         paramWebView.webChromeClient = WebChromeClient()
     }
 
-    fun loadAssets(paramWebView:WebView,path: String){
-        paramWebView.loadUrl("file:///android_asset/$path")
+    fun loadUrl(paramWebView: WebView, url: String) {
+        if (url.startsWith("http")){
+            paramWebView.loadUrl(url)
+        }else{
+            paramWebView.loadUrl("file:///android_asset/$url")
+        }
+
     }
 
 
-    class CustomWebViewClient : WebViewClient(){
+
+
+    class CustomWebViewClient : WebViewClient() {
         override fun shouldOverrideUrlLoading(
             view: WebView,
             param1String: String
@@ -59,9 +66,17 @@ object WebViewUtil {
             view.loadUrl(param1String)
             return true
         }
+
+        override fun onPageFinished(view: WebView?, url: String?) {
+            super.onPageFinished(view, url)
+            hideLoading()
+        }
+
     }
 
-    interface JsCall{
+
+
+    interface JsCall {
         fun getName(): String
 
         @JavascriptInterface

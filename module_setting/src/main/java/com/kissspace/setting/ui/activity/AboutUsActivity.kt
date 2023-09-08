@@ -42,21 +42,21 @@ class AboutUsActivity : com.kissspace.common.base.BaseActivity(R.layout.setting_
                 val version = props.getProperty("VERSION_TEST_CODE")
                 logE("version$version")
                 mBinding.tvVersions.text = "测试版本号(${version})"
-                when (MMKVProvider.baseUrl) {
+                when (BaseUrlConfig.BASEURL_RELEASE) {
                     BaseUrlConfig.BASEURL_RELEASE -> {
                         mBinding.tvVersions.text =
                             java.lang.StringBuilder(mBinding.tvVersions.text).append("正式")
                     }
 
-                    BaseUrlConfig.BASEURL_PRE -> {
-                        mBinding.tvVersions.text =
-                            java.lang.StringBuilder(mBinding.tvVersions.text).append("预发")
-                    }
+//                    BaseUrlConfig.BASEURL_PRE -> {
+//                        mBinding.tvVersions.text =
+//                            java.lang.StringBuilder(mBinding.tvVersions.text).append("预发")
+//                    }
 
-                    BaseUrlConfig.BASEURL_TEST -> {
-                        mBinding.tvVersions.text =
-                            java.lang.StringBuilder(mBinding.tvVersions.text).append("测试")
-                    }
+//                    BaseUrlConfig.BASEURL_TEST -> {
+//                        mBinding.tvVersions.text =
+//                            java.lang.StringBuilder(mBinding.tvVersions.text).append("测试")
+//                    }
                 }
             } catch (e: IOException) {
                 e.printStackTrace()

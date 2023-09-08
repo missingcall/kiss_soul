@@ -10,6 +10,7 @@ import com.drake.brv.PageRefreshLayout
 import com.drake.brv.utils.BRV
 import com.drake.net.okhttp.setErrorHandler
 import com.ishumei.smantifraud.SmAntiFraud
+import com.kissspace.common.config.BaseUrlConfig
 import com.kongzue.dialogx.DialogX
 import com.netease.htprotect.HTProtect
 import com.netease.nimlib.sdk.NIMClient
@@ -69,7 +70,7 @@ class LibraryInit : Initializer<Unit> {
             }
         )
         MMKV.initialize(context)
-        netInit(MMKVProvider.baseUrl) {
+        netInit(BaseUrlConfig.BASEURL_RELEASE) {
             writeTimeout((30 * 1000).toLong(), TimeUnit.MILLISECONDS)
             readTimeout((30 * 1000).toLong(), TimeUnit.MILLISECONDS)
             connectTimeout((15 * 1000).toLong(), TimeUnit.MILLISECONDS)
