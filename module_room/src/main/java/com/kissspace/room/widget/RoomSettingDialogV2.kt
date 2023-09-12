@@ -343,28 +343,6 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
 
     private fun getGameItems(): MutableList<SettingItem> {
         val normalItem = mutableListOf<SettingItem>()
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_GAME1,
-                icon = R.mipmap.room_icon_game1,
-                name = "飞行棋",
-            )
-        )
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_GAME2,
-                icon = R.mipmap.room_icon_game2,
-                name = "台球",
-            )
-        )
-        normalItem.add(
-            SettingItem(
-                type = RoomSettingClickType.TYPE_GAME3,
-                icon = R.mipmap.room_icon_game3,
-                name = "你画我猜",
-            )
-        )
-
         if (MMKVProvider.gameConfig.isNotEmptyBlank()) {
             val type = object : TypeToken<List<RoomGameConfig>>() {}.type
             val games = GsonUtils.fromJson<List<RoomGameConfig>>(MMKVProvider.gameConfig, type)
@@ -381,8 +359,6 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
                 )
             }
         }
-
-
         return normalItem
     }
 

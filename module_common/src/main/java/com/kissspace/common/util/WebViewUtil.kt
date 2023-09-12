@@ -5,6 +5,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import com.kissspace.util.postDelay
 
 
 /**
@@ -69,7 +70,9 @@ object WebViewUtil {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
-            hideLoading()
+            postDelay(1500){
+                hideLoading()
+            }
         }
 
     }

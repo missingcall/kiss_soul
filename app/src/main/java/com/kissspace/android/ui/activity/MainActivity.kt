@@ -154,6 +154,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
             MMKVProvider.wechatPublicAccount = it
         }
         getAppConfigByKey<List<RoomGameConfig>>(AppConfigKey.ROOM_ACTIVE_PATH_CONFIG) { gameConfig ->
+            logE("config---$gameConfig")
             MMKVProvider.gameConfig = GsonUtils.toJson(gameConfig)
         }
 
