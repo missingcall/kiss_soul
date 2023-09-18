@@ -55,7 +55,6 @@ import com.kissspace.room.adapter.RoomChatRecyclerAdapter
 import com.kissspace.room.config.RoomSettingClickType
 import com.kissspace.room.http.RoomApi
 import com.kissspace.room.interfaces.RoomActionCallBack
-import com.kissspace.room.interfaces.RoomBroadCastCallBack
 import com.kissspace.room.manager.RoomServiceManager
 import com.kissspace.room.ui.activity.BaseLiveActivity
 import com.kissspace.room.ui.activity.LiveAudioActivity
@@ -63,8 +62,6 @@ import com.kissspace.room.widget.InviteUserUpMicDialog
 import com.kissspace.room.widget.MicActionDialog
 import com.kissspace.room.widget.RoomActionBarView
 import com.kissspace.room.widget.RoomBlackListDialog
-import com.kissspace.room.widget.RoomBroadcastDialog
-import com.kissspace.room.widget.RoomBroadcastView
 import com.kissspace.room.widget.RoomInfoDialog
 import com.kissspace.room.widget.RoomMicrophoneLayout
 import com.kissspace.room.widget.RoomMusicDialog
@@ -246,8 +243,6 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
         registerMessageObserver()
         //初始化actionBar
         initActionBar()
-        //初始化广播
-        initBroadCast()
         //初始化麦克风recyclerView
         getMicrophoneLayout().initRecyclerView(getRoomInfo().wheatPositionList, onMicrophoneClick)
         //初始话聊天列表
@@ -256,17 +251,6 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
         initMicActionEvents()
         //初始化一些请求
         initData()
-    }
-
-    private fun initBroadCast() {
-        getBroadcastView().setCallBack(object : RoomBroadCastCallBack {
-            override fun showBroadCast(costCoin:Int,start:Boolean) {
-                RoomBroadcastDialog.newInstance(costCoin,start).show(childFragmentManager)
-            }
-        })
-        if (getRoomInfo()?.largeScreenMessageResponse != null){
-            getBroadcastView().initData(getRoomInfo()!!.largeScreenMessageResponse)
-        }
     }
 
     private fun initData() {
@@ -302,25 +286,25 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
      *  查询积分竞猜记录，将最近一条显示在右上角
      */
     private fun requestRecentPrediction() {
-//        val param = mutableMapOf<String, Any?>("chatRoomId" to getRoomInfo().crId)
-//        request<List<PredictionListBean>>(RoomApi.API_GET_PREDICTION_LIST,
-//            Method.GET,
-//            param,
-//            onSuccess = {
-//                val model = it.find { that -> that.state == "001" }
-//                if (model != null) {
-//                    val message = CreateBetMessage(
-//                        model.integralGuessId,
-//                        model.integralGuessTitle,
-//                        model.validTime,
-//                        model.leftBetAmount,
-//                        model.rightBetAmount
-//                    )
-//                    showPredictionView(message)
-//                } else {
-//                    getPredictionView().visibility = View.INVISIBLE
-//                }
-//            })
+        val param = mutableMapOf<String, Any?>("chatRoomId" to getRoomInfo().crId)
+        request<List<PredictionListBean>>(RoomApi.API_GET_PREDICTION_LIST,
+            Method.GET,
+            param,
+            onSuccess = {
+                val model = it.find { that -> that.state == "001" }
+                if (model != null) {
+                    val message = CreateBetMessage(
+                        model.integralGuessId,
+                        model.integralGuessTitle,
+                        model.validTime,
+                        model.leftBetAmount,
+                        model.rightBetAmount
+                    )
+                    showPredictionView(message)
+                } else {
+                    getPredictionView().visibility = View.INVISIBLE
+                }
+            })
     }
 
 
@@ -919,12 +903,12 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
                 }
             }
 
-//            Constants.IMMessageType.MSG_PREDICTION_BET -> {//用户积分竞猜投注
-//                val data = parseCustomMessage<PredictionBetMessage>(attachment.data)
-//                getPredictionView().updateProgress(
-//                    data.integralGuessId, data.leftBetAmount, data.rightBetAmount
-//                )
-//            }
+            Constants.IMMessageType.MSG_PREDICTION_BET -> {//用户积分竞猜投注
+                val data = parseCustomMessage<PredictionBetMessage>(attachment.data)
+                getPredictionView().updateProgress(
+                    data.integralGuessId, data.leftBetAmount, data.rightBetAmount
+                )
+            }
 
             Constants.IMMessageType.MSG_CHAT_WATER -> {//浇水消息
                 val data = parseCustomMessage<WaterMessage>(attachment.data)
@@ -1044,14 +1028,6 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
             Constants.IMMessageType.MSG_WATER_TREE_CHANGE -> {
                 val data = parseCustomMessage<TreeChangeMessage>(attachment.data)
                 changeTreeState(data.treeType)
-            }
-
-            Constants.IMMessageType.MSG_TYPE_ROOM_NEW_BROADCAST_MESSAGE -> {
-                val data = parseCustomMessage<RoomScreenMessageModel>(attachment.data)
-                getBroadcastView().initData(data)
-            }
-            Constants.IMMessageType.MSG_TYPE_ROOM_NEW_BROADCAST_END -> {
-                getBroadcastView().initData(null)
             }
 
         }
@@ -1398,8 +1374,6 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
 
     abstract fun getActionBarView(): RoomActionBarView
 
-    abstract fun getBroadcastView(): RoomBroadcastView
-
     //显示新消息按钮
     abstract fun showNewMessageButton(isShow: Boolean)
 
@@ -1468,8 +1442,8 @@ abstract class BaseLiveFragment(layoutId: Int) : BaseFragment(layoutId),
 
 
     private fun showPredictionView(message: CreateBetMessage) {
-//        getPredictionView().visibility = View.VISIBLE
-//        getPredictionView().initData(message, lifecycleScope)
+        getPredictionView().visibility = View.VISIBLE
+        getPredictionView().initData(message, lifecycleScope)
     }
 
     private fun switchIncome() {

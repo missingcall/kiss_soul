@@ -498,6 +498,15 @@
                         />
 
                     <com.kissspace.mine.widget.MineInletView
+                        android:id="@+id/layoutVistor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:mineInletView_labelText="我的访客"
+                        app:mineInletView_labelColor="#86E4C4"
+                        app:mineInletView_arrow="@mipmap/mine_icon_arrow_task_center"
+                        />
+
+                    <com.kissspace.mine.widget.MineInletView
                         android:id="@+id/layoutRoom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

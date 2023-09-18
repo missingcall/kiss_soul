@@ -123,9 +123,9 @@ class MineFragment : BaseFragment(R.layout.fragment_mine) {
             jump(RouterPath.PATH_EDIT_PROFILE)
         }
 
-//        mBinding.lltCollect.safeClick {
-//            jump(RouterPath.PATH_MY_COLLECT)
-//        }
+        mBinding.layoutVistor.safeClick {
+            jump(RouterPath.PATH_MY_VISITOR)
+        }
 
         mBinding.lltFollow.safeClick {
             jump(RouterPath.PATH_MY_FOLLOW)

@@ -176,7 +176,7 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
 
                     RoomSettingClickType.TYPE_GAME -> {
                         logE("gameUrl===")
-                        model.gameUrl.let {
+                        model.gameUrl?.let {
                             val url = "${
                                 getH5Url(it, true)
                             }&chatRoomId=${roomInfo.crId}"
@@ -199,38 +199,38 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
     private fun getNormalItems(): MutableList<SettingItem> {
         val normalItem = mutableListOf<SettingItem>()
 
-//        normalItem.add(
-//            SettingItem(
-//                type = RoomSettingClickType.TYPE_GET_INTEGRAL,
-//                icon = R.mipmap.room_icon_setting_get_integral,
-//                name = "积分领取"
-//            )
-//        )
-//        normalItem.add(
-//            SettingItem(
-//                type = RoomSettingClickType.TYPE_PREDICTION,
-//                icon = R.mipmap.room_icon_setting_prediction,
-//                name = "积分预言",
-//                isSub = roomInfo.userRole == Constants.ROOM_USER_TYPE_ANCHOR && !canBet
-//            )
-//        )
-//
-//        normalItem.add(
-//            SettingItem(
-//                type = RoomSettingClickType.TYPE_PK,
-//                icon = R.mipmap.room_icon_setting_pk,
-//                name = "PK",
-//                isSub = true
-//            )
-//        )
-//        normalItem.add(
-//            SettingItem(
-//                type = RoomSettingClickType.TYPE_PREDICTION,
-//                icon = R.mipmap.room_icon_setting_prediction,
-//                name = "积分预言",
-//                isSub = true,
-//            )
-//        )
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_GET_INTEGRAL,
+                icon = R.mipmap.room_icon_setting_get_integral,
+                name = "积分领取"
+            )
+        )
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_PREDICTION,
+                icon = R.mipmap.room_icon_setting_prediction,
+                name = "积分预言",
+                isSub = roomInfo.userRole == Constants.ROOM_USER_TYPE_ANCHOR && !canBet
+            )
+        )
+
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_PK,
+                icon = R.mipmap.room_icon_setting_pk,
+                name = "PK",
+                isSub = true
+            )
+        )
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_PREDICTION,
+                icon = R.mipmap.room_icon_setting_prediction,
+                name = "积分预言",
+                isSub = true,
+            )
+        )
 
         normalItem.add(
             SettingItem(
@@ -343,7 +343,29 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
 
     private fun getGameItems(): MutableList<SettingItem> {
         val normalItem = mutableListOf<SettingItem>()
-        if (MMKVProvider.gameConfig.isNotEmptyBlank()) {
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_GAME1,
+                icon = R.mipmap.room_icon_new_game1,
+                name = "飞行棋",
+            )
+        )
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_GAME2,
+                icon = R.mipmap.room_icon_new_game2,
+                name = "台球",
+            )
+        )
+        normalItem.add(
+            SettingItem(
+                type = RoomSettingClickType.TYPE_GAME3,
+                icon = R.mipmap.room_icon_new_game3,
+                name = "你画我猜",
+            )
+        )
+
+        if (MMKVProvider.gameConfig.isNotEmptyBlank() && MMKVProvider.isShowGame) {
             val type = object : TypeToken<List<RoomGameConfig>>() {}.type
             val games = GsonUtils.fromJson<List<RoomGameConfig>>(MMKVProvider.gameConfig, type)
             games.forEach {
@@ -351,14 +373,16 @@ class RoomSettingDialogV2 : BaseBottomSheetDialogFragment<RoomDialogSettingV2Bin
                     SettingItem(
                         type = RoomSettingClickType.TYPE_GAME,
                         icon = 0,
-                        iconPath = it.game_icon.orEmpty(),
-                        name = it.game_name.orEmpty(),
+                        iconPath = it.game_icon,
+                        name = it.game_name,
                         isSub = !MMKVProvider.isShowGame,
-                        gameUrl = it.game_url.orEmpty()
+                        gameUrl = it.game_url
                     )
                 )
             }
         }
+
+
         return normalItem
     }
 

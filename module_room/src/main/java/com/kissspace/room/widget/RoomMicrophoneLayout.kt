@@ -5,9 +5,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
-import com.drake.brv.utils.linear
+import com.drake.brv.utils.grid
 import com.drake.brv.utils.setup
 import com.kissspace.common.model.MicUserModel
 import com.kissspace.common.util.getMutable
@@ -31,45 +32,42 @@ class RoomMicrophoneLayout : ConstraintLayout {
     constructor(context: Context) : super(context, null)
     constructor(context: Context, attributeSet: AttributeSet?) : super(context, attributeSet)
 
-    private lateinit var micUserModel : MicUserModel
 
     fun initRecyclerView(
         data: MutableList<MicUserModel>,
         onClick: (MicUserModel) -> Unit
     ) {
-        micUserModel = data[0]
-        mBinding.m = micUserModel
-        mBinding.recyclerMicrophoneDefault.linear(RecyclerView.VERTICAL).setup {
+        mBinding.recyclerMicrophoneDefault.setup {
             addType<MicUserModel>(R.layout.room_item_microphone_audio)
             onClick(R.id.iv_user_avatar) {
                 val model = getModel<MicUserModel>()
                 onClick(model)
             }
-        }.models = data.subList(1,data.size)
-        mBinding.ivUserAvatar.setOnClickListener {
-            onClick(micUserModel)
+        }.models = data
+        val layoutManager = GridLayoutManager(context, 4).apply {
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return if (position == 0) 4 else 1
+                }
+            }
         }
+        mBinding.recyclerMicrophoneDefault.layoutManager = layoutManager
+
     }
 
 
     fun getRecyclerView(): RecyclerView = mBinding.recyclerMicrophoneDefault
 
-    fun getCenterMicroPhone():View = mBinding.ivUserAnim
-
     /**
      * 麦位表情播放
      */
     fun playMicEmojiAnimation(model: MicUserModel, url: String) {
-        var pagView = if (model.onMicroPhoneNumber == 0){
-            mBinding.pagEmoji
-        }else{
-            val recyclerView = getRecyclerView()
-            val position =
-                recyclerView.getMutable<MicUserModel>()
-                    .indexOfFirst { it.wheatPositionId == model.wheatPositionId }
-            val view = recyclerView.layoutManager?.findViewByPosition(position)
-            view?.findViewById<EasyPagView>(R.id.pag_emoji)
-        }
+        val recyclerView = getRecyclerView()
+        val position =
+            recyclerView.getMutable<MicUserModel>()
+                .indexOfFirst { it.wheatPositionId == model.wheatPositionId }
+        val view = recyclerView.layoutManager?.findViewByPosition(position)
+        val pagView = view?.findViewById<EasyPagView>(R.id.pag_emoji)
         getPagPath(url) {
             pagView?.play(it)
         }
@@ -77,15 +75,12 @@ class RoomMicrophoneLayout : ConstraintLayout {
 
 
     fun playTalkAnimation(model: MicUserModel) {
-        var soundView = if (model.onMicroPhoneNumber == 0){
-            mBinding.svgaSound
-        }else{
-            val recyclerView = getRecyclerView()
-            val position = recyclerView.getMutable<MicUserModel>()
-                .indexOfFirst { it.wheatPositionId == model.wheatPositionId }
+        val recyclerView = getRecyclerView()
+        val position = recyclerView.getMutable<MicUserModel>()
+            .indexOfFirst { it.wheatPositionId == model.wheatPositionId }
+        val soundView =
             recyclerView.layoutManager?.findViewByPosition(position)
                 ?.findViewById<LottieAnimationView>(R.id.svga_sound)
-        }
         if (soundView?.isAnimating == false) {
             soundView?.visibility = View.VISIBLE
             soundView?.playAnimation()
@@ -97,29 +92,19 @@ class RoomMicrophoneLayout : ConstraintLayout {
      * 清除麦位动画，表情/语音光波
      */
     fun clearMicAnimation(model: MicUserModel) {
-        if (model.onMicroPhoneNumber == 0){
-            if (mBinding.svgaSound?.isAnimating == true) {
-                mBinding.svgaSound?.pauseAnimation()
-                mBinding.svgaSound?.visibility = View.INVISIBLE
-            }
-            if (mBinding.pagEmoji?.isPlaying == true) {
-                mBinding.pagEmoji?.clear()
-            }
-        }else{
-            val recyclerView = getRecyclerView()
-            val position = recyclerView.getMutable<MicUserModel>()
-                .indexOfFirst { it.wheatPositionId == model.wheatPositionId }
-            val soundView = recyclerView.layoutManager?.findViewByPosition(position)
-                ?.findViewById<LottieAnimationView>(R.id.svga_sound)
-            if (soundView?.isAnimating == true) {
-                soundView?.pauseAnimation()
-                soundView?.visibility = View.INVISIBLE
-            }
-            val emojiView = recyclerView.layoutManager?.findViewByPosition(position)
-                ?.findViewById<EasyPagView>(R.id.pag_emoji)
-            if (emojiView?.isPlaying == true) {
-                emojiView?.clear()
-            }
+        val recyclerView = getRecyclerView()
+        val position = recyclerView.getMutable<MicUserModel>()
+            .indexOfFirst { it.wheatPositionId == model.wheatPositionId }
+        val soundView = recyclerView.layoutManager?.findViewByPosition(position)
+            ?.findViewById<LottieAnimationView>(R.id.svga_sound)
+        if (soundView?.isAnimating == true) {
+            soundView?.pauseAnimation()
+            soundView?.visibility = View.INVISIBLE
+        }
+        val emojiView = recyclerView.layoutManager?.findViewByPosition(position)
+            ?.findViewById<EasyPagView>(R.id.pag_emoji)
+        if (emojiView?.isPlaying == true) {
+            emojiView?.clear()
         }
     }
 

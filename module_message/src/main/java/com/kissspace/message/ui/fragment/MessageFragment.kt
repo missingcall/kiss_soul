@@ -113,16 +113,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
             onClick(R.id.cl_root) {
                 when (modelPosition) {
                     0 -> {
-                        val url = getH5Url(
-                            Constants.H5.dynamicInteractivityType,
-                            true
-                        ) + "&interactionType=001"
-                        jump(
-                            RouterPath.PATH_WEBVIEW,
-                            "url" to url,
-                            "showTitle" to false,
-                            "showTitleBarMargin" to true
-                        )
+                        jump(RouterPath.PATH_LOVE_WALL)
                     }
 
                     1 -> {

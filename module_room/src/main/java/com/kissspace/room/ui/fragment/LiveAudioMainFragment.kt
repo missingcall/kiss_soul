@@ -147,7 +147,6 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
 
 
     private fun initSoftInput() {
-        //弹出一个输入框的弹窗
         mBinding.layoutChat.onClick {
             InputTextDialogFragment.Builder().setConfirmCallback {
                 mViewModel.checkCanChat(getRoomInfo()!!.crId) {
@@ -225,17 +224,17 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
         }
 
         //点击右上角积分竞猜
-//        mBinding.predictionView.safeClick {
-//            RoomPredictionDialog.newInstance(
-//                getRoomInfo()!!.crId, getRoomInfo()!!.userRole, getRoomInfo()!!.roomTagCategory
-//            ).show(childFragmentManager)
-//        }
+        mBinding.predictionView.safeClick {
+            RoomPredictionDialog.newInstance(
+                getRoomInfo()!!.crId, getRoomInfo()!!.userRole, getRoomInfo()!!.roomTagCategory
+            ).show(childFragmentManager)
+        }
         //领取积分
-//        mBinding.clIntegral.safeClick {
-//            TaskRewardListDialogFragment().show(
-//                childFragmentManager, "TaskRewardListDialogFragment"
-//            )
-//        }
+        mBinding.clIntegral.safeClick {
+            TaskRewardListDialogFragment().show(
+                childFragmentManager, "TaskRewardListDialogFragment"
+            )
+        }
         //发送表情
         mBinding.ivEmoji.setOnClickListener {
             mViewModel.checkCanChat(getRoomInfo()!!.crId) {
@@ -254,10 +253,7 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
                 dialog.show(childFragmentManager)
             }
         }
-        mBinding.ivBannerClose.safeClick {
-            mBinding.bannerActivity.visibility = View.GONE
-            mBinding.ivBannerClose.visibility = View.GONE
-        }
+
     }
 
     private fun initEventObserver() {
@@ -292,11 +288,8 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
         mBinding.ivWaterGame.visibility =
             if (MMKVProvider.isShowGame) View.VISIBLE else View.GONE
         val type = object : TypeToken<List<RoomGameConfig>>() {}.type
-        val games:List<RoomGameConfig>? = GsonUtils.fromJson<List<RoomGameConfig>>(MMKVProvider.gameConfig, type)
-        val waterUrl = games?.find { it.game_name == "神奇浇水" }?.game_url
-        if(waterUrl==null){
-            mBinding.ivWaterGame.visibility = View.GONE
-        }
+        val games = GsonUtils.fromJson<List<RoomGameConfig>>(MMKVProvider.gameConfig, type)
+        val waterUrl = games.find { it.game_name == "神奇浇水" }?.game_url
         mBinding.ivWaterGame.safeClick {
             waterUrl?.let {
                 val url = "${
@@ -402,12 +395,8 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
     override fun playGiftFlyAnimation(message: GiftMessage) {
         val source = getRoomInfo().wheatPositionList.find { t -> t.wheatPositionId == message.sourceUser.userId }
         val startView: View? = if (source != null) {
-            if (source.onMicroPhoneNumber == 0) {
-                mBinding.layoutMicrophone.getCenterMicroPhone()
-            } else {
-                val recyclerView = mBinding.layoutMicrophone.getRecyclerView()
-                getMicrophoneItemView(recyclerView, source.onMicroPhoneNumber)
-            }
+            val recyclerView = mBinding.layoutMicrophone.getRecyclerView()
+            getMicrophoneItemView(recyclerView, source.onMicroPhoneNumber)
         } else {
             mBinding.ivGift
         }
@@ -416,11 +405,7 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
             if (model != null) {
                 val recyclerView = mBinding.layoutMicrophone.getRecyclerView()
                 val targetView = if (model != null) {
-                    if (model.onMicroPhoneNumber == 0) {
-                        mBinding.layoutMicrophone.getCenterMicroPhone()
-                    } else {
-                        getMicrophoneItemView(recyclerView, model.onMicroPhoneNumber)
-                    }
+                    getMicrophoneItemView(recyclerView, model.onMicroPhoneNumber)
                 } else {
                     mBinding.giftFlyEnd
                 }
@@ -488,7 +473,7 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
                 PermissionX.init(this).permissions(Manifest.permission.RECORD_AUDIO)
                     .onExplainRequestReason { scope, deniedList ->
                         val message =
-                            "为了您能正常体验【房间语音聊天】功能，2098社交需向你申请麦克风权限"
+                            "为了您能正常体验【房间语音聊天】功能，kiss空间需向你申请麦克风权限"
                         scope.showRequestReasonDialog(deniedList, message, "确定", "取消")
                     }.explainReasonBeforeRequest()
 
@@ -506,27 +491,25 @@ class LiveAudioMainFragment : BaseLiveFragment(R.layout.room_fragment_audio_main
                 customToast("您已被禁麦")
             }
         })
-//        //获取积分列表弹窗
-//        collectData(mViewModel.taskRewardListEvent, onSuccess = {
-//            it.filter { item1 -> item1.finishStatus == Constants.TaskStatus.TOBE_COLLECTED.type }
-//                .let { list ->
-//                    logE("tvIntegralCount$list.size")
-//                    if (list.isNotEmpty()) {
-//                        mBinding.tvIntegralCount.text = list.size.toString()
-//                        mBinding.clIntegral.visibility = View.VISIBLE
-//                    } else {
-//                        //隐藏领取积分接口
-//                        mBinding.clIntegral.visibility = View.GONE
-//                    }
-//                }
-//
-//        })
+        //获取积分列表弹窗
+        collectData(mViewModel.taskRewardListEvent, onSuccess = {
+            it.filter { item1 -> item1.finishStatus == Constants.TaskStatus.TOBE_COLLECTED.type }
+                .let { list ->
+                    logE("tvIntegralCount$list.size")
+                    if (list.isNotEmpty()) {
+                        mBinding.tvIntegralCount.text = list.size.toString()
+                        mBinding.clIntegral.visibility = View.VISIBLE
+                    } else {
+                        //隐藏领取积分接口
+                        mBinding.clIntegral.visibility = View.GONE
+                    }
+                }
+
+        })
     }
 
 
     override fun getUserInfo() = (requireParentFragment() as LiveAudioFragment).mUserInfo
-
-    override fun getBroadcastView(): RoomBroadcastView = mBinding.roomBdv
 
     override fun onResume() {
         super.onResume()
