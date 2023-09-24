@@ -43,10 +43,10 @@ class MyFollowActivity : com.kissspace.common.base.BaseActivity(R.layout.mine_ac
         })
         mBinding.pageRefreshLayout.apply {
             onRefresh {
-                initData(true)
+                initData()
             }
             onLoadMore {
-                initData(false)
+                initData()
             }
         }.autoRefresh()
         initRecyclerView()
@@ -77,7 +77,7 @@ class MyFollowActivity : com.kissspace.common.base.BaseActivity(R.layout.mine_ac
     }
 
 
-    private fun initData(isRefresh: Boolean) {
+    private fun initData() {
         val param = mutableMapOf<String, Any?>()
         param["pageNum"] = mBinding.pageRefreshLayout.index
         param["pageSize"] = 20

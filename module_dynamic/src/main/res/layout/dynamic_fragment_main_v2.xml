@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:paddingBottom="80dp">
+
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:id="@+id/top_bar"
+       android:layout_width="match_parent"
+       android:layout_height="50dp">
+
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="动态"
+           android:textStyle="bold"
+           android:textSize="20sp"
+           android:textColor="@color/white"
+           android:layout_marginStart="16dp"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent" />
+
+       <ImageView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:src="@mipmap/dynamic_icon_message"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintEnd_toEndOf="parent"
+           android:paddingEnd="10dp"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:paddingTop="16dp"
+       android:paddingBottom="16dp">
+       <TextView
+           android:id="@+id/tab_recommend"
+           android:layout_width="63dp"
+           android:layout_height="30dp"
+           android:text="推荐"
+           android:gravity="center"
+           android:textStyle="bold"
+           android:textColor="@color/color_FFEB71"
+           android:layout_marginStart="16dp"
+           android:background="@drawable/dynamic_tab_normal"/>
+
+       <TextView
+           android:id="@+id/tab_follow"
+           android:layout_width="63dp"
+           android:layout_height="30dp"
+           android:text="关注"
+           android:textColor="@color/color_80FFFFFF"
+           android:gravity="center"
+           android:layout_marginStart="16dp"
+           android:background="@drawable/dynamic_tab_normal"/>
+   </LinearLayout>
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</LinearLayout>

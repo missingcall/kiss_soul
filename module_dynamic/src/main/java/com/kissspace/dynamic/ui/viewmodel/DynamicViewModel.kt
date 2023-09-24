@@ -6,9 +6,14 @@ import com.kissspace.common.model.dynamic.DynamicInfo
 import com.kissspace.dynamic.http.DynamicApi
 import com.kissspace.common.base.BaseViewModel
 import com.kissspace.common.config.Constants
+import com.kissspace.dynamic.http.DynamicApi.API_GET_DYNAMICS_LIST_FOLLOW
+import com.kissspace.dynamic.http.DynamicApi.API_GET_DYNAMICS_LIST_RECOMMEND
 import com.kissspace.network.net.Method
 import com.kissspace.network.net.request
+import com.kissspace.network.result.ResultState
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import org.json.JSONArray
 
@@ -44,6 +49,9 @@ class DynamicViewModel : BaseViewModel() {
 
     var fileImageList = MutableStateFlow<MutableList<String>>(mutableListOf())
 
+    private val _dynamicList = MutableSharedFlow<ResultState<DynamicInfo>>()
+    val dynamicList = _dynamicList.asSharedFlow()
+
 
     val isCouldSend =
         combine(isShowRecord, selectImageCount, sendDynamicText) { value1, value2, value3 ->
@@ -61,6 +69,14 @@ class DynamicViewModel : BaseViewModel() {
             value1 && !value2 && !value3
         }.asLiveData()
 
+
+    fun queryDynamicList(pageNum:Int,index:Int){
+        val param = mutableMapOf<String,Any?>()
+        param["pageNum"] = pageNum
+        param["pageSize"] = 10
+        val api = if (index==0) API_GET_DYNAMICS_LIST_RECOMMEND else API_GET_DYNAMICS_LIST_FOLLOW
+        request<DynamicInfo>(url = api, method = Method.GET,param=param, state = _dynamicList)
+    }
 
     fun sendDynamic(
         dynamicText: String? = null,

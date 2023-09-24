@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+       <variable
+           name="m"
+           type="com.kissspace.common.model.dynamic.DynamicDetailLikeInfo" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="12dp">
+
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            loadCircleImage="@{m.profilePath}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="12dp"/>
+
+        <TextView
+            android:id="@+id/tv_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="@{m.nickname}"
+            app:layout_constraintTop_toTopOf="@id/iv_avatar"
+            android:layout_marginStart="8dp"
+            app:layout_constraintStart_toEndOf="@id/iv_avatar"/>
+
+
+        <ImageView
+            android:id="@+id/iv_sex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/tv_nickname"
+            app:layout_constraintTop_toTopOf="@id/tv_nickname"
+            app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+            android:layout_marginStart="8dp"
+            dynamicSex="@{m.sex}"/>
+
+        <com.kissspace.common.widget.UserLevelIconView
+            android:id="@+id/level1"
+            userLevelCount='@{m.consumeLevel}'
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            app:layout_constraintStart_toEndOf="@id/iv_sex"
+            app:layout_constraintTop_toTopOf="@id/iv_sex"
+            app:layout_constraintBottom_toBottomOf="@id/iv_sex"
+            app:level_type="TYPE_EXPEND" />
+
+        <com.kissspace.common.widget.UserLevelIconView
+            userLevelCount="@{m.charmLevel}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@id/level1"
+            app:layout_constraintTop_toTopOf="@id/level1"
+            android:layout_marginStart="4dp"
+            app:level_type="TYPE_INCOME" />
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/tv_nickname"
+            app:layout_constraintStart_toStartOf="@id/tv_nickname"
+            android:textColor="@color/color_80FFFFFF"
+            android:layout_marginTop="10dp"
+            android:text="@{m.personalSignature}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

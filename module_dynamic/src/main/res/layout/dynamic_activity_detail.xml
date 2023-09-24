@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="m"
+            type="com.kissspace.common.model.dynamic.DynamicInfoRecord" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.hjq.bar.TitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:barStyle="transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:leftHorizontalPadding="16dp"
+            app:leftIcon="@mipmap/common_icon_back_white"
+            app:lineVisible="false"
+            app:rightIcon="@mipmap/dynamic_icon_more"
+            app:title="动态详情" />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/layout_comment">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/root"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="12dp"
+                        android:background="@drawable/dynamic_bg_item"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="16dp">
+
+
+                        <ImageView
+                            android:id="@+id/iv_avatar"
+                            loadCircleImage="@{m.profilePath}"
+                            android:layout_width="44dp"
+                            android:layout_height="44dp"
+                            android:layout_marginTop="12dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_nickname"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@{m.nickname}"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                            app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+                        <ImageView
+                            android:id="@+id/iv_sex"
+                            dynamicSex="@{m.sex}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_nickname"
+                            app:layout_constraintStart_toEndOf="@id/tv_nickname"
+                            app:layout_constraintTop_toTopOf="@id/tv_nickname" />
+
+                        <com.kissspace.common.widget.UserLevelIconView
+                            android:id="@+id/lever1"
+                            userLevelCount='@{m.consumeLevel}'
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_sex"
+                            app:layout_constraintStart_toEndOf="@id/iv_sex"
+                            app:layout_constraintTop_toTopOf="@id/iv_sex"
+                            app:level_type="TYPE_EXPEND" />
+
+                        <com.kissspace.common.widget.UserLevelIconView
+                            android:id="@+id/level2"
+                            userLevelCount="@{m.charmLevel}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            app:layout_constraintBottom_toBottomOf="@id/iv_sex"
+                            app:layout_constraintStart_toEndOf="@id/lever1"
+                            app:layout_constraintTop_toTopOf="@id/iv_sex"
+                            app:level_type="TYPE_INCOME" />
+
+                        <ImageView
+                            android:id="@+id/iv_follow"
+                            goneIf="@{m.followStatus}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:src="@mipmap/dynamic_icon_follow"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_like"
+                            app:layout_constraintEnd_toEndOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="@{m.friendlyTime}"
+                            android:textColor="@color/color_80FFFFFF"
+                            android:textSize="12sp"
+                            app:layout_constraintStart_toStartOf="@id/tv_nickname"
+                            app:layout_constraintTop_toBottomOf="@id/tv_nickname" />
+
+                        <TextView
+                            android:id="@+id/tv_content"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginEnd="12dp"
+                            android:text="@{m.textDynamicContent}"
+                            android:textColor="@color/white"
+                            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+                            app:layout_constraintTop_toBottomOf="@id/iv_avatar" />
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recycler_picture"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            app:layout_constraintTop_toBottomOf="@id/tv_content" />
+
+                        <TextView
+                            android:id="@+id/tv_like"
+                            dynamicLikeAmount="@{m.numberOfLikes}"
+                            dynamicLikeStatus="@{m.likeStatus}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:drawablePadding="4dp"
+                            android:gravity="center_vertical"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toStartOf="@id/iv_avatar"
+                            app:layout_constraintTop_toBottomOf="@id/recycler_picture" />
+
+                        <TextView
+                            android:id="@+id/tv_comment"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:drawableStart="@mipmap/dynamic_icon_comment_amount"
+                            android:drawablePadding="4dp"
+                            android:gravity="center_vertical"
+                            android:text='@{m.commentAmount+""}'
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            app:layout_constraintStart_toEndOf="@id/tv_like"
+                            app:layout_constraintTop_toTopOf="@id/tv_like" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/dynamic_bg_item">
+
+                        <com.angcyo.tablayout.DslTabLayout
+                            android:id="@+id/tab_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="12dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:tab_deselect_color="@color/color_80FFFFFF"
+                            app:tab_draw_indicator="true"
+                            app:tab_indicator_drawable="@drawable/dynamic_indicator"
+                            app:tab_indicator_height="2dp"
+                            app:tab_indicator_style="STYLE_BOTTOM"
+                            app:tab_indicator_width="12dp"
+                            app:tab_select_color="@color/color_FFEB71">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:text="评论"
+                                android:textSize="15sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="20dp"
+                                android:text="点赞"
+                                android:textSize="15sp" />
+
+                        </com.angcyo.tablayout.DslTabLayout>
+
+                        <TextView
+                            android:id="@+id/tv_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="12dp"
+                            android:text='@{m.commentAmount()+"条评论"}'
+                            android:textColor="@color/color_80FFFFFF"
+                            android:textSize="14sp"
+                            app:layout_constraintBottom_toBottomOf="@id/tab_layout"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tab_layout" />
+
+                        <com.drake.brv.PageRefreshLayout
+                            android:id="@+id/page_refresh_layout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:empty_layout="@layout/dynamic_detail_layout_empty"
+                            app:layout_constraintTop_toBottomOf="@id/tab_layout"
+                            app:srlEnableRefresh="false">
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recycler_view"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+                        </com.drake.brv.PageRefreshLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_comment"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#181530"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="12dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="5dp"
+                    android:text="发送"
+                    android:textColor="@color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <EditText
+                    android:id="@+id/edit_comment"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_marginStart="12dp"
+                    android:background="@null"
+                    android:gravity="center_vertical"
+                    android:hint="输入评论"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="#66FFFFFF"
+                    android:textSize="14sp"
+                    app:bl_corners_radius="18dp"
+                    app:bl_solid_color="#29FFFFFF"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/tv_send"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+</layout>

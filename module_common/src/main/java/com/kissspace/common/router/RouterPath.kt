@@ -256,6 +256,9 @@ object RouterPath {
     //发布动态
     const val PATH_DYNAMIC_SEND_FRIEND = "djs://pages/dynamic_send_friend"
 
+    //动态详情
+    const val PATH_DYNAMIC_DETAIL = "djs://pages/dynamic_detail"
+
 
 
     //任务消息

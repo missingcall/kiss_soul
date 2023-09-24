@@ -8,5 +8,11 @@
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustNothing" />
+
+        <activity
+            android:name="com.kissspace.dynamic.ui.activity.DynamicDetailActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustNothing" />
     </application>
 </manifest>

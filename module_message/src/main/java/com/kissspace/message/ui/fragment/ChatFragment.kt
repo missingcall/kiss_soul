@@ -4,8 +4,9 @@ import android.media.AudioManager
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.os.bundleOf
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
@@ -21,6 +22,36 @@ import com.drake.softinput.hasSoftInput
 import com.drake.softinput.setWindowSoftInput
 import com.hjq.bar.OnTitleBarListener
 import com.hjq.bar.TitleBar
+import com.kissspace.common.base.BaseFragment
+import com.kissspace.common.callback.ActivityTouchEvent
+import com.kissspace.common.config.Constants
+import com.kissspace.common.ext.safeClick
+import com.kissspace.common.ext.scrollToBottom
+import com.kissspace.common.flowbus.Event
+import com.kissspace.common.flowbus.FlowBus
+import com.kissspace.common.model.ChatEmojiListBean
+import com.kissspace.common.model.ChatModel
+import com.kissspace.common.provider.IRoomProvider
+import com.kissspace.common.router.RouterPath
+import com.kissspace.common.router.jump
+import com.kissspace.common.util.EmojiGameUtil
+import com.kissspace.common.util.GiftAnimationTaskQueue
+import com.kissspace.common.util.customToast
+import com.kissspace.common.util.getMP4Path
+import com.kissspace.common.util.getMutable
+import com.kissspace.common.util.jumpRoom
+import com.kissspace.common.util.mmkv.MMKVProvider
+import com.kissspace.common.widget.CommonConfirmDialog
+import com.kissspace.message.viewmodel.ChatViewModel
+import com.kissspace.message.widget.ChatDialog
+import com.kissspace.message.widget.FriendShipDialog
+import com.kissspace.message.widget.OnChatPanelCallBack
+import com.kissspace.module_message.R
+import com.kissspace.module_message.databinding.MessageFragmentChatBinding
+import com.kissspace.network.result.collectData
+import com.kissspace.util.hideKeyboard
+import com.kissspace.util.isClickThisArea
+import com.kissspace.util.orZero
 import com.netease.nimlib.sdk.NIMClient
 import com.netease.nimlib.sdk.Observer
 import com.netease.nimlib.sdk.media.player.AudioPlayer
@@ -33,38 +64,6 @@ import com.netease.nimlib.sdk.msg.constant.MsgTypeEnum
 import com.netease.nimlib.sdk.msg.constant.SessionTypeEnum
 import com.netease.nimlib.sdk.msg.model.IMMessage
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView2
-import com.kissspace.common.base.BaseActivity
-import com.kissspace.common.base.BaseFragment
-import com.kissspace.common.callback.ActivityTouchEvent
-import com.kissspace.common.config.Constants
-import com.kissspace.common.router.jump
-import com.kissspace.common.ext.safeClick
-import com.kissspace.common.ext.scrollToBottom
-import com.kissspace.common.flowbus.Event
-import com.kissspace.common.flowbus.FlowBus
-import com.kissspace.common.model.ChatEmojiListBean
-import com.kissspace.common.model.ChatModel
-import com.kissspace.common.provider.IRoomProvider
-import com.kissspace.common.router.RouterPath
-import com.kissspace.common.util.EmojiGameUtil
-import com.kissspace.common.util.GiftAnimationTaskQueue
-import com.kissspace.common.util.mmkv.MMKVProvider
-import com.kissspace.common.util.getMutable
-import com.kissspace.common.util.jumpRoom
-import com.kissspace.common.util.customToast
-import com.kissspace.common.util.getMP4Path
-import com.kissspace.common.widget.CommonConfirmDialog
-import com.kissspace.message.viewmodel.ChatViewModel
-import com.kissspace.message.widget.ChatDialog
-import com.kissspace.message.widget.FriendShipDialog
-import com.kissspace.message.widget.OnChatPanelCallBack
-import com.kissspace.module_message.R
-import com.kissspace.module_message.databinding.MessageFragmentChatBinding
-import com.kissspace.network.result.collectData
-import com.kissspace.util.hideKeyboard
-import com.kissspace.util.isClickThisArea
-import com.kissspace.util.orZero
-import com.kissspace.util.toast
 import org.json.JSONObject
 import java.io.File
 import kotlin.math.abs
@@ -613,7 +612,7 @@ class ChatFragment : BaseFragment(R.layout.message_fragment_chat), ActivityTouch
 
     private fun previewPicture(
         modelPosition: Int,
-        target: QMUIRadiusImageView2,
+        target: View?,
         imageList: MutableList<String>
     ) {
         ImagePreview.instance

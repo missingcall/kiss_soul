@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import cc.shinichi.library.ImagePreview
 import com.blankj.utilcode.constant.TimeConstants
 import com.blankj.utilcode.util.GsonUtils
 import com.blankj.utilcode.util.StringUtils
@@ -85,6 +86,7 @@ import java.lang.ref.WeakReference
 import java.lang.reflect.Type
 import java.math.RoundingMode
 import java.net.URL
+import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -577,6 +579,12 @@ fun jumpRoom(
     service.jumpRoom(crId, roomType, stochastic, userId, roomList)
 }
 
+fun getFriendlyTimeSpanByNow(stringDate: String): String {
+    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    val date = sdf.parse(stringDate)
+    return getFriendlyTimeSpanByNow(date.time)
+}
+
 
 /**
 
@@ -1065,5 +1073,24 @@ fun ViewPager2.setViewPagerTouchSlop() {
 
 fun alphaTo(view: View, alpha: Float) {
     ViewCompat.animate(view).alpha(alpha).start()
+}
+ fun previewPicture(
+    context: Context,
+    modelPosition: Int,
+    target: View?,
+    imageList: MutableList<String>
+) {
+    ImagePreview.instance
+        .setContext(context)
+        .setIndex(modelPosition)
+        .setImageList(imageList)
+        .setTransitionView(target)
+        .setTransitionShareElementName("shared_element_container")
+        .setEnableUpDragClose(true)
+        .setEnableDragClose(true)
+        .setEnableDragCloseIgnoreScale(true)
+        .setShowDownButton(false)
+        .setShowIndicator(false)
+        .start()
 }
 

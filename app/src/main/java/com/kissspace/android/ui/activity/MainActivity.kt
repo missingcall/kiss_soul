@@ -17,7 +17,7 @@ import androidx.viewpager2.widget.ViewPager2
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.blankj.utilcode.util.GsonUtils
 import com.didi.drouter.annotation.Router
-import com.kissspace.dynamic.ui.fragment.DynamicFragment
+import com.kissspace.dynamic.ui.fragment.DynamicFragmentV2
 import com.kissspace.util.finishAllActivities
 import com.kissspace.util.toast
 import com.netease.nimlib.sdk.NIMClient
@@ -173,7 +173,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
 
     private fun initViewPager() {
         val fragments = arrayOf(HomeFragment(),
-            DynamicFragment(),PartyFragment(), MessageFragment(), MineFragment())
+            DynamicFragmentV2(),PartyFragment(), MessageFragment(), MineFragment())
         mBinding.viewPager.apply {
             offscreenPageLimit = fragments.size
             isUserInputEnabled = false
@@ -261,7 +261,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
             showOtherDialog()
         })
         collectData(mViewModel.collectListEvent, onSuccess = {
-            if (it.total > 0 && mBinding.viewPager.currentItem < 2) {
+            if (it.total > 0 && mBinding.viewPager.currentItem ==2) {
                 mBinding.collectRoomView.visibility = View.VISIBLE
                 mBinding.collectRoomView.initData(it.records[0].roomIcon, it.total)
             } else {
