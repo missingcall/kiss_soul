@@ -28,7 +28,7 @@ import com.netease.nimlib.sdk.msg.MsgService
 import com.petterp.floatingx.assist.FxGravity
 import com.petterp.floatingx.assist.helper.ScopeHelper
 import com.kissspace.android.R
-import com.kissspace.android.databinding.ActivityMainBinding
+import com.kissspace.android.databinding.ActivityMainV2Binding
 import com.kissspace.android.ui.fragment.HomeFragment
 import com.kissspace.android.ui.fragment.PartyFragment
 import com.kissspace.android.viewmodel.MainViewModel
@@ -63,6 +63,7 @@ import com.kissspace.util.orZero
 import com.petterp.floatingx.listener.control.IFxScopeControl
 import java.io.File
 import java.util.*
+import kotlin.math.log
 
 /**
  *
@@ -72,10 +73,10 @@ import java.util.*
  *
  */
 @Router(uri = RouterPath.PATH_MAIN)
-class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_main) {
-    private val mBinding by viewBinding<ActivityMainBinding>()
+class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_main_v2) {
+    private val mBinding by viewBinding<ActivityMainV2Binding>()
     private val mViewModel by viewModels<MainViewModel>()
-    private var roomFloating: IFxScopeControl<Activity> ?= null
+    private var roomFloating: IFxScopeControl<Activity>? = null
     private var index = 0
 
     private val onlineStatusObserver = Observer<StatusCode> {
@@ -95,7 +96,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         super.onNewIntent(intent)
         setIntent(intent)
         index = intent?.getIntExtra("index", 0).orZero()
-        refreshBottomBar(index, true)
+        refreshBottomBar(index)
         mBinding.viewPager.setCurrentItem(index.orZero(), false)
     }
 
@@ -114,20 +115,17 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
     }
 
     private fun initViewClick() {
-        mBinding.view1.setOnClickListener {
-            mBinding.viewPager.setCurrentItem(0,false)
+        mBinding.tabHome.setOnClickListener {
+            mBinding.viewPager.setCurrentItem(0, false)
         }
-        mBinding.view2.setOnClickListener {
-            mBinding.viewPager.setCurrentItem(1,false)
+        mBinding.tabDynamic.setOnClickListener {
+            mBinding.viewPager.setCurrentItem(1, false)
         }
-        mBinding.view3.setOnClickListener {
-            mBinding.viewPager.setCurrentItem(3,false)
+        mBinding.tabMessage.setOnClickListener {
+            mBinding.viewPager.setCurrentItem(2, false)
         }
-        mBinding.view4.setOnClickListener {
-            mBinding.viewPager.setCurrentItem(4,false)
-        }
-        mBinding.ivParty.setOnClickListener {
-            mBinding.viewPager.setCurrentItem(2,false)
+        mBinding.tabMine.setOnClickListener {
+            mBinding.viewPager.setCurrentItem(3, false)
         }
     }
 
@@ -159,7 +157,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         }
 
         val currentTimeString = System.currentTimeMillis().millis2String(YYYY_MM_DD)
-        if (MMKVProvider.userHourDate != currentTimeString){
+        if (MMKVProvider.userHourDate != currentTimeString) {
             MMKVProvider.userHour = MMKVProvider.userHour + 1
             MMKVProvider.userHourDate = currentTimeString
         }
@@ -172,8 +170,8 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
     }
 
     private fun initViewPager() {
-        val fragments = arrayOf(HomeFragment(),
-            DynamicFragmentV2(),PartyFragment(), MessageFragment(), MineFragment())
+        val fragments =
+            arrayOf(PartyFragment(), DynamicFragmentV2(), MessageFragment(), MineFragment())
         mBinding.viewPager.apply {
             offscreenPageLimit = fragments.size
             isUserInputEnabled = false
@@ -189,47 +187,58 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         mBinding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                if (index != -1) {
-                    refreshBottomBar(index, false)
-                }
-                refreshBottomBar(position, true)
+                refreshBottomBar(position)
                 index = position
             }
         })
+
+        initTab()
+        refreshBottomBar(0)
     }
 
-    fun refreshBottomBar(index: Int, isAnim: Boolean) {
+    private fun initTab(){
+        mBinding.animviewExplore.stopPlay()
+        mBinding.animviewExplore.visibility = View.GONE
+        mBinding.ivHomeTop.visibility = View.VISIBLE
+
+        mBinding.animviewDynamic.stopPlay()
+        mBinding.animviewDynamic.visibility = View.GONE
+        mBinding.ivDynamic.visibility = View.VISIBLE
+
+        mBinding.animviewMessage.stopPlay()
+        mBinding.animviewMessage.visibility = View.GONE
+        mBinding.ivMessage.visibility = View.VISIBLE
+
+        mBinding.animviewMine.stopPlay()
+        mBinding.animviewMine.visibility = View.GONE
+        mBinding.ivMine.visibility = View.VISIBLE
+    }
+
+    fun refreshBottomBar(index: Int) {
+        initTab()
         when (index) {
             0 -> {
-                alphaTo(mBinding.ivExplore, if (isAnim) 0f else 1f)
-                alphaTo(mBinding.animviewExplore, if (isAnim) 1f else 0f)
-                if (isAnim) {
-                    mBinding.animviewExplore.startPlay()
-                }
+                mBinding.ivHomeTop.visibility = View.INVISIBLE
+                mBinding.animviewExplore.visibility = View.VISIBLE
+                mBinding.animviewExplore.startPlay()
             }
 
             1 -> {
-                alphaTo(mBinding.ivTrends, if (isAnim) 0f else 1f)
-                alphaTo(mBinding.animviewTrends, if (isAnim) 1f else 0f)
-                if (isAnim) {
-                    mBinding.animviewTrends.startPlay()
-                }
+                mBinding.ivDynamic.visibility = View.INVISIBLE
+                mBinding.animviewDynamic.visibility = View.VISIBLE
+                mBinding.animviewDynamic.startPlay()
+            }
+
+            2 -> {
+                mBinding.ivMessage.visibility = View.INVISIBLE
+                mBinding.animviewMessage.visibility = View.VISIBLE
+                mBinding.animviewMessage.startPlay()
             }
 
             3 -> {
-                alphaTo(mBinding.ivMessage, if (isAnim) 0f else 1f)
-                alphaTo(mBinding.animviewMessage, if (isAnim) 1f else 0f)
-                if (isAnim) {
-                    mBinding.animviewMessage.startPlay()
-                }
-            }
-
-            4 -> {
-                alphaTo(mBinding.ivMine, if (isAnim) 0f else 1f)
-                alphaTo(mBinding.animviewMine, if (isAnim) 1f else 0f)
-                if (isAnim) {
-                    mBinding.animviewMine.startPlay()
-                }
+                mBinding.ivMine.visibility = View.INVISIBLE
+                mBinding.animviewMine.visibility = View.VISIBLE
+                mBinding.animviewMine.startPlay()
             }
         }
     }
@@ -261,7 +270,7 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
             showOtherDialog()
         })
         collectData(mViewModel.collectListEvent, onSuccess = {
-            if (it.total > 0 && mBinding.viewPager.currentItem ==2) {
+            if (it.total > 0 && mBinding.viewPager.currentItem == 2) {
                 mBinding.collectRoomView.visibility = View.VISIBLE
                 mBinding.collectRoomView.initData(it.records[0].roomIcon, it.total)
             } else {
@@ -295,8 +304,8 @@ class MainActivity : com.kissspace.common.base.BaseActivity(R.layout.activity_ma
         }
 
         observerEvent<Event.RefreshChangeAccountEvent>(this) {
-           initConfig()
-           initAppConfig()
+            initConfig()
+            initAppConfig()
         }
 
     }

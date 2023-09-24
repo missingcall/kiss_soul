@@ -23,6 +23,7 @@ import com.kissspace.common.base.BaseFragment
 import com.kissspace.common.config.Constants
 import com.kissspace.common.router.jump
 import com.kissspace.common.ext.safeClick
+import com.kissspace.common.ext.setMarginStatusBar
 import com.kissspace.common.model.RoomTagListBean
 import com.kissspace.common.router.RouterPath
 import com.kissspace.common.util.*
@@ -32,6 +33,7 @@ import com.kissspace.common.flowbus.FlowBus
 import com.kissspace.common.http.getSelectPayChannelList
 import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.util.toast
+import okhttp3.Route
 
 /**
  *
@@ -47,10 +49,30 @@ class PartyFragment : BaseFragment(R.layout.fragment_main_party) {
     override fun initView(savedInstanceState: Bundle?) {
         mBinding.m = mViewModel
         mBinding.lifecycleOwner = this
+        mBinding.titleBar.setMarginStatusBar()
         initRefresh()
         initViewPager()
         mViewModel.getHomeBanner()
         mViewModel.getRoomTagList()
+
+        mBinding.lltSearch.safeClick {
+            jump(RouterPath.PATH_SEARCH)
+        }
+
+        mBinding.ivMyRoom.safeClick {
+            jumpRoom(roomType = Constants.ROOM_TYPE_PARTY)
+        }
+
+        mBinding.ivRank.safeClick {
+            val url =
+                getH5Url(
+                    Constants.H5.roomRankUrl,
+                    true
+                ) + "&fixedHeight=${BarUtils.getStatusBarHeight()}"
+            jump(RouterPath.PATH_WEBVIEW, "url" to url)
+        }
+
+
     }
 
     private fun initRefresh() {

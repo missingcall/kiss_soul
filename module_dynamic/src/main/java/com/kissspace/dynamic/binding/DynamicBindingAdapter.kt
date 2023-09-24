@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.drake.statelayout.Status
 import com.kissspace.common.ext.setDrawable
+import com.kissspace.common.model.dynamic.DynamicInfoRecord
+import com.kissspace.common.util.mmkv.MMKVProvider
 import com.kissspace.module_dynamic.R
 
 object DynamicBindingAdapter {
@@ -29,6 +31,13 @@ object DynamicBindingAdapter {
     @BindingAdapter("dynamicLikeAmount", requireAll = false)
     fun dynamicLikeAmount(textView: TextView, amount:Int) {
         textView.text = amount.toString()
+    }
+
+    @JvmStatic
+    @BindingAdapter("dynamicFollowVisible", requireAll = false)
+    fun dynamicFollowVisible(imageView: ImageView, model:DynamicInfoRecord?) {
+        imageView.visibility = if (model?.followStatus==true || model?.userId==MMKVProvider.userId) View.GONE else View.VISIBLE
+
     }
 
 

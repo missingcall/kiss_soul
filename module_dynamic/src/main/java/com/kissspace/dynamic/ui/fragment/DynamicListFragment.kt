@@ -134,4 +134,11 @@ class DynamicListFragment(private val position:Int = 0):BaseFragment(R.layout.dy
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        mBinding.pageRefreshLayout.refresh()
+    }
+
+
+
 }

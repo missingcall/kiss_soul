@@ -7,7 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.kissspace.common.base.BaseFragment
+import com.kissspace.common.config.Constants
+import com.kissspace.common.ext.safeClick
 import com.kissspace.common.ext.setMarginStatusBar
+import com.kissspace.common.router.RouterPath
+import com.kissspace.common.router.jump
+import com.kissspace.common.util.getH5Url
 import com.kissspace.module_dynamic.R
 import com.kissspace.module_dynamic.databinding.DynamicFragmentMainV2Binding
 import com.kissspace.util.resToColor
@@ -19,6 +24,13 @@ class DynamicFragmentV2:BaseFragment(R.layout.dynamic_fragment_main_v2) {
 
     override fun initView(savedInstanceState: Bundle?) {
         mBinding.topBar.setMarginStatusBar()
+        mBinding.ivNewMessage.safeClick {
+            jump(
+                RouterPath.PATH_WEBVIEW,
+                "url" to getH5Url(Constants.H5.dynamicInteractiveMessages),
+                "showTitleBarMargin" to true
+            )
+        }
         initViewPager()
         initTab()
     }

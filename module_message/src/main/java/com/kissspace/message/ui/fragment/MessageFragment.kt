@@ -3,6 +3,7 @@ package com.kissspace.message.ui.fragment
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.ConcatAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -146,6 +147,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
     override fun onResume() {
         super.onResume()
         initData()
+        mViewModel.anchor = null
         mViewModel.queryRecentMessage()
     }
 
@@ -246,7 +248,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         mViewModel.requestBannerData()
         mViewModel.requestSystemMessage()
         mViewModel.requestDynamicMessageCount()
-        menuList[0].unReadCount = MMKVProvider.systemMessageUnReadCount
+//        menuList[0].unReadCount = MMKVProvider.systemMessageUnReadCount
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -266,7 +268,7 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         })
 
         collectData(mViewModel.dynamicMessageCountEvent, onSuccess = {
-            menuList[0].unReadCount = it.likeMessage
+//            menuList[0].unReadCount = it.likeMessage
             menuList[2].unReadCount = it.interactiveMessages
             mBinding.rvList.adapter?.notifyItemChanged(0)
             mBinding.rvList.adapter?.notifyItemChanged(2)

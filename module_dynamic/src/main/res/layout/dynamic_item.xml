@@ -77,7 +77,7 @@
             android:id="@+id/iv_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            goneIf="@{m.followStatus}"
+            dynamicFollowVisible="@{m}"
             android:layout_marginEnd="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_like"

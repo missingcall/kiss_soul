@@ -204,6 +204,7 @@ class DynamicFragment : BaseFragment(R.layout.dynamic_webview) {
         return false
     }
 
+
 //    override fun onResume() {
 //        super.onResume()
 //        if(Constants.isNeedRefreshWebView){

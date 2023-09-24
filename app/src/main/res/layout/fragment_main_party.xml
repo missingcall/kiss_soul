@@ -3,44 +3,120 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="m"
             type="com.kissspace.android.viewmodel.PartyViewModel" />
     </data>
 
-<com.scwang.smart.refresh.layout.SmartRefreshLayout
-        android:id="@+id/refresh_layout"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingBottom="80dp">
+            android:layout_height="44dp">
+            <ImageView
+                android:id="@+id/iv_my_room"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:src="@mipmap/app_icon_my_room"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <com.angcyo.tablayout.DslTabLayout
-                android:id="@+id/tab_layout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:paddingStart="8dp"
-                app:tab_deselect_color="@color/common_white"
-                app:tab_draw_indicator="true"
-                app:tab_enable_text_bold="true"
-                app:tab_indicator_style="STYLE_BOTTOM"
-                app:tab_indicator_drawable="@mipmap/icon_home_tablayout_indicator"
-                app:tab_indicator_height="13dp"
-                app:tab_indicator_width="46dp"
-                app:tab_orientation="HORIZONTAL"
-                app:tab_select_color="@color/color_FFFD5C"
-                app:tab_text_max_size="20sp"
-                app:tab_text_min_size="16sp"
-                android:layout_marginTop="30dp"/>
+            <ImageView
+                android:id="@+id/iv_rank"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:src="@mipmap/app_icon_rank"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_my_room"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
+            <ImageView
+                android:id="@+id/iv_recharge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="13dp"
+                android:visibility="gone"
+                android:src="@mipmap/app_icon_first_recharge"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_rank"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/llt_search"
+                android:layout_width="0dp"
+                android:layout_height="34dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="7dp"
+                android:gravity="center_vertical"
+                app:bl_corners_radius="17dp"
+                app:bl_stroke_color="#FB49D3"
+                app:bl_stroke_width="1dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_recharge"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:src="@mipmap/app_icon_home_search" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="搜索昵称/ID/房间名"
+                    android:textColor="@color/color_80FFFFFF"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-</com.scwang.smart.refresh.layout.SmartRefreshLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <com.angcyo.tablayout.DslTabLayout
+                    android:id="@+id/tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:paddingStart="8dp"
+                    app:tab_deselect_color="@color/common_white"
+                    app:tab_draw_indicator="true"
+                    app:tab_enable_text_bold="true"
+                    app:tab_indicator_drawable="@mipmap/icon_home_tablayout_indicator"
+                    app:tab_indicator_height="13dp"
+                    app:tab_indicator_style="STYLE_BOTTOM"
+                    app:tab_indicator_width="46dp"
+                    app:tab_orientation="HORIZONTAL"
+                    app:tab_select_color="@color/color_FFFD5C"
+                    app:tab_text_max_size="20sp"
+                    app:tab_text_min_size="16sp" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/view_pager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </LinearLayout>
+
 </layout>

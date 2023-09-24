@@ -48,11 +48,11 @@ data class DynamicInfoRecord(
     val textDynamicContent: String,
     val userId: String,
     val voiceContentAuditStatus: String,
-    val voiceDynamicContent: String = ""
+    val voiceDynamicContent: String = "",
+    var commentAmount:Int = dynamicCommentsList.size
 ) : BaseObservable(), Parcelable {
     fun getFriendlyTime() = getFriendlyTimeSpanByNow(createTime)
 
-    fun commentAmount() = dynamicCommentsList.size
 }
 
 

@@ -37,6 +37,7 @@ import com.kissspace.module_message.R
 import com.kissspace.network.net.Method
 import com.kissspace.network.net.request
 import com.kissspace.network.result.ResultState
+import com.kissspace.util.logE
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
@@ -133,6 +134,7 @@ class MessageViewModel : BaseViewModel(), DefaultLifecycleObserver {
                     result: List<RecentContact>?,
                     exception: Throwable?
                 ) {
+                    logE("有多少条回话---${result?.size}")
                     if (!result.isNullOrEmpty()) {
                         parseData(result, false)
                     } else {

@@ -30,5 +30,5 @@ object DynamicApi {
 
     const val API_ADD_COMMENT = "/djsoul-user/dynamics/insertCommentsDynamic"
 
-
+    const val API_DELETE_DYNAMIC = "/djsoul-user/dynamics/deleteDynamics"
 }
