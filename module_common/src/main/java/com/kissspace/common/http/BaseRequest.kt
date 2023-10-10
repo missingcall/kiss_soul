@@ -188,11 +188,11 @@ fun LifecycleOwner.checkUserPermission(
         if (it.userRightList.isEmpty()) {
             block(false)
         } else {
-            val b = it.userRightList.contains(permission)
             block(it.userRightList.contains(permission))
         }
     })
 }
+
 
 
 //领取任务奖励

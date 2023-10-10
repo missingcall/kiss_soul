@@ -62,6 +62,14 @@ object CommonBindingAdapter {
         view.visibility = if (gone == true) View.GONE else View.VISIBLE
     }
 
+    @JvmStatic
+    @BindingAdapter("showIf")
+    fun showIf(
+        view: View, isShow: Boolean?
+    ) {
+        view.visibility = if (isShow == true) View.VISIBLE else View.GONE
+    }
+
 
     @JvmStatic
     @BindingAdapter("loadChatImage")

@@ -152,6 +152,9 @@ object MineApi {
     //金币转账
     const val API_TRANSFER_COIN = "/djsoul-user/userNum/transferCoin"
 
+    //收益转账
+    const val API_TRANSFER_REWARD = "/djsoul-user/userNum/transferAccountBalance"
+
     //钻石转账
     const val API_TRANSFER_DIAMOND = "/djsoul-user/userNum/transferDiamond"
 

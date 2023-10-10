@@ -235,8 +235,8 @@
                             app:bl_solid_color="@color/color_30F7E78F"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintLeft_toLeftOf="parent"
-                            app:layout_constraintRight_toLeftOf="@+id/tv_earns_withdraw"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/tv_earns_withdraw"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
@@ -256,8 +256,30 @@
                             app:bl_solid_color="@color/color_30F7E78F"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintHorizontal_weight="1"
-                            app:layout_constraintLeft_toRightOf="@+id/tv_earns_exchange"
-                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/tv_earns_exchange"
+                            app:layout_constraintEnd_toStartOf="@id/tv_transfer_withdraw"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <TextView
+                            android:id="@+id/tv_transfer_withdraw"
+                            android:layout_width="0dp"
+                            showIf="@{m.isTransferReward}"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="0.5dp"
+                            android:layout_marginTop="20dp"
+                            android:gravity="center"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="转赠"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            app:bl_corners_bottomRightRadius="12dp"
+                            app:bl_solid_color="@color/color_30F7E78F"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintHorizontal_weight="1"
+                            app:layout_constraintStart_toEndOf="@+id/tv_earns_withdraw"
+                            app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

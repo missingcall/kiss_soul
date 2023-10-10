@@ -79,6 +79,10 @@ class DynamicListFragment(private val position:Int = 0):BaseFragment(R.layout.dy
 
             }
             onClick(R.id.tv_check_more){
+                val model = getModel<DynamicInfoRecord>()
+                val intent = Intent(requireContext(),DynamicDetailActivity::class.java)
+                intent.putExtra("dynamicDetail",model as Parcelable)
+                startActivity(intent)
             }
             onClick(R.id.tv_like){
                 val model = getModel<DynamicInfoRecord>()

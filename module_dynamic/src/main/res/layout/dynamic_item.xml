@@ -79,6 +79,7 @@
             android:layout_height="wrap_content"
             dynamicFollowVisible="@{m}"
             android:layout_marginEnd="12dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="@id/tv_like"
             android:src="@mipmap/dynamic_icon_follow"/>

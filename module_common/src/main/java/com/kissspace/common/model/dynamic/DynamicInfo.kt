@@ -44,10 +44,10 @@ data class DynamicInfoRecord(
     val pictureDynamicContent: List<String> = mutableListOf(),
     val profilePath: String,
     val sex: String,
-    val textContentAuditStatus: String,
-    val textDynamicContent: String,
+    val textContentAuditStatus: String = "001",
+    val textDynamicContent: String = "",
     val userId: String,
-    val voiceContentAuditStatus: String,
+    val voiceContentAuditStatus: String ="001",
     val voiceDynamicContent: String = "",
     var commentAmount:Int = dynamicCommentsList.size
 ) : BaseObservable(), Parcelable {
@@ -59,15 +59,15 @@ data class DynamicInfoRecord(
 @Serializable
 @Parcelize
 data class DynamicCommentModel(
-    var commentId: String,
-    var dynamicId: String,
-    var firstLevelCommenterId: String,
+    var commentId: String = "",
+    var dynamicId: String = "",
+    var firstLevelCommenterId: String = "",
     var firstLevelCommenterHeadSculpture: String,
     var firstLevelCommenterName: String,
     var secondaryCommenterId: String = "",
     var secondaryCommenterHeadSculpture: String = "",
     var secondaryCommenterName: String = "",
-    var commentContent: String
+    var commentContent: String = ""
 ) : Parcelable
 
 
@@ -80,8 +80,8 @@ data class DynamicDetailCommentInfo(
     var profilePath:String,
     var consumeLevel:Int,
     var charmLevel:Int,
-    var commentContent:String,
-    val createTime: String,
+    var commentContent:String = "",
+    val createTime: String = "",
 ){
     fun getFriendlyTime() = getFriendlyTimeSpanByNow(createTime)
 }

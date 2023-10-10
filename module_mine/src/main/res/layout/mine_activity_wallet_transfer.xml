@@ -85,7 +85,7 @@
                 android:text="@{m.transferType}"
                 android:textColor="@color/white"
                 android:textSize="13sp"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_gold_number"
+                app:layout_constraintBaseline_toBaselineOf="@id/tv_gold_number"
                 app:layout_constraintLeft_toRightOf="@+id/tv_gold_number"
                 tools:text="金币" />
         </androidx.constraintlayout.widget.ConstraintLayout>

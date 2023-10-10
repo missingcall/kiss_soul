@@ -21,6 +21,7 @@ import com.kissspace.common.base.BaseActivity
 import com.kissspace.common.config.Constants
 import com.kissspace.common.ext.safeClick
 import com.kissspace.common.ext.setDrawable
+import com.kissspace.common.http.checkUserPermission
 import com.kissspace.common.model.dynamic.DynamicDetailCommentInfo
 import com.kissspace.common.model.dynamic.DynamicDetailLikeInfo
 import com.kissspace.common.model.dynamic.DynamicInfoRecord
@@ -65,24 +66,27 @@ class DynamicDetailActivity : BaseActivity(R.layout.dynamic_activity_detail) {
 
             override fun onRightClick(titleBar: TitleBar?) {
                 super.onRightClick(titleBar)
-                val items = if (dynamicDetail.userId == MMKVProvider.userId) {
-                    arrayOf("删除", "取消")
-                } else {
-                    arrayOf("举报", "取消")
-                }
-                DynamicMenuDialog(items) { dialog, text ->
-                    when (text) {
-                        "取消" -> dialog.dismiss()
-                        "删除" -> deleteDynamic()
-                        "举报" -> {
-                            jump(
-                                RouterPath.PATH_REPORT,
-                                "reportType" to Constants.ReportType.USER.type,
-                                "userId" to dynamicDetail.userId
-                            )
-                        }
+
+                checkUserPermission(Constants.UserPermission.PERMISSION_DELETE_DYNAMIC){has->
+                    val items = if (dynamicDetail.userId == MMKVProvider.userId) {
+                        arrayOf("删除", "取消")
+                    } else {
+                        if (has) arrayOf("举报", "删除","取消") else arrayOf("举报", "取消")
                     }
-                }.showDialog(supportFragmentManager)
+                    DynamicMenuDialog(items) { dialog, text ->
+                        when (text) {
+                            "取消" -> dialog.dismiss()
+                            "删除" -> deleteDynamic()
+                            "举报" -> {
+                                jump(
+                                    RouterPath.PATH_REPORT,
+                                    "reportType" to Constants.ReportType.USER.type,
+                                    "userId" to dynamicDetail.userId
+                                )
+                            }
+                        }
+                    }.showDialog(supportFragmentManager)
+                }
             }
         })
         mBinding.recyclerPicture.grid(3).setup {

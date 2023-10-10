@@ -104,6 +104,28 @@ class TransferViewModel : BaseViewModel() {
         })
     }
 
+    /**
+     * 收益转账
+     */
+    fun transferEarn(amount: Double, targetDisplayId: String, block: ((Boolean?) -> Unit)?) {
+        val param = mutableMapOf<String, Any?>()
+        //coin
+        param["accountBalance"] = amount
+        //	收款用户
+        param["targetDisplayId"] = targetDisplayId
+        setApplicationValue(
+            type = Constants.TypeFaceRecognition,
+            value = Constants.FaceRecognitionType.BLIND_BOX.type.toString()
+        )
+        request<Boolean>(MineApi.API_TRANSFER_REWARD, Method.POST, param, onSuccess =
+        {
+            block?.invoke(it)
+        }, onError = {
+            logE(it.message)
+            customToast(it.message)
+        })
+    }
+
     //钻石转账
     fun transferDiamond(diamond: Double, targetDisplayId: String, block: ((Boolean?) -> Unit)?) {
         val param = mutableMapOf<String, Any?>()

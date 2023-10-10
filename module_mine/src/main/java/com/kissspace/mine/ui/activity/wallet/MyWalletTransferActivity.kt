@@ -106,6 +106,18 @@ class MyWalletTransferActivity : BaseActivity(R.layout.mine_activity_wallet_tran
                         .replaceFirst("%s", MMKVProvider.wechatPublicAccount)
             }
 
+            Constants.WalletType.EARNS_TRANSFER.type -> {
+                mViewModel.transferTitle.value = "收益转赠"
+                mViewModel.transferTitleBg.value =
+                    resources.getDrawable(R.mipmap.mine_icon_wallet_coin_transfer_text)
+                mViewModel.transferType.value = Constants.WalletType.EARNS.type
+                mViewModel.transferImage.value = R.mipmap.mine_wallet_gold
+//                mViewModel.isShowTransferTrueMoney.value = false
+                mViewModel.transferWalletHint.value =
+                    resources.getString(R.string.mine_wallet_transfer_hint)
+                        .replaceFirst("%s", MMKVProvider.wechatPublicAccount)
+            }
+
             Constants.WalletType.DIAMOND.type -> {
                 mViewModel.transferTitle.value = "钻石转账"
                 mViewModel.transferTitleBg.value =
@@ -218,6 +230,46 @@ class MyWalletTransferActivity : BaseActivity(R.layout.mine_activity_wallet_tran
                             }
                         })
                 }
+                Constants.WalletType.EARNS_TRANSFER.type->{
+                    if (mViewModel.transferUserNumber.value.orZero() == 0.0) {
+                        customToast("请输入转赠收益")
+                        return@safeClick
+                    } else if (mViewModel.transferUserNumber.value.orZero() < 100) {
+                        customToast("收益转赠最小为100")
+                        return@safeClick
+                    }
+                    mViewModel.loadUserByDisplayId(
+                        mViewModel.transferUserId.value.orEmpty(),
+                        onSuccess = {
+                            val transferConfirmDialog = TransferConfirmDialog.newInstance(it)
+                            transferConfirmDialog.show(supportFragmentManager)
+                            transferConfirmDialog.setCallBack {
+                                mViewModel.transferEarn(
+                                    mViewModel.transferUserNumber.value.orZero(),
+                                    mViewModel.transferUserId.value.orEmpty()
+                                ) { isTransferSuccess ->
+                                    customToast("转赠成功")
+                                    isTransferSuccess?.let {
+                                        jump(
+                                            PATH_USER_WALLET_OPERATE_SUCCESS,
+                                            "type" to Constants.SuccessType.TRANSFER.type,
+                                            "number" to mViewModel.transferUserNumber.value.orZero(),
+                                            "userId" to mViewModel.transferUserId.value.orEmpty(),
+                                            "walletType" to Constants.WalletType.COIN.type,
+                                            "successType" to Constants.SuccessType.TRANSFER.type
+                                        )
+                                    }
+                                }
+//                                logE("转账数目" + mViewModel.transferUserNumber.value.orZero())
+//                                jump(
+//                                    RouterPath.PATH_SEND_SMS_CODE,
+//                                    "type" to TransferAccount,
+//                                    activity = this,
+//                                    resultLauncher = startActivityLauncher
+//                                )
+                            }
+                        })
+                }
 
                 Constants.WalletType.DIAMOND.type -> {
                     if (mViewModel.transferUserNumber.value.orZero() == 0.0) {
@@ -259,8 +311,8 @@ class MyWalletTransferActivity : BaseActivity(R.layout.mine_activity_wallet_tran
                                             "type" to Constants.SuccessType.TRANSFER.type,
                                             "number" to mViewModel.transferUserNumber.value.orZero() * listId?.size.orZero(),
                                             "transferSuccessText" to getSpannableString(),
-                                            "walletType" to Constants.WalletType.DIAMOND.type,
-                                            "successType" to Constants.SuccessType.TRANSFER.type
+                                            "walletType" to Constants.WalletType.EARNS.type,
+                                            "successType" to Constants.SuccessType.TRANSFERREWARD.type
                                         )
                                     }
                                 }
@@ -313,6 +365,10 @@ class MyWalletTransferActivity : BaseActivity(R.layout.mine_activity_wallet_tran
 
                     Constants.WalletType.DIAMOND.type -> {
                         transferNumber = it.diamond.orZero()
+                        mViewModel.mGoldNumber.value = Format.E_EE.format(transferNumber.orZero())
+                    }
+                    Constants.WalletType.EARNS_TRANSFER.type -> {
+                        transferNumber = it.accountBalance.orZero()
                         mViewModel.mGoldNumber.value = Format.E_EE.format(transferNumber.orZero())
                     }
 

@@ -46,6 +46,9 @@ class MyWalletActivity : BaseActivity(R.layout.mine_activity_wallet) {
         checkUserPermission(Constants.UserPermission.PERMISSION_TRANSFER_COIN) {
             mViewModel.exchangeCoinPermission.value = it
         }
+        checkUserPermission(Constants.UserPermission.PERMISSION_TRANSFORMER_REWARD) {
+            mViewModel.isTransferReward.set(it)
+        }
 
         //获取钱包
         getMoney()
@@ -113,6 +116,13 @@ class MyWalletActivity : BaseActivity(R.layout.mine_activity_wallet) {
         //钻石转账
         mBinding.tvDiamondTransfer.safeClick {
             jump((RouterPath.PATH_USER_WALLET_UPDATE_FAMILY_MEMBER_LIST))
+        }
+
+        mBinding.tvTransferWithdraw.safeClick {
+            jump(
+                RouterPath.PATH_USER_WALLET_TRANSFER,
+                "walletType" to Constants.WalletType.EARNS_TRANSFER.type
+            )
         }
 
         FlowBus.observerEvent<Event.RefreshCoin>(this) {

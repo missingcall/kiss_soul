@@ -202,6 +202,9 @@ object Constants {
 
         //收益
         EARNS("收益"),
+
+        EARNS_TRANSFER("收益转账")
+
     }
 
 
@@ -213,7 +216,9 @@ object Constants {
         TRANSFER("转账"),
 
         //提现
-        WITHDRAW("提现")
+        WITHDRAW("提现"),
+
+        TRANSFERREWARD("收益转账")
     }
 
     enum class TaskStatus(val type: String, val value: String) {
@@ -449,13 +454,21 @@ object Constants {
 
         //金币转账权限
         const val PERMISSION_TRANSFER_COIN = "301"
+
+        //删除动态权限
+        const val PERMISSION_DELETE_DYNAMIC = "401"
+
+        //收益转增权限
+        const val PERMISSION_TRANSFORMER_REWARD = "302"
     }
 
     @StringDef(
         UserPermission.PERMISSION_CREATE_PREDICTION,
         UserPermission.PERMISSION_CHECK_RICH_RANK,
         UserPermission.PERMISSION_SAY_HI,
-        UserPermission.PERMISSION_TRANSFER_COIN
+        UserPermission.PERMISSION_TRANSFER_COIN,
+        UserPermission.PERMISSION_DELETE_DYNAMIC,
+        UserPermission.PERMISSION_TRANSFORMER_REWARD
     )
     annotation class UserPermissionType
 

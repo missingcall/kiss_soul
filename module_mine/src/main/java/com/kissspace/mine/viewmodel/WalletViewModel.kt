@@ -1,8 +1,10 @@
 package com.kissspace.mine.viewmodel
 
 import android.graphics.drawable.Drawable
+import androidx.databinding.ObservableField
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.tencent.bugly.crashreport.biz.UserInfoBean
 import com.kissspace.common.base.BaseViewModel
 import com.kissspace.common.config.CommonApi
@@ -24,6 +26,7 @@ import com.kissspace.network.net.request
 import com.kissspace.util.isNotEmptyBlank
 import com.kissspace.util.logE
 import com.kissspace.util.orZero
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 
 /**
@@ -170,6 +173,8 @@ class WalletViewModel : BaseViewModel() {
             setValue(it.identity == "001")
         }
     }
+
+    var isTransferReward = ObservableField(false)
 
     //家族长
     var isFamilyHeader = MediatorLiveData<Boolean>().apply {

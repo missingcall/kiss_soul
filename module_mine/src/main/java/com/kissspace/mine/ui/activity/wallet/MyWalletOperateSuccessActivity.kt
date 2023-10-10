@@ -49,6 +49,18 @@ class MyWalletOperateSuccessActivity : BaseActivity(R.layout.mine_activity_walle
                 mViewModel.successMessage.value = "金币兑换成功"
                 mViewModel.successNumber.value = "+${Format.E.format(number)}"
             }
+            Constants.SuccessType.TRANSFERREWARD.type -> {
+                mViewModel.isShowWithDrawStatus.value = false
+                mViewModel.isShowSuccessOperate.value = true
+                mViewModel.isShowWhiteBackground.value = false
+                if(userId.isNotEmpty()){
+                    mViewModel.transferSuccessText.value = SpannableString("ID:${userId}")
+                }else{
+                    mViewModel.transferSuccessText.value = transferSuccessText
+                }
+                mViewModel.successMessage.value = "收益转增成功"
+                mViewModel.successNumber.value = "-${Format.E.format(number)}"
+            }
             Constants.SuccessType.TRANSFER.type -> {
                 mViewModel.isShowWithDrawStatus.value = false
                 mViewModel.isShowSuccessOperate.value = true
