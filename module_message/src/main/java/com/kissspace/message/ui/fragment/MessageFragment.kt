@@ -146,6 +146,10 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
 
     override fun onResume() {
         super.onResume()
+        if (mRecentContactAdapter!=null){
+            mRecentContactAdapter?.mutable?.clear()
+            mRecentContactAdapter?.notifyDataSetChanged()
+        }
         initData()
         mViewModel.anchor = null
         mViewModel.queryRecentMessage()
