@@ -76,6 +76,8 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
         initRecyclerView()
         initRefreshLayout()
         registerObserver()
+        initData()
+        mViewModel.queryRecentMessage()
 
         if (context?.let { hasNotificationPermission(it) } != true) {
             if (!TimeUtils.isToday(MMKVProvider.lastShowNotificationPermission)) {
@@ -146,13 +148,13 @@ class MessageFragment : BaseFragment(R.layout.fragment_message_v2) {
 
     override fun onResume() {
         super.onResume()
-        if (mRecentContactAdapter!=null){
-            mRecentContactAdapter?.mutable?.clear()
-            mRecentContactAdapter?.notifyDataSetChanged()
-        }
-        initData()
-        mViewModel.anchor = null
-        mViewModel.queryRecentMessage()
+//        if (mRecentContactAdapter!=null){
+//            mRecentContactAdapter?.mutable?.clear()
+//            mRecentContactAdapter?.notifyDataSetChanged()
+//        }
+//        initData()
+//        mViewModel.anchor = null
+//        mViewModel.queryRecentMessage()
     }
 
     private fun initTitleBar() {

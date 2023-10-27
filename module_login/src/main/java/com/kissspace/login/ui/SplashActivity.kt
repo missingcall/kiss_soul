@@ -1,5 +1,7 @@
 package com.kissspace.login.ui
 
+import android.media.MediaPlayer
+import android.media.MediaPlayer.OnPreparedListener
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -37,14 +39,17 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
     }
+
     override fun initView(savedInstanceState: Bundle?) {
         //先判断是否后台重启
         if (!isTaskRoot) {
             finish()
             hideKeyboard()
-            return
         }
 
         mBinding.tvLeftTime.safeClick {
@@ -53,9 +58,20 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
 
         mBinding.videoView.postRunnable {
             val uri = Uri.parse("android.resource://" + packageName + "/" + R.raw.app_splash_video)
-            mBinding.videoView.setFixedSize(1200, 2500)
-            mBinding.videoView.setVideoURI(uri)
-            mBinding.videoView.start()
+            mBinding.videoView.apply {
+                setFixedSize(1200, 2500)
+                setVideoURI(uri)
+                setOnPreparedListener {
+                    it.setOnInfoListener { mediaPlayer, what, _ ->
+                        if (what == MediaPlayer.MEDIA_INFO_VIDEO_RENDERING_START) {
+                            // 视频开始渲染时隐藏声音
+                            mediaPlayer.setVolume(0f, 0f);
+                            true
+                        } else false
+                    }
+                }
+                start()
+            }
         }
         mBinding.videoView.setOnCompletionListener {
             goNext()
@@ -66,10 +82,10 @@ class SplashActivity : BaseActivity(R.layout.login_activity_splash) {
         }
     }
 
-    private fun goNext(){
+    private fun goNext() {
         if (MMKVProvider.isAgreeProtocol) {
             getAd()
-        }else {
+        } else {
             goLogin()
         }
     }
